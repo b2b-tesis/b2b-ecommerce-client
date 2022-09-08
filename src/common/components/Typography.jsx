@@ -17,7 +17,7 @@ export const H1 = ({
 }) => {
   return (
     <StyledBox
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       ellipsis={ellipsis}
       className={clsx({
         [className || ""]: true,
@@ -43,7 +43,7 @@ export const H2 = ({
 }) => {
   return (
     <StyledBox
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       ellipsis={ellipsis}
       className={clsx({
         [className || ""]: true,
@@ -76,7 +76,7 @@ export const H3 = ({
       fontWeight="700"
       lineHeight="1.5"
       ellipsis={ellipsis}
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       className={clsx({
         [className || ""]: true,
       })}
@@ -102,7 +102,7 @@ export const H4 = ({
       fontWeight="600"
       lineHeight="1.5"
       ellipsis={ellipsis}
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       className={clsx({
         [className || ""]: true,
       })}
@@ -121,7 +121,7 @@ export const H5 = ({
 }) => {
   return (
     <StyledBox
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       ellipsis={ellipsis}
       className={clsx({
         [className || ""]: true,
@@ -147,7 +147,7 @@ export const H6 = ({
 }) => {
   return (
     <StyledBox
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       ellipsis={ellipsis}
       className={clsx({
         [className || ""]: true,
@@ -173,7 +173,7 @@ export const Paragraph = ({
 }) => {
   return (
     <StyledBox
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       ellipsis={ellipsis}
       className={clsx({
         [className || ""]: true,
@@ -197,7 +197,7 @@ export const Small = ({
 }) => {
   return (
     <StyledBox
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       ellipsis={ellipsis}
       className={clsx({
         [className || ""]: true,
@@ -220,7 +220,7 @@ export const Span = ({
 }) => {
   return (
     <StyledBox
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       ellipsis={ellipsis}
       className={clsx({
         [className || ""]: true,
@@ -242,7 +242,7 @@ export const Tiny = ({
 }) => {
   return (
     <StyledBox
-      textTransformStyle={textTransform}
+      textTransform={textTransform}
       ellipsis={ellipsis}
       className={clsx({
         [className || ""]: true,

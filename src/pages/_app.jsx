@@ -1,11 +1,14 @@
 import "../../styles/globals.css";
 import { CssBaseline } from "@mui/material";
+import MuiTheme from "../common/theme/MuiTheme";
 
 function MyApp({ Component, pageProps }) {
+  
   return (
     <>
-      <CssBaseline />
-      <Component {...pageProps} />
+      <MuiTheme>
+        <Component {...pageProps} />
+      </MuiTheme>
     </>
   );
 }
