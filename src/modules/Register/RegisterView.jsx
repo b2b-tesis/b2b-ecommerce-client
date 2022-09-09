@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
-import { Button, Checkbox, FormControlLabel, Grid, MenuItem, TextField } from "@mui/material";
+import { Box, Button, Checkbox, Divider, FormControlLabel, Grid, MenuItem, TextField } from "@mui/material";
+import Link from "next/link";
 
 import { useRegister } from "./hooks/useRegister";
 import BazaarButton from "../../common/components/buttons/Button";
@@ -7,7 +8,8 @@ import BazaarTextField from "../../common/components/inputs/TextField";
 import { H3, H6, Small } from "../../common/components/Typography";
 import { Wrapper } from "../../common/components/wrapper/Wrapper";
 import FlexBox from "../../common/components/flexbox/FlexBox";
-import EyeToggleButton from "./components/EyeToggleButton";
+import EyeToggleButton from "../../common/components/buttons/EyeToggleButton";
+import FlexRowCenter from "../../common/components/flexbox/FlexRowCenter";
 
 const RegisterView = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -35,7 +37,7 @@ const RegisterView = () => {
           campos para crear tu cuenta
         </Small>
 
-       <Grid item container xs={12} justifyContent="space-between">
+       <Grid item container xs={12} justifyContent="space-between" sx={{paddingBottom:5}}>
        
          <Grid item xs={8}>
          <TextField
@@ -220,6 +222,7 @@ const RegisterView = () => {
         />
 
         <FormControlLabel
+        sx={{paddingBottom:2, paddingTop:2}}
           name="agreement"
           className="agreement"
           onChange={handleChange}
@@ -258,6 +261,30 @@ const RegisterView = () => {
         >
           Crear cuenta
         </BazaarButton>
+
+        <Box mb={2} mt={3.3}>
+          <Box width="200px" mx="auto">
+            <Divider />
+          </Box>
+
+          <FlexBox justifyContent="center" mt={-1.625}>
+            <Box color="grey.600" bgcolor="background.paper" px={2}>
+              o
+            </Box>
+          </FlexBox>
+        </Box>
+
+      <FlexRowCenter my="1.25rem">
+        <Box>  Si ya tienes cuenta</Box>
+          <Link href="/login">
+            <a>
+              <H6 ml={1}  borderColor="grey.900">
+              Inicia Sesión
+              </H6>
+            </a>
+          </Link>
+      </FlexRowCenter>
+
       </form>
     </Wrapper>
   );

@@ -4,10 +4,7 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from "@mui/material/styles";
-import { merge } from "merge";
-import customThemeOptions from "./themeOptions"; // =======================================================
 
-// =======================================================
 const MuiTheme = ({ children }) => {
   let theme = createTheme();
   theme = responsiveFontSizes(theme); // theme shadows
