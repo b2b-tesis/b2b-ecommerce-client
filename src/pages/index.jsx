@@ -14,6 +14,17 @@ const HomePage = () => {
       <SEO title="Inicio" />
       <Box bgcolor="white">
           <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
+          <h1>Index</h1>
       </Box>
     </ShopLayout>
   )

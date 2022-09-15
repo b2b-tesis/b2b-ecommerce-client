@@ -4,9 +4,23 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from "@mui/material/styles";
+import { merge } from "merge";
+import getConfig from "next/config";
+import { useRouter } from "next/router";
 
+import customThemeOptions from "./themeOptions"; // =======================================================
+import useSettings from "../hooks/useSettings";
+
+// =======================================================
 const MuiTheme = ({ children }) => {
-  let theme = createTheme();
+  const { settings } = useSettings();
+  const { pathname } = useRouter();
+  const { publicRuntimeConfig } = getConfig(); // Value is coming from next.config.js
+  
+  const themeOptions = customThemeOptions({theme:'DEFAULT'}, pathname);
+  let theme = createTheme(
+    merge({}, { ...themeOptions, direction: 'ltr' })
+  );
   theme = responsiveFontSizes(theme); // theme shadows
 
   theme.shadows[1] = "0px 1px 3px rgba(3, 0, 71, 0.09)";

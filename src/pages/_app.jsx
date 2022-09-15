@@ -1,14 +1,42 @@
 import "../../styles/globals.css";
-import { CssBaseline } from "@mui/material";
+import Head from "next/head";
+import Router from "next/router";
+import nProgress from "nprogress";
+
+import "simplebar/dist/simplebar.min.css";
+import "nprogress/nprogress.css";
+
 import MuiTheme from "../common/theme/MuiTheme";
+import { AppProvider } from "../common/contexts/AppContext";
+
+Router.events.on("routeChangeStart", () => nProgress.start());
+Router.events.on("routeChangeComplete", () => nProgress.done());
+Router.events.on("routeChangeError", () => nProgress.done()); // small change
+
+nProgress.configure({
+  showSpinner: false,
+});
 
 function MyApp({ Component, pageProps }) {
   
   return (
     <>
-      <MuiTheme>
-        <Component {...pageProps} />
-      </MuiTheme>
+      <Head>
+        <meta charSet="utf-8" />
+        <title>Bazaar - Marketplace B2B</title>
+        <meta
+          name="description"
+          content="Marketplace B2B para las MYPES de Tacna - Peru"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+      </Head>
+
+      <AppProvider>
+        <MuiTheme>
+          <Component {...pageProps} />
+        </MuiTheme>
+      </AppProvider>
     </>
   );
 }

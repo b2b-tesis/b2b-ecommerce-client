@@ -61,11 +61,8 @@ const RegisterView = () => {
               onClick={() => handleRucSubmit(values.ruc)}
               fullWidth
               type="submit"
-              color="primary"
               variant="contained"
-              sx={{
-                height: 40,
-              }}
+              color="primary"
             >
               Validar
             </Button>
@@ -241,7 +238,7 @@ const RegisterView = () => {
             >
               Al registrarte, aceptas los
               <a href="/" target="_blank" rel="noreferrer noopener">
-                <H6 ml={1} borderColor="grey.900">
+                <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
                   Términos y Condiciones
                 </H6>
               </a>
@@ -278,7 +275,7 @@ const RegisterView = () => {
         <Box>  Si ya tienes cuenta</Box>
           <Link href="/login">
             <a>
-              <H6 ml={1}  borderColor="grey.900">
+              <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
               Inicia Sesión
               </H6>
             </a>

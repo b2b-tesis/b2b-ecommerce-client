@@ -1,6 +1,11 @@
 import React, { useCallback, useState } from "react";
+
+import Header from "../header/Header";
 import Footer from "../layoutComponents/Footer";
+import Navbar from "../navbar/Navbar";
+import Sticky from "../sticky/Sticky";
 import Topbar from "../topbar/Topbar";
+import MobileNavigationBar from "../mobile-navigation/MobileNavigationBar";
 
 const ShopLayout = ({
   children,
@@ -14,7 +19,20 @@ const ShopLayout = ({
     <>
        {showTopbar && <Topbar bgColor={topbarBgColor} />}
 
+       <Sticky fixedOn={0} onSticky={toggleIsFixed} scrollDistance={300}>
+        <Header isFixed={isFixed} />
+      </Sticky>
+
+      <div className="section-after-sticky">
+        {/* NAVIGATION BAR */}
+        {showNavbar && <Navbar elevation={0} border={1} />}
+
+        {/* BODY CONTENT */}
+        {children}
+      </div>
+      <MobileNavigationBar/>
       <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

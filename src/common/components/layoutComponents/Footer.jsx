@@ -37,9 +37,7 @@ const Footer = () => {
                 </Link>
 
                 <Paragraph mb={2.5} color="grey.500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Auctor libero id et, in gravida. Sit diam duis mauris nulla
-                  cursus. Erat et lectus vel ut sollicitudin elit at amet.
+                Marketplace B2B para comprar y vender productos en general, centrado en MYPES de la ciudad de Tacna.
                 </Paragraph>
 
               </Grid>
@@ -52,13 +50,13 @@ const Footer = () => {
                   lineHeight="1"
                   color="white"
                 >
-                  About Us
+                  Políticas de Uso
                 </Box>
 
                 <div>
                   {aboutLinks.map((item, ind) => (
-                    <Link href="/" key={ind} passHref>
-                      <StyledLink>{item}</StyledLink>
+                    <Link href={item.href} key={ind} passHref>
+                      <StyledLink>{item.text}</StyledLink>
                     </Link>
                   ))}
                 </div>
@@ -72,13 +70,13 @@ const Footer = () => {
                   lineHeight="1"
                   color="white"
                 >
-                  Customer Care
+                  Manuales de Uso
                 </Box>
 
                 <div>
                   {customerCareLinks.map((item, ind) => (
-                    <Link href="/" key={ind} passHref>
-                      <StyledLink>{item}</StyledLink>
+                    <Link href={item.href} key={ind} passHref>
+                      <StyledLink>{item.text}</StyledLink>
                     </Link>
                   ))}
                 </div>
@@ -92,16 +90,13 @@ const Footer = () => {
                   lineHeight="1"
                   color="white"
                 >
-                  Contact Us
+                  Contáctanos
                 </Box>
                 <Box py={0.6} color="grey.500">
-                  70 Washington Square South, New York, NY 10012, United States
-                </Box>
-                <Box py={0.6} color="grey.500">
-                  Email: uilib.help@gmail.com
+                  Email: soporteb2b@gmail.com
                 </Box>
                 <Box py={0.6} mb={2} color="grey.500">
-                  Phone: +1 1123 456 780
+                  Phone: +51 952289457
                 </Box>
 
               </Grid>
@@ -114,17 +109,36 @@ const Footer = () => {
 };
 
 const aboutLinks = [
-  "Careers",
-  "Our Stores",
-  "Our Cares",
-  "Terms & Conditions",
-  "Privacy Policy",
+  {
+    text:"Política de Privacidad",
+    href:'/politicas/privacidad'
+  },
+  {
+    text:"Política de Reembolso",
+    href:'/politicas/reembolso'
+  },
+  {
+    text:"Política de Delivery",
+    href:'/politicas/delivery'
+  },
+  {
+    text:"Términos y Condiciones",
+    href:'/'
+  }
 ];
 const customerCareLinks = [
-  "Help Center",
-  "How to Buy",
-  "Track Your Order",
-  "Corporate & Bulk Purchasing",
-  "Returns & Refunds",
+  {
+    text:"¿Cómo comprar?",
+    href:'/'
+  },
+  {
+    text:"¿Cómo vender?",
+    href:'/'
+  },
+  {
+    text:"¿Cómo solicitar devoluciones y reembolsos?",
+    href:'/'
+  }
+  
 ];
 export default Footer;

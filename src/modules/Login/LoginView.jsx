@@ -108,7 +108,7 @@ const LoginView = () => {
         <Box>Si no tienes cuenta</Box>
           <Link href="/registro">
             <a>
-              <H6 ml={1}  borderColor="grey.900">
+              <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
                 ¡Crea una y accede!
               </H6>
             </a>
