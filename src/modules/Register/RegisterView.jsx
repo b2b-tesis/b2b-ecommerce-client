@@ -17,7 +17,7 @@ const RegisterView = () => {
     setPasswordVisibility((visible) => !visible);
   }, []);
 
-  const { handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit, valueRuc, categories } =
     useRegister();
 
   return (
@@ -105,6 +105,7 @@ const RegisterView = () => {
         />
 
         <BazaarTextField
+          disabled={valueRuc ? false : true}
           mb={1.5}
           fullWidth
           name="name"
@@ -114,12 +115,13 @@ const RegisterView = () => {
           onBlur={handleBlur}
           value={values.name}
           onChange={handleChange}
-          placeholder="Tiendas Pablito"
+          placeholder="Ingresa el nombre de tu empresa"
           error={!!touched.name && !!errors.name}
           helperText={touched.name && errors.name}
         />
 
         <BazaarTextField
+        disabled={valueRuc ? false : true}
           mb={1.5}
           select
           fullWidth
@@ -133,11 +135,15 @@ const RegisterView = () => {
           error={!!touched.category && !!errors.category}
           helperText={touched.category && errors.category}
         >
-          <MenuItem value="electronics">Electronics</MenuItem>
-          <MenuItem value="fashion">Fashion</MenuItem>
+          {categories?.map((category) => (
+            <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
+          ))}
+          {/* <MenuItem value="electronics">Electronics</MenuItem>
+          <MenuItem value="fashion">Fashion</MenuItem> */}
         </BazaarTextField>
 
         <BazaarTextField
+        disabled={valueRuc ? false : true}
           mb={1.5}
           fullWidth
           name="phone"
@@ -154,6 +160,7 @@ const RegisterView = () => {
         />
 
         <BazaarTextField
+        disabled={valueRuc ? false : true}
           mb={1.5}
           fullWidth
           name="email"
@@ -170,6 +177,7 @@ const RegisterView = () => {
         />
 
         <BazaarTextField
+        disabled={valueRuc ? false : true}
           mb={1.5}
           fullWidth
           size="small"
@@ -195,6 +203,7 @@ const RegisterView = () => {
         />
 
         <BazaarTextField
+        disabled={valueRuc ? false : true}
           fullWidth
           size="small"
           autoComplete="on"
@@ -219,6 +228,7 @@ const RegisterView = () => {
         />
 
         <FormControlLabel
+        disabled={valueRuc ? false : true}
         sx={{paddingBottom:2, paddingTop:2}}
           name="agreement"
           className="agreement"

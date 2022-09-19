@@ -2,12 +2,14 @@ import "../../styles/globals.css";
 import Head from "next/head";
 import Router from "next/router";
 import nProgress from "nprogress";
+import { Provider } from "react-redux";
 
 import "simplebar/dist/simplebar.min.css";
 import "nprogress/nprogress.css";
 
 import MuiTheme from "../common/theme/MuiTheme";
 import { AppProvider } from "../common/contexts/AppContext";
+import store from "../common/state/store";
 
 Router.events.on("routeChangeStart", () => nProgress.start());
 Router.events.on("routeChangeComplete", () => nProgress.done());
@@ -32,11 +34,13 @@ function MyApp({ Component, pageProps }) {
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       </Head>
 
-      <AppProvider>
-        <MuiTheme>
-          <Component {...pageProps} />
-        </MuiTheme>
-      </AppProvider>
+      <Provider store={store}>
+        <AppProvider>
+          <MuiTheme>
+            <Component {...pageProps} />
+          </MuiTheme>
+        </AppProvider>
+      </Provider>
     </>
   );
 }

@@ -1,12 +1,48 @@
 import * as yup from "yup";
 import "yup-phone-lite";
 import { useFormik } from "formik";
+import axios from "axios";
+import restService from "../../../common/api/basicApiMethods";
+import { useEffect, useState } from "react";
 
 export const useRegister = () => {
 
+  const [valueRuc, setValueRuc] = useState(false);
+  const [categories, setCategories] = useState([]);
 
-  const handleRucSubmit = () => {
-    console.log(values.ruc);
+  const getCategories = async () => {
+    const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/category/categories`)
+    const {data} = resp.data;
+    setCategories(data);
+  } 
+
+  useEffect(() => {
+    getCategories();
+  },[])
+
+
+  const handleRucSubmit = async () => {
+    try{
+      const resp = await axios.post('http://localhost:8000/api/v1/user/ruc/validate', {
+      ruc:values.ruc.toString()
+    })
+    const {data} = resp;
+    const {result} = data.data;
+    // console.log(result);
+    if(Object.keys(result).length > 0){
+      setValueRuc(true);
+      values.department = result.departamento;
+      values.province = result.provincia;
+      values.district = result.distrito;
+    }
+    }catch(error){
+      console.log(error);
+
+    }
+    // const response = await restService('user/ruc/validate').create({
+    //   ruc:values.ruc.toString()
+    //   })
+    //   console.log(response);
   };
 
   const handleFormSubmit = (values) => {
@@ -56,7 +92,7 @@ export const useRegister = () => {
     });
 
   return {
-    handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit
+    handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit, valueRuc, categories
   };
 };
 
