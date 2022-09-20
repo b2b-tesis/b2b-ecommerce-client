@@ -1,14 +1,20 @@
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 import "yup-phone-lite";
 import { useFormik } from "formik";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+
 import restService from "../../../common/api/basicApiMethods";
-import { useEffect, useState } from "react";
+import { setLoading } from "../../../common/state/loading/loadingSlice";
+import { showToastify } from "../../../common/state/toast/toastSlice";
 
 export const useRegister = () => {
 
   const [valueRuc, setValueRuc] = useState(false);
   const [categories, setCategories] = useState([]);
+  const {loading} = useSelector((state) => (state.loading))
+  const dispatch = useDispatch();
 
   const getCategories = async () => {
     const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/category/categories`)
@@ -23,21 +29,24 @@ export const useRegister = () => {
 
   const handleRucSubmit = async () => {
     try{
+      dispatch(setLoading());
       const resp = await axios.post('http://localhost:8000/api/v1/user/ruc/validate', {
       ruc:values.ruc.toString()
     })
-    const {data} = resp;
-    const {result} = data.data;
-    // console.log(result);
-    if(Object.keys(result).length > 0){
-      setValueRuc(true);
-      values.department = result.departamento;
-      values.province = result.provincia;
-      values.district = result.distrito;
-    }
-    }catch(error){
-      console.log(error);
+      const {data} = resp;
+      const {result} = data.data;
 
+      if(Object.keys(result).length > 0){
+        setValueRuc(true);
+        values.department = result.departamento;
+        values.province = result.provincia;
+        values.district = result.distrito;
+      }
+      dispatch(setLoading());
+      dispatch(showToastify({message:'¡RUC fue validada exitosamente!', severity:'success'}));
+    }catch(error){
+      dispatch(setLoading());
+      dispatch(showToastify({message:'RUC incorrecta', severity:'error'}));
     }
     // const response = await restService('user/ruc/validate').create({
     //   ruc:values.ruc.toString()
@@ -92,7 +101,7 @@ export const useRegister = () => {
     });
 
   return {
-    handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit, valueRuc, categories
+    handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit, valueRuc, categories, loading
   };
 };
 

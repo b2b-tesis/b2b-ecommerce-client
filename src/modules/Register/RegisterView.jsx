@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Box, Button, Checkbox, Divider, FormControlLabel, Grid, MenuItem, TextField } from "@mui/material";
+import { Box, Button, Checkbox, CircularProgress, Divider, FormControlLabel, Grid, MenuItem, TextField } from "@mui/material";
 import Link from "next/link";
 
 import { useRegister } from "./hooks/useRegister";
@@ -10,6 +10,7 @@ import { Wrapper } from "../../common/components/wrapper/Wrapper";
 import FlexBox from "../../common/components/flexbox/FlexBox";
 import EyeToggleButton from "../../common/components/buttons/EyeToggleButton";
 import FlexRowCenter from "../../common/components/flexbox/FlexRowCenter";
+import Toast from "../../common/components/toast/Toast";
 
 const RegisterView = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -17,11 +18,14 @@ const RegisterView = () => {
     setPasswordVisibility((visible) => !visible);
   }, []);
 
-  const { handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit, valueRuc, categories } =
+  const { handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit, valueRuc, categories, loading } =
     useRegister();
 
   return (
-    <Wrapper elevation={3} passwordVisibility={passwordVisibility}>
+    <>
+      <Toast/>
+
+      <Wrapper elevation={3} passwordVisibility={passwordVisibility}>
        <H3 textAlign="center" mb={1}>
           Crea Tu Cuenta
         </H3>
@@ -33,7 +37,7 @@ const RegisterView = () => {
           color="grey.800"
           textAlign="center"
         >
-          Primero valida el RUC de tu empresa y luego llena todos los demás
+          Primero ingresa y valida el RUC de tu empresa, luego llena todos los demás
           campos para crear tu cuenta
         </Small>
 
@@ -41,6 +45,7 @@ const RegisterView = () => {
        
          <Grid item xs={8}>
          <TextField
+            disabled={valueRuc ? true : false}
               mb={1.5}
               fullWidth
               name="ruc"
@@ -58,13 +63,18 @@ const RegisterView = () => {
          </Grid>
             <Grid item xs={3}>
             <Button
+              disabled={loading || valueRuc ? true : false}
               onClick={() => handleRucSubmit(values.ruc)}
               fullWidth
               type="submit"
               variant="contained"
               color="primary"
             >
-              Validar
+              {
+                loading ? (
+                  <CircularProgress thickness={2} color="secondary" size={25}/>
+                  ) : 'Validar'
+              }
             </Button>
             </Grid>
             
@@ -294,6 +304,7 @@ const RegisterView = () => {
 
       </form>
     </Wrapper>
+    </>
   );
 };
 
