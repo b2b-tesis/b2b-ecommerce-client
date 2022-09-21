@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Box, Divider } from "@mui/material";
+import { Box, CircularProgress, Divider } from "@mui/material";
 import Link from "next/link";
 
 import { useLogin } from "./hooks/useLogin";
@@ -10,6 +10,7 @@ import { Wrapper } from "../../common/components/wrapper/Wrapper";
 import FlexBox from "../../common/components/flexbox/FlexBox";
 import FlexRowCenter from "../../common/components/flexbox/FlexRowCenter";
 import EyeToggleButton from "../../common/components/buttons/EyeToggleButton";
+import Toast from "../../common/components/toast/Toast";
 
 const LoginView = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -17,10 +18,12 @@ const LoginView = () => {
     setPasswordVisibility((visible) => !visible);
   }, []);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit, loading } =
   useLogin();
 
   return (
+    <>
+    <Toast/>
     <Wrapper elevation={3} passwordVisibility={passwordVisibility}>
        <H3 textAlign="center" mb={1}>
        ¡Bienvenido a Baazar!
@@ -81,6 +84,7 @@ const LoginView = () => {
         />
 
         <BazaarButton
+        disabled={loading ? true : false}
           fullWidth
           type="submit"
           color="primary"
@@ -89,7 +93,12 @@ const LoginView = () => {
             height: 44
           }}
         >
-          Iniciar Sesión
+          {
+                loading ? (
+                  <CircularProgress thickness={2} color="secondary" size={25}/>
+                  ) : ' Iniciar Sesión'
+              }
+         
         </BazaarButton>
 
         <Box mb={2} mt={3.3}>
@@ -117,6 +126,7 @@ const LoginView = () => {
 
       </form>
     </Wrapper>
+    </>
   );
 };
 

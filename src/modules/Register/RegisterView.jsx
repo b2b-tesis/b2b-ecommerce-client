@@ -18,7 +18,7 @@ const RegisterView = () => {
     setPasswordVisibility((visible) => !visible);
   }, []);
 
-  const { handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit, valueRuc, categories, loading } =
+  const { handleRucSubmit, values, errors, touched, handleBlur, handleChange, handleSubmit, valueRuc, categories, loading, loading2 } =
     useRegister();
 
   return (
@@ -137,19 +137,19 @@ const RegisterView = () => {
           fullWidth
           color="info"
           size="small"
-          name="category"
+          name="category_id"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={values.category}
+          value={values.category_id}
           label="Categoría de la empresa"
-          error={!!touched.category && !!errors.category}
-          helperText={touched.category && errors.category}
+          error={!!touched.category_id && !!errors.category_id}
+          helperText={touched.category_id && errors.category_id}
         >
+          <MenuItem value={0} hidden>Selecciona una categoría</MenuItem>
           {categories?.map((category) => (
-            <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
+            <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
           ))}
-          {/* <MenuItem value="electronics">Electronics</MenuItem>
-          <MenuItem value="fashion">Fashion</MenuItem> */}
+
         </BazaarTextField>
 
         <BazaarTextField
@@ -267,7 +267,7 @@ const RegisterView = () => {
         />
 
         <BazaarButton
-          disabled={values.agreement ? false : true}
+          disabled={!values.agreement || loading2 ? true : false}
           fullWidth
           type="submit"
           color="primary"
@@ -276,7 +276,11 @@ const RegisterView = () => {
             height: 44,
           }}
         >
-          Crear cuenta
+           {
+                loading2 ? (
+                  <CircularProgress thickness={2} color="secondary" size={25}/>
+                  ) : 'Crear cuenta'
+              }
         </BazaarButton>
 
         <Box mb={2} mt={3.3}>

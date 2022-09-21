@@ -2,21 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
     name: 'AUTH',
-    initialState:{ 
-        // post:[],
-        // loading:false,
-        // error:null,
-        // edit:false,
-        // body:""
-    },
+    initialState:{isLoggedIn:false, user:{}},
     reducers:{
-        // setEdit: (state, action) => {
-        //     state.edit = action.payload.edit;
-        //     state.body = action.payload.body;
-        // }
+        setUser: (state, action) => {
+            state.isLoggedIn = true;
+            state.user = action.payload;
+            
+        }
     }
 });
 
-// export const {setEdit} = postSlice.actions;
+export const {setUser} = authSlice.actions;
 
 export default authSlice.reducer;

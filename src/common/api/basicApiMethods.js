@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../state/loading/loadingSlice.js';
 // import store from '../store.js';
 // import actions from './errorsSlice.js';
 // import actionsLoading from './loadingSlice.js';
@@ -6,14 +8,19 @@ import CONFIG from './config.js';
 
 const restService = (path) => {
   const apiUrl = `${CONFIG.API_HOST}/${path}`;
+  const dispatch = useDispatch();
 
-  const request = async (method, params) => {
+  const request = async (method, body) => {
 
-    // console.log(axios[method](apiUrl, config));
     // dispatch(actionsLoading.setLoading());
-    // console.log()
-    const responseApi = await axios[method](apiUrl, params);
-    const {data} = responseApi;
+    dispatch(setLoading());
+    try{
+      const {data} = await axios[method](apiUrl, body);
+      // const {data} = responseApi;
+      dispatch(setLoading());
+    } catch(err){
+      dispatch(setLoading());
+    }
 
     return evaluateResponse(data.data, data.error);
   };
