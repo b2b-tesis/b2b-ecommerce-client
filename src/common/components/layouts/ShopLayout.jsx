@@ -17,12 +17,11 @@ const ShopLayout = ({
   const toggleIsFixed = useCallback((fixed) => setIsFixed(fixed), []);
   return (
     <>
-       {showTopbar && <Topbar bgColor={topbarBgColor} />}
+       {showTopbar && <Topbar bgcolor={topbarBgColor} />}
 
        <Sticky fixedOn={0} onSticky={toggleIsFixed} scrollDistance={300}>
         <Header isFixed={isFixed} />
       </Sticky>
-
       <div className="section-after-sticky">
         {/* NAVIGATION BAR */}
         {showNavbar && <Navbar elevation={0} border={1} />}

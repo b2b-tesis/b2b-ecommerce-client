@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react"; // styled components
-import Link from "next/link";
+import { useEffect, useRef, useState } from "react"; 
 
 import SearchOutlined from "@mui/icons-material/SearchOutlined";
-import { Box, Card, MenuItem, TextField } from "@mui/material";
+import { Box, Card, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import BazaarButton from "../BazaarButton";
+import { useRouter } from "next/router";
 
 export const SearchOutlinedIcon = styled(SearchOutlined)(({ theme }) => ({
   color: theme.palette.grey[600],
@@ -22,32 +22,24 @@ export const SearchResultCard = styled(Card)(() => ({
 }));
 
 const SearchBox = () => {
-  const [resultList, setResultList] = useState([]);
   const parentRef = useRef();
-  const [message, setMessage] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const { push } = useRouter();
 
 
-  const handleDocumentClick = () => setResultList([]);
-
-  useEffect(() => {
-    window.addEventListener("click", handleDocumentClick);
-    return () => window.removeEventListener("click", handleDocumentClick);
-  }, []);
-
-  const handleSearch = event => {
-    setMessage(event.target.value);
-
-    
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);    
   };
 
-  const handleConsoleLog = () => {
-    console.log(message);
+  const handleRedirectToSearch = () => {
+    if(searchTerm.trim().length === 0) return;
+    push(`/producto/busqueda/${searchTerm}`);
   }
 
   const categoryDropdown = (
         <BazaarButton
           type="submit"
-          onClick={handleConsoleLog}
+          onClick={handleRedirectToSearch}
           variant="contained"
           sx={{
             height: 44,
@@ -72,8 +64,8 @@ const SearchBox = () => {
     >
       <TextField
         fullWidth
-        name="message"
-        value={message}
+        name="searchTerm"
+        value={searchTerm}
         variant="outlined"
         placeholder="Busca sólo productos"
         onChange={handleSearch}
@@ -93,15 +85,6 @@ const SearchBox = () => {
         }}
       />
 
-      {!!resultList.length && (
-        <SearchResultCard elevation={2}>
-          {resultList.map((item) => (
-            <Link href={`/product/search/${item}`} key={item} passHref>
-              <MenuItem key={item}>{item}</MenuItem>
-            </Link>
-          ))}
-        </SearchResultCard>
-      )}
     </Box>
   );
 };

@@ -2,12 +2,17 @@ import { Alert, Snackbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { closeToastify } from "../../state/toast/toastSlice";
 
-const Toast = () => {
+const Toast = ({bottom}) => {
 
   const {toastMessage, showToast, severity} = useSelector((state) => (state.toast))
   const dispatch = useDispatch();
-  const vertical = 'top';
-  const horizontal = 'right';
+  
+  let vertical = 'top';
+  let horizontal = 'right';//cambiar la direccion al bottom
+  if(bottom){
+    vertical = 'bottom';
+    vertical = 'left';
+  }
 
   const handleClose = () => {
     dispatch(closeToastify());

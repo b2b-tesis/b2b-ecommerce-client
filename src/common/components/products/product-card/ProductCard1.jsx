@@ -71,17 +71,12 @@ const ProductCard1 = ({
   title,
   price,
   imgUrl,
-  rating = 5,
-  hideRating,
   hoverEffect,
-  discount = 5,
   showProductSize,
 }) => {
   const { state, dispatch } = useAppContext();
   const [openModal, setOpenModal] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
 
-  const toggleIsFavorite = () => setIsFavorite((fav) => !fav);
 
   const toggleDialog = useCallback(() => setOpenModal((open) => !open), []);
   const cartItem = state.cart.find((item) => item.id === id);
@@ -96,22 +91,13 @@ const ProductCard1 = ({
   return (
     <StyledBazaarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
-        {!!discount && (
-          <StyledChip color="primary" size="small" label={`${discount}% off`} />
-        )}
+
 
         <HoverIconWrapper className="hover-box">
           <IconButton onClick={toggleDialog}>
             <RemoveRedEye color="disabled" fontSize="small" />
           </IconButton>
 
-          <IconButton onClick={toggleIsFavorite}>
-            {isFavorite ? (
-              <Favorite color="primary" fontSize="small" />
-            ) : (
-              <FavoriteBorder fontSize="small" color="disabled" />
-            )}
-          </IconButton>
         </HoverIconWrapper>
 
         <Link href={`/product/${id}`}>
@@ -166,14 +152,9 @@ const ProductCard1 = ({
 
             <FlexBox alignItems="center" gap={1} mt={0.5}>
               <Box fontWeight="600" color="primary.main">
-                ${(price - (price * discount) / 100).toFixed(2)}
+                ${(price).toFixed(2)}
               </Box>
 
-              {!!discount && (
-                <Box color="grey.600" fontWeight="600">
-                  <del>{price?.toFixed(2)}</del>
-                </Box>
-              )}
             </FlexBox>
           </Box>
 

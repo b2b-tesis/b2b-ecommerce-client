@@ -6,13 +6,13 @@ import SearchView from '../../../modules/Search/SearchView';
 
 
 
-const SearchPage = () => {
+const SearchPage = ({query}) => {
   const theme = useTheme();
   
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
       <SEO title="Búsqueda" />
-      <SearchView/>
+      <SearchView search={query}/>
     </ShopLayout>
   )
 }
@@ -47,5 +47,25 @@ const SearchPage = () => {
 //     }
 // }
 
+export const getServerSideProps = async ({params}) => {
+  
+  const {query = ''} = params;
+
+  if ( query === '' ) {
+    return {
+        redirect: {
+            destination: '/',
+            permanent: true
+        }
+    }
+  }
+  console.log(query);
+
+  return {
+    props: {
+      query
+    }
+  }
+}
 
 export default SearchPage;

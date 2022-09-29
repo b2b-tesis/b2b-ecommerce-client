@@ -7,7 +7,7 @@ import { Span } from "../Typography";
 import productDatabase from "../../data/product-database";
 
 // ========================================================
-const ProductCard1List = () => {
+const ProductCard1List = ({handleCurrentlyPage, totalPages}) => {
   return (
     <Fragment>
       <Grid container spacing={3}>
@@ -19,8 +19,8 @@ const ProductCard1List = () => {
       </Grid>
 
       <FlexBetween flexWrap="wrap" mt={4}>
-        <Span color="grey.600">Showing 1-9 of 1.3k Products</Span>
-        <Pagination count={10} variant="outlined" color="primary" />
+        <Span color="grey.600">Mostrando 9 de 1.3k Resultados</Span>
+        <Pagination count={totalPages} variant="outlined" color="primary" onChange={(e) => handleCurrentlyPage(e.target.textContent)}/>
       </FlexBetween>
     </Fragment>
   );

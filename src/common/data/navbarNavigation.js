@@ -56,49 +56,6 @@ const navbarNavigations = [
         title: "Reportes",
         url: "/market-1",
       },
-      // {
-      //   title: "Profile",
-      //   child: [
-      //     {
-      //       title: "View Profile",
-      //       url: "/profile",
-      //     },
-      //     {
-      //       title: "Edit Profile",
-      //       url: "/profile/edit",
-      //     },
-      //   ],
-      // },
-      // {
-      //   title: "Address",
-      //   child: [
-      //     {
-      //       title: "Address List",
-      //       url: "/address",
-      //     },
-      //     {
-      //       title: "Add Address",
-      //       url: "/address/512474",
-      //     },
-      //   ],
-      // },
-      // {
-      //   title: "Support tickets",
-      //   child: [
-      //     {
-      //       title: "All tickets",
-      //       url: "/support-tickets",
-      //     },
-      //     {
-      //       title: "Ticket details",
-      //       url: "/support-tickets/512474",
-      //     },
-      //   ],
-      // },
-      // {
-      //   title: "Wishlist",
-      //   url: "/wish-list",
-      // },
     ],
   },
   {
@@ -111,11 +68,11 @@ const navbarNavigations = [
         child: [
           {
             title: "Ver perfil",
-            url: "/admin/products",
+            url: "/usuario/perfil",
           },
           {
             title: "Editar perfil",
-            url: "/admin/products/248104",
+            url: "/usuario/perfil/editar",
           },
         ],
       },
@@ -124,11 +81,11 @@ const navbarNavigations = [
         child: [
           {
             title: "Ver direcciones",
-            url: "/admin/products",
+            url: "/usuario/direcciones",
           },
           {
             title: "Agregar dirección",
-            url: "/admin/products/248104",
+            url: "/usuario/direcciones/agregar",
           },
         ],
       },
@@ -137,11 +94,11 @@ const navbarNavigations = [
         child: [
           {
             title: "Ver tarjetas",
-            url: "/admin/products",
+            url: "/usuario/tarjetas",
           },
           {
             title: "Agregar tarjeta",
-            url: "/admin/products/248104",
+            url: "/usuario/tarjetas/agregar",
           },
         ],
       },

@@ -1,36 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
-import {Box, Card, Container, Grid, IconButton, MenuItem,TextField} from "@mui/material";
-import { Apps, ViewList } from "@mui/icons-material";
+import {Box, Card, Container, Grid, MenuItem,TextField, Pagination} from "@mui/material";
 
-import { H5, Paragraph } from "../../common/components/Typography";
+import { H5, Paragraph, Span } from "../../common/components/Typography";
 import FlexBox from "../../common/components/flexbox/FlexBox";
-import ProductCard1List from "../../common/components/products/ProductCardList1";
-import ProductCard9List from "../../common/components/products/ProductCard9List";
+import ShopCard1 from "../../common/components/shop/ShopCard1";
+import { useListByUserCategory } from "./hooks/useListUserByCategory";
+import FlexBetween from "../../common/components/flexbox/FlexBetween";
 
 
 const CategoryView = () => {
-
-  const sortOptions = [
-    {
-      label: "Relevance",
-      value: "Relevance",
-    },
-    {
-      label: "Date",
-      value: "Date",
-    },
-    {
-      label: "Price Low to High",
-      value: "Price Low to High",
-    },
-    {
-      label: "Price High to Low",
-      value: "Price High to Low",
-    },
-  ];
-  
-  const [view, setView] = useState("grid");
-  const toggleView = useCallback((v) => () => setView(v), []);
+const {sortOptions, shopList, handleCurrentlyPage, totalPages} = useListByUserCategory();
 
   return (
     <>
@@ -57,7 +35,7 @@ const CategoryView = () => {
         >
           <Box>
             <H5>Categorias</H5>
-            <Paragraph color="grey.600">48 results found</Paragraph>
+            <Paragraph color="grey.600">48 empresas en esta categoría</Paragraph>
           </Box>
 
           <FlexBox
@@ -68,7 +46,7 @@ const CategoryView = () => {
           >
             <FlexBox alignItems="center" gap={1} flex="1 1 0">
               <Paragraph color="grey.600" whiteSpace="pre">
-                Short by:
+                Ordenar de:
               </Paragraph>
 
               <TextField
@@ -91,34 +69,21 @@ const CategoryView = () => {
               </TextField>
             </FlexBox>
 
-            <FlexBox alignItems="center" my="0.25rem">
-              <Paragraph color="grey.600" mr={1}>
-                View:
-              </Paragraph>
-
-              <IconButton onClick={toggleView("grid")}>
-                <Apps
-                  color={view === "grid" ? "primary" : "inherit"}
-                  fontSize="small"
-                />
-              </IconButton>
-
-              <IconButton onClick={toggleView("list")}>
-                <ViewList
-                  color={view === "list" ? "primary" : "inherit"}
-                  fontSize="small"
-                />
-              </IconButton>
-
-            </FlexBox>
           </FlexBox>
         </Card>
 
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            {view === "grid" ? <ProductCard1List /> : <ProductCard9List />}
-          </Grid>
+          {shopList.map((item, ind) => (
+            <Grid item lg={4} sm={6} xs={12} key={ind}>
+              <ShopCard1 {...item} />
+            </Grid>
+          ))}
         </Grid>
+
+        <FlexBetween flexWrap="wrap" mt={4}>
+          <Span color="grey.600">Mostrando 9 de 300 Empresas</Span>
+          <Pagination count={totalPages} variant="outlined" color="primary" onChange={(e) => handleCurrentlyPage(e.target.textContent)}/>
+        </FlexBetween>
       </Container>
     </>
   );

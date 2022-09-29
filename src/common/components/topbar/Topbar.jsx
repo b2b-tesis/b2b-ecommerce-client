@@ -8,10 +8,10 @@ import { Span } from "../Typography";
 import { layoutConstant } from "../../constants/sizeConstants";
 
 
-const TopbarWrapper = styled(Box)(({ theme, bgColor }) => ({
+const TopbarWrapper = styled(Box)(({ theme, bgcolor }) => ({
   fontSize: 12,
   height: layoutConstant.topbarHeight,
-  background: bgColor || theme.palette.secondary.main,
+  background: bgcolor || theme.palette.secondary.main,
   color: theme.palette.secondary.contrastText,
   "& .topbarLeft": {
     "& .logo": {
@@ -42,9 +42,9 @@ const TopbarWrapper = styled(Box)(({ theme, bgColor }) => ({
   },
 }));
 
-const Topbar = ({ bgColor }) => {
+const Topbar = ({ bgcolor }) => {
   return (
-    <TopbarWrapper bgColor={bgColor}>
+    <TopbarWrapper bgcolor={bgcolor}>
       <Container
         sx={{
           height: "100%",

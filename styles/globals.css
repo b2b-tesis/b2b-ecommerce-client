@@ -358,3 +358,11 @@ input[type=number]::-webkit-outer-spin-button {
     -moz-appearance: none;
     appearance: none; 
 }
+
+
+.imgBanner{
+  height: 100%;
+  width: 100%;
+  background-position:center;
+  object-fit: cover;
+}

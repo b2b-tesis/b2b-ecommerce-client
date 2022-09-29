@@ -1,36 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
-import {Box, Card, Container, Grid, IconButton, MenuItem,TextField} from "@mui/material";
-import { Apps, ViewList } from "@mui/icons-material";
+import {Box, Card, Container, Grid, MenuItem,TextField} from "@mui/material";
 
 import { H5, Paragraph } from "../../common/components/Typography";
 import FlexBox from "../../common/components/flexbox/FlexBox";
 import ProductCard1List from "../../common/components/products/ProductCardList1";
-import ProductCard9List from "../../common/components/products/ProductCard9List";
+import { useSearchProduct } from "./hooks/useSearchProduct";
 
 
-const SearchView = () => {
-
-  const sortOptions = [
-    {
-      label: "Relevance",
-      value: "Relevance",
-    },
-    {
-      label: "Date",
-      value: "Date",
-    },
-    {
-      label: "Price Low to High",
-      value: "Price Low to High",
-    },
-    {
-      label: "Price High to Low",
-      value: "Price High to Low",
-    },
-  ];
+const SearchView = ({search}) => {
   
-  const [view, setView] = useState("grid");
-  const toggleView = useCallback((v) => () => setView(v), []);
+  const {sortOptions, handleCurrentlyPage, page, totalPages} = useSearchProduct();
 
   return (
     <>
@@ -56,8 +34,8 @@ const SearchView = () => {
           }}
         >
           <Box>
-            <H5>Searching for “ mobile phone ”</H5>
-            <Paragraph color="grey.600">48 results found</Paragraph>
+            <H5>Resultados para " {search} "</H5>
+            <Paragraph color="grey.600">48 resultados encontrados</Paragraph>
           </Box>
 
           <FlexBox
@@ -68,7 +46,7 @@ const SearchView = () => {
           >
             <FlexBox alignItems="center" gap={1} flex="1 1 0">
               <Paragraph color="grey.600" whiteSpace="pre">
-                Short by:
+                Ordenar de:
               </Paragraph>
 
               <TextField
@@ -91,32 +69,12 @@ const SearchView = () => {
               </TextField>
             </FlexBox>
 
-            <FlexBox alignItems="center" my="0.25rem">
-              <Paragraph color="grey.600" mr={1}>
-                View:
-              </Paragraph>
-
-              <IconButton onClick={toggleView("grid")}>
-                <Apps
-                  color={view === "grid" ? "primary" : "inherit"}
-                  fontSize="small"
-                />
-              </IconButton>
-
-              <IconButton onClick={toggleView("list")}>
-                <ViewList
-                  color={view === "list" ? "primary" : "inherit"}
-                  fontSize="small"
-                />
-              </IconButton>
-
-            </FlexBox>
           </FlexBox>
         </Card>
 
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            {view === "grid" ? <ProductCard1List /> : <ProductCard9List />}
+             <ProductCard1List handleCurrentlyPage={handleCurrentlyPage} totalPages={totalPages}/>
           </Grid>
         </Grid>
       </Container>
