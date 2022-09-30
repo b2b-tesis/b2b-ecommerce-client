@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import "yup-phone-lite";
 
 import { showToastify } from "../../../../common/state/toast/toastSlice";
 
@@ -26,7 +27,6 @@ export const useEditProfile = () => {
       }
       if(id === 'banner'){
         setSelectedBanner(imagesArray);
-        console.log('sad')
         return;
       }
       
@@ -42,12 +42,22 @@ export const useEditProfile = () => {
 
   const initialValues = {
     name:"",
-    ruc: ""
+    email:"",
+    phone: "",
+    department: "",
+    province: "",
+    district: "",
+    category_id: Number(),
+    description:""
   };
 
     const formSchema = yup.object().shape({
-      // ruc:yup.string().min(11, "El RUC tiene 11 dígitos").max(11, "El RUC solo tiene 11 dígitos").required("Debe ingresar el RUC"),
-      name: yup.string().required("El nombre comercial de la empresa es requerido")
+      name: yup.string().required("El nombre comercial de la empresa es requerido"),
+      phone: yup.string().phone("PE", "Ingrese un número de celular correcto").required("El celular es requerido"),
+      email: yup.string().email("Correo inválido").required("El email es requerido"),
+      department: yup.string().matches(/^[A-Za-z]+$/, 'Must be exactly 5 digits').required("El departamento de origen de la empresa es requerido"),
+      province: yup.string().required("La provincia de origen de la empresa es requerido"),
+      district: yup.string().required("El distrito de origen de la empresa es requerido")
     });
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } =

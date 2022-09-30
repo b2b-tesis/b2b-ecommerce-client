@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import Link from "next/link";
 import Person from "@mui/icons-material/Person";
 import { CameraAlt } from "@mui/icons-material";
-import { Avatar, Badge, Box, Button, Card, Divider, Grid, MenuItem } from "@mui/material";
+import { Avatar, Badge, Box, Button, Card, Grid, MenuItem } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
 import CustomerDashboardLayout from "../../../common/components/layouts/user-dashboard";
@@ -11,7 +11,6 @@ import CustomerDashboardNavigation from "../../../common/components/layouts/user
 import { useEditProfile } from "./hooks/useEditProfile";
 import Toast from "../../../common/components/toast/Toast";
 import { getCategories } from "../../../common/helpers/getCategoryName";
-import { H5, Small } from "../../../common/components/Typography";
 
 
 const EditProfileView = () => {
@@ -147,6 +146,7 @@ const EditProfileView = () => {
                   </Grid>
                   <Grid item md={6} xs={12}>
                     <TextField
+                      disabled
                       fullWidth
                       color="primary"
                       size="medium"
@@ -154,9 +154,7 @@ const EditProfileView = () => {
                       label="RUC"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.ruc}
-                      error={!!touched.ruc && !!errors.ruc}
-                      helperText={touched.ruc && errors.ruc}
+                      value='23456789101'
                       type="number"
                     />
                   </Grid>
@@ -245,7 +243,7 @@ const EditProfileView = () => {
                       error={!!touched.category_id && !!errors.category_id}
                       helperText={touched.category_id && errors.category_id}
                     >
-                      {/* <MenuItem value={0} hidden>Selecciona una categoría</MenuItem> */}
+                      <MenuItem value={0} hidden>Gaaaaaa</MenuItem>
                       {getCategories().map((category) => (
                         <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
                       ))}
@@ -259,7 +257,7 @@ const EditProfileView = () => {
                       color="primary"
                       size="medium"
                       name="facebook"
-                      label="Facebook de la Empresa"
+                      label="Enlace al Facebook de la Empresa"
                       onBlur={handleBlur}
                       value={values.facebook}
                       onChange={handleChange}
@@ -267,48 +265,23 @@ const EditProfileView = () => {
                       helperText={touched.facebook && errors.facebook}
                     />
                   </Grid>
+                  <Grid item md={6} xs={12}>
+                    <TextField
+                      fullWidth
+                      color="primary"
+                      size="medium"
+                      name="instagram"
+                      label="Enlace al Instagram de la Empresa"
+                      onBlur={handleBlur}
+                      value={values.instagram}
+                      onChange={handleChange}
+                      error={!!touched.instagram && !!errors.instagram}
+                      helperText={touched.instagram && errors.instagram}
+                    />
+                  </Grid>
 
                   <Grid item  xs={12}>
-                    <Box
-                      py={4}
-                      px={{
-                        md: 10,
-                        xs: 4,
-                      }}
-                      display="flex"
-                      minHeight="200px"
-                      alignItems="center"
-                      borderRadius="10px"
-                      border="1.5px dashed"
-                      flexDirection="column"
-                      borderColor="grey.300"
-                      justifyContent="center"
-                      textAlign="center"
-                      bgcolor="grey.200"
-                      sx={{
-                        transition: "all 250ms ease-in-out",
-                        outline: "none",
-                      }}
-                    >
-                      {/* <input /> */}
-                      <H5 mb={1} color="grey.600">
-                        Drag & drop product image here
-                      </H5>
-
-                      <Button
-                        type="button"
-                        variant="outlined"
-                        color="info"
-                        sx={{
-                          px: 4,
-                          my: 4,
-                        }}
-                      >
-                        Select files
-                      </Button>
-
-                      <Small color="grey.600">{"Upload 280*280 image"}</Small>
-                    </Box>
+                  
                   </Grid>
 
                   <Grid item xs={12}>

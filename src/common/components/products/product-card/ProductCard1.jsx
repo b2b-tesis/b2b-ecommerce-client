@@ -1,8 +1,7 @@
 import { Fragment, useCallback, useState } from "react";
 import Link from "next/link";
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Add, Favorite, Remove, RemoveRedEye } from "@mui/icons-material";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import { Add, Remove, RemoveRedEye } from "@mui/icons-material";
 import { Box, Button, Chip, IconButton, styled } from "@mui/material";
 import BazaarCard from "../../BazaarCard";
 import LazyImage from "../../LazyImage";

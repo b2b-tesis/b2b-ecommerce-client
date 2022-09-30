@@ -7,15 +7,20 @@ import UserDashboardHeader from "../../../common/components/layouts/user-dashboa
 import CustomerDashboardLayout from "../../../common/components/layouts/user-dashboard";
 import CustomerDashboardNavigation from "../../../common/components/layouts/user-dashboard/Navigations";
 import TableRow from "../../../common/components/TableRow";
+import { useDeleteAddress } from "./hooks/useDeteleAddress";
+import DialogDeleteElement from "../../../common/components/dialogDeleteElement/DialogDeleteElement";
 
 const AddressesView = () => {
+
+  const {toggleDialog, openDialog, deleteAddress, setIdToDelete} = useDeleteAddress();
+  let title = 'Mis Direcciones';
 
   return (
     <>
       <CustomerDashboardLayout>
       <UserDashboardHeader
         icon={Place}
-        title="Mis Direcciones"
+        title={title}
         navigation={<CustomerDashboardNavigation />}
         button={
           <Link href="/usuario/direcciones/agregar">
@@ -61,7 +66,7 @@ const AddressesView = () => {
               </IconButton>
             </Link>
 
-            <IconButton onClick={(e) => e.stopPropagation()}>
+            <IconButton onClick={() => {toggleDialog(); setIdToDelete(ind);}}>
               <Delete fontSize="small" color="inherit" />
             </IconButton>
           </Typography>
@@ -72,6 +77,14 @@ const AddressesView = () => {
         <Pagination count={5} onChange={(data) => console.log(data)} />
       </FlexBox>
     </CustomerDashboardLayout>
+
+    <DialogDeleteElement
+        openDialog={openDialog}
+        handleCloseDialog={toggleDialog}
+        title={title}
+        element={'gaaaa'}
+        deleteAction={deleteAddress}
+      />
     </>
   );
 };

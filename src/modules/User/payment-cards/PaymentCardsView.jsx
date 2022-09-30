@@ -9,12 +9,19 @@ import CustomerDashboardLayout from "../../../common/components/layouts/user-das
 import TableRow from "../../../common/components/TableRow";
 import { H5 } from "../../../common/components/Typography";
 import FlexBox from "../../../common/components/flexbox/FlexBox";
+import DialogDeleteElement from "../../../common/components/dialogDeleteElement/DialogDeleteElement";
+import { useDeletePaymentCard } from "./hooks/useDeletePaymentCard";
 
 const PaymentCardsView = () => {
+
+  const {toggleDialog, openDialog, deletePaymentCard, setIdToDelete} = useDeletePaymentCard();
+  let title = 'Métodos de Pago';
+
   return (
-    <CustomerDashboardLayout>
+    <>
+      <CustomerDashboardLayout>
       <UserDashboardHeader
-        title="Métodos de Pago"
+        title={title}
         icon={CreditCard}
         button={
           <Link href="/usuario/tarjetas/agregar">
@@ -73,7 +80,7 @@ const PaymentCardsView = () => {
                 <Edit fontSize="small" color="inherit" />
               </IconButton>
             </Link>
-            <IconButton onClick={(e) => e.stopPropagation()}>
+            <IconButton onClick={() => {toggleDialog(); setIdToDelete(ind);}}>
               <Delete fontSize="small" color="inherit" />
             </IconButton>
           </Typography>
@@ -89,6 +96,15 @@ const PaymentCardsView = () => {
         />
       </FlexBox>
     </CustomerDashboardLayout>
+
+      <DialogDeleteElement
+          openDialog={openDialog}
+          handleCloseDialog={toggleDialog}
+          title={title}
+          element={'gaaaa'}
+          deleteAction={deletePaymentCard}
+        />
+    </>
   );
 };
 
