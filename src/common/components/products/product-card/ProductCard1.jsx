@@ -67,28 +67,30 @@ const ContentWrapper = styled(Box)(() => ({
 // ========================================================
 const ProductCard1 = ({
   id,
-  title,
-  price,
-  imgUrl,
+  // title,
+  // price,
+  // imgUrl,
   hoverEffect,
-  showProductSize,
+  // showProductSize,
+    picture,
+    price,
 }) => {
-  const { state, dispatch } = useAppContext();
+  // const { state, dispatch } = useAppContext();
   const [openModal, setOpenModal] = useState(false);
 
 
   const toggleDialog = useCallback(() => setOpenModal((open) => !open), []);
-  const cartItem = state.cart.find((item) => item.id === id);
-  const handleCartAmountChange = useCallback(
-    (product) => () =>
-      dispatch({
-        type: "CHANGE_CART_AMOUNT",
-        payload: product,
-      }),
-    []
-  );
+  // const cartItem = state.cart.find((item) => item.id === id);
+  // const handleCartAmountChange = useCallback(
+  //   (product) => () =>
+  //     dispatch({
+  //       type: "CHANGE_CART_AMOUNT",
+  //       payload: product,
+  //     }),
+  //   []
+  // );
   return (
-    <StyledBazaarCard hoverEffect={hoverEffect}>
+    <StyledBazaarCard >
       <ImageWrapper>
 
 
@@ -102,17 +104,19 @@ const ProductCard1 = ({
         <Link href={`/product/${id}`}>
           <a>
             <LazyImage
-              src={imgUrl}
+              src={picture}
               width={0}
               height={0}
               layout="responsive"
-              alt={title}
+              alt={'Producto'}
+              placeholder="blur"
+              blurDataURL={picture}
             />
           </a>
         </Link>
       </ImageWrapper>
 
-      <ProductViewDialog
+      {/* <ProductViewDialog
         openDialog={openModal}
         handleCloseDialog={toggleDialog}
         product={{
@@ -121,7 +125,7 @@ const ProductCard1 = ({
           id,
           imgGroup: [imgUrl, imgUrl],
         }}
-      />
+      /> */}
 
       <ContentWrapper>
         <FlexBox>
@@ -130,28 +134,22 @@ const ProductCard1 = ({
               <a>
                 <H3
                   mb={1}
-                  title={title}
+                  title={'Producto'}
                   fontSize="14px"
                   fontWeight="600"
                   className="title"
                   color="text.secondary"
                 >
-                  {title}
+                  {'Producto'}
                 </H3>
               </a>
             </Link>
 
         
 
-            {showProductSize && (
-              <Span color="grey.600" mb={1} display="block">
-                300ml
-              </Span>
-            )}
-
             <FlexBox alignItems="center" gap={1} mt={0.5}>
               <Box fontWeight="600" color="primary.main">
-                ${(price).toFixed(2)}
+                S/. {price}
               </Box>
 
             </FlexBox>
@@ -162,7 +160,7 @@ const ProductCard1 = ({
             alignItems="center"
             className="add-cart"
             flexDirection="column-reverse"
-            justifyContent={!!cartItem?.qty ? "space-between" : "flex-start"}
+            justifyContent={"flex-start"}
           >
             <Button
               color="primary"
@@ -170,17 +168,17 @@ const ProductCard1 = ({
               sx={{
                 padding: "3px",
               }}
-              onClick={handleCartAmountChange({
-                id,
-                price,
-                imgUrl,
-                name: title,
-                qty: (cartItem?.qty || 0) + 1,
-              })}
+              // onClick={handleCartAmountChange({
+              //   id,
+              //   price,
+              //   imgUrl,
+              //   name: title,
+              //   qty: (cartItem?.qty || 0) + 1,
+              // })}
             >
               <Add fontSize="small" />
             </Button>
-
+{/* 
             {!!cartItem?.qty && (
               <Fragment>
                 <Box color="text.primary" fontWeight="600">
@@ -204,7 +202,7 @@ const ProductCard1 = ({
                   <Remove fontSize="small" />
                 </Button>
               </Fragment>
-            )}
+            )} */}
           </FlexBox>
         </FlexBox>
       </ContentWrapper>

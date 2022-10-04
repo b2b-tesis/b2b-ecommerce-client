@@ -4,23 +4,29 @@ import { Grid, Pagination } from "@mui/material";
 import FlexBetween from "../flexbox/FlexBetween";
 import ProductCard1 from "./product-card/ProductCard1";
 import { Span } from "../Typography";
-import productDatabase from "../../data/product-database";
 
-// ========================================================
-const ProductCard1List = ({handleCurrentlyPage, totalPages}) => {
+const ProductCard1List = ({productResults, handleCurrentlyPage, totalPages, totalLength, page}) => {
+  let pageLength = productResults?.length;
   return (
     <Fragment>
       <Grid container spacing={3}>
-        {productDatabase.slice(95, 104).map((item, ind) => (
-          <Grid item lg={4} sm={6} xs={12} key={ind}>
+        {productResults?.map((item) => (
+          <Grid item lg={4} sm={6} xs={12} key={item.id}>
             <ProductCard1 {...item} />
           </Grid>
         ))}
       </Grid>
 
       <FlexBetween flexWrap="wrap" mt={4}>
-        <Span color="grey.600">Mostrando 9 de 1.3k Resultados</Span>
-        <Pagination count={totalPages} variant="outlined" color="primary" onChange={(e) => handleCurrentlyPage(e.target.textContent)}/>
+        {
+          totalLength > 1 &&
+          <Span color="grey.600">Mostrando {pageLength} de {totalLength} Resultados</Span>
+        }
+        {
+          totalLength === 1 &&
+          <Span color="grey.600">Mostrando {pageLength} de {totalLength} Resultado</Span>
+        }
+        <Pagination count={totalPages} variant="outlined" color="primary" onChange={(e) => handleCurrentlyPage(e.target.textContent)} page={page} hidePrevButton hideNextButton/>
       </FlexBetween>
     </Fragment>
   );

@@ -12,46 +12,17 @@ const SearchPage = ({query}) => {
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
       <SEO title="Búsqueda" />
-      <SearchView search={query}/>
+      <SearchView searchTerm={query}/>
     </ShopLayout>
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    
-//     const { query = '' } = params as { query: string };
-
-//     if ( query.length === 0 ) {
-//         return {
-//             redirect: {
-//                 destination: '/',
-//                 permanent: true
-//             }
-//         }
-//     }
-
-//     // y no hay productos
-//     let products = await dbProducts.getProductsByTerm( query );
-//     const foundProducts = products.length > 0;
-
-//     if ( !foundProducts ) {
-//         products = await dbProducts.getProductsByTerm('shirt');
-//     }
-
-//     return {
-//         props: {
-//             products,
-//             foundProducts,
-//             query
-//         }
-//     }
-// }
 
 export const getServerSideProps = async ({params}) => {
   
   const {query = ''} = params;
 
-  if ( query === '' ) {
+  if ( query.length === 0 ) {
     return {
         redirect: {
             destination: '/',
@@ -59,7 +30,6 @@ export const getServerSideProps = async ({params}) => {
         }
     }
   }
-  console.log(query);
 
   return {
     props: {
