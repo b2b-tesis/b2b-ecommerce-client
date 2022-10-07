@@ -3,21 +3,18 @@ import axios from "axios";
 
 import ShopLayout from '../../../common/components/layouts/ShopLayout';
 import SEO from '../../../common/components/seo/SEO';
-import ProfileView from "../../../modules/User/profile/ProfileView";
+import AddPaymentCardView from "../../../modules/User/payment-cards/AddPaymentCardView";
 
-
-
-const ProfilePage = ({userData}) => {
+const AddPaymentCardPage = () => {
   const theme = useTheme();
-
+  
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
-      <SEO title="Ver Perfil" />
-      <ProfileView userData={userData}/>
+      <SEO title="Direcciones" />
+      <AddPaymentCardView/>
     </ShopLayout>
   )
 }
-
 
 export const getServerSideProps = async ({req}) => {
   
@@ -26,36 +23,30 @@ export const getServerSideProps = async ({req}) => {
   if(tokenb2b === '' || !tokenb2b ){ 
     return {
       redirect: {
-        destination: `/login?p=/usuario/perfil`,
+        destination: `/login?p=/usuario/tarjetas/agregar`,
           permanent: false,
         }
       }
     }
-    
+
     const config = {
       headers: { Authorization: `Bearer ${tokenb2b}` }
     };
     
-    let userData = {};
-  try{
-    const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user`, config);
-    const {user} = data.data;
-    userData = user;
-  } catch(err){
-    return {
-      redirect: {
-          destination: '/login?p=/usuario/perfil',
-          permanent: false,
-      }
+    try{
+      await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user`, config);
+    }catch(err){
+      return {
+        redirect: {
+          destination: `/login?p=/usuario/tarjetas/agregar`,
+            permanent: false,
+          }
+        }
     }
-  }
-
   return {
-    props: {
-      userData
-    }
+    props: {}
   }
 }
 
 
-export default ProfilePage;
+export default AddPaymentCardPage;

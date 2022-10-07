@@ -46,7 +46,7 @@ export const useSearchProduct = () => {
 
   const sortOptions = [
     {
-      keyFilter:'desc',
+      keyFilter:'asc',
       label: "Precio Menor a Mayor",
       value: "Precio Menor a Mayor",
     },

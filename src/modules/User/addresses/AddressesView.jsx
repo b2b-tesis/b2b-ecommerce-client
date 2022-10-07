@@ -1,19 +1,24 @@
 import Link from "next/link";
 import { Delete, Edit, Place } from "@mui/icons-material";
-import { Button, IconButton, Pagination, Typography } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 
-import FlexBox from "../../../common/components/flexbox/FlexBox";
 import UserDashboardHeader from "../../../common/components/layouts/user-dashboard/UserDashboardHeader";
 import CustomerDashboardLayout from "../../../common/components/layouts/user-dashboard";
 import CustomerDashboardNavigation from "../../../common/components/layouts/user-dashboard/Navigations";
 import TableRow from "../../../common/components/TableRow";
 import { useDeleteAddress } from "./hooks/useDeteleAddress";
 import DialogDeleteElement from "../../../common/components/dialogDeleteElement/DialogDeleteElement";
+import NoDataMessage from "../../../common/components/noData-message/NoDataMessage";
+import { useAddAddress } from "./hooks/useAddAddress";
+import { useState } from "react";
 
-const AddressesView = () => {
+const AddressesView = ({addresses, isFilled}) => {
 
+  const [nameToDelete, setNameToDelete] = useState('');
   const {toggleDialog, openDialog, deleteAddress, setIdToDelete} = useDeleteAddress();
+  const {showErrorAddAddress} = useAddAddress();
   let title = 'Mis Direcciones';
+  let addressesLength = addresses.length
 
   return (
     <>
@@ -23,9 +28,10 @@ const AddressesView = () => {
         title={title}
         navigation={<CustomerDashboardNavigation />}
         button={
-          <Link href="/usuario/direcciones/agregar">
+          <Link href={addressesLength === 5 ? {} : "/usuario/direcciones/agregar"} >
             <a>
               <Button
+                onClick={(event) => addressesLength === 5 && showErrorAddAddress(event)}
                 color="primary"
                 sx={{
                   bgcolor: "primary.light",
@@ -39,87 +45,58 @@ const AddressesView = () => {
         }
       />
 
-      {orderList.map((_, ind) => (
-        <TableRow
-          sx={{
-            my: 2,
-            padding: "6px 18px",
-          }}
-          key={ind}
-        >
-          <Typography whiteSpace="pre" m={0.75} textAlign="left">
-            Ralf Edward
-          </Typography>
-
-          <Typography flex="1 1 260px !important" m={0.75} textAlign="left">
-            777 Brockton Avenue, Abington MA 2351
-          </Typography>
-
-          <Typography whiteSpace="pre" m={0.75} textAlign="left">
-            +1927987987498
-          </Typography>
-
-          <Typography whiteSpace="pre" textAlign="center" color="grey.600">
-            <Link href="/usuario/direcciones/jkhqwekjh" passHref>
-              <IconButton>
-                <Edit fontSize="small" color="inherit" />
+     {
+      isFilled ? (
+        addresses.map((address) => (
+          <TableRow
+            sx={{
+              my: 2,
+              padding: "6px 18px",
+            }}
+            key={address.id}
+          >
+            <Typography whiteSpace="pre" m={0.75} textAlign="left">
+              {address.name}
+            </Typography>
+  
+            <Typography flex="1 1 260px !important" m={0.75} textAlign="left">
+              {address.address_line}
+            </Typography>
+  
+            <Typography whiteSpace="pre" m={0.75} textAlign="left">
+              {address.phone}
+            </Typography>
+  
+            <Typography whiteSpace="pre" textAlign="center" color="grey.600">
+              <Link href={`/usuario/direcciones/${address.id}`} passHref>
+                <IconButton>
+                  <Edit fontSize="small" color="inherit" />
+                </IconButton>
+              </Link>
+  
+              <IconButton onClick={() => {toggleDialog(); setIdToDelete(address.id); setNameToDelete(address.name)}}>
+                <Delete fontSize="small" color="inherit" />
               </IconButton>
-            </Link>
+            </Typography>
+          </TableRow>
+        ))
+      ): (
+        <NoDataMessage message={'¡Todavía no tienes direcciones guardadas!'}/>
+      )
+     }
 
-            <IconButton onClick={() => {toggleDialog(); setIdToDelete(ind);}}>
-              <Delete fontSize="small" color="inherit" />
-            </IconButton>
-          </Typography>
-        </TableRow>
-      ))}
-
-      <FlexBox justifyContent="center" mt={5}>
-        <Pagination count={5} onChange={(data) => console.log(data)} />
-      </FlexBox>
     </CustomerDashboardLayout>
 
     <DialogDeleteElement
         openDialog={openDialog}
         handleCloseDialog={toggleDialog}
         title={title}
-        element={'gaaaa'}
+        element={nameToDelete}
         deleteAction={deleteAddress}
       />
     </>
   );
 };
 
-const orderList = [
-  {
-    orderNo: "1050017AS",
-    status: "Pending",
-    purchaseDate: new Date(),
-    price: 350,
-  },
-  {
-    orderNo: "1050017AS",
-    status: "Processing",
-    purchaseDate: new Date(),
-    price: 500,
-  },
-  {
-    orderNo: "1050017AS",
-    status: "Delivered",
-    purchaseDate: "2020/12/23",
-    price: 700,
-  },
-  {
-    orderNo: "1050017AS",
-    status: "Delivered",
-    purchaseDate: "2020/12/23",
-    price: 700,
-  },
-  {
-    orderNo: "1050017AS",
-    status: "Cancelled",
-    purchaseDate: "2020/12/15",
-    price: 300,
-  },
-];
 
 export default AddressesView;

@@ -1,4 +1,5 @@
-import {Box, Dialog, DialogContent, Divider, Grid, IconButton, styled} from "@mui/material";
+import {Box, CircularProgress, Dialog, DialogContent, Divider, Grid, IconButton, styled} from "@mui/material";
+import { useSelector } from "react-redux";
 import BazaarButton from "../BazaarButton";
 import FlexBox from "../flexbox/FlexBox";
 import { H2, H3, Paragraph } from "../Typography";
@@ -39,12 +40,14 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
 })); 
 
 const DialogDeleteElement = ({openDialog, handleCloseDialog, title, element, deleteAction}) => {
- 
+
+  const {loading} = useSelector((state) => (state.loading))
+
   return (
     <Dialog
       open={openDialog}
       maxWidth={false}
-      onClose={handleCloseDialog}
+      onClose={!loading ? handleCloseDialog : null}
       sx={{
         zIndex: 1501,
       }}
@@ -71,6 +74,7 @@ const DialogDeleteElement = ({openDialog, handleCloseDialog, title, element, del
               />
            <FlexBox alignItems="center" justifyContent="center" gap={5}>
                   <BazaarButton
+                     disabled={loading ? true : false}
                     size="small"
                     color="primary"
                     variant="contained"
@@ -80,10 +84,13 @@ const DialogDeleteElement = ({openDialog, handleCloseDialog, title, element, del
                     }}
                     onClick={deleteAction}
                   >
-                    Sí, Eliminar
+                    {
+                      loading ? 'Cargando...' : 'Sí, Eliminar'
+                    }
                   </BazaarButton>
 
                   <BazaarButton
+                    disabled={loading ? true : false}
                     size="small"
                     color="primary"
                     variant="outlined"

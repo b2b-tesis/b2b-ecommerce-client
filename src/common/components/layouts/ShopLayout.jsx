@@ -6,6 +6,7 @@ import Navbar from "../navbar/Navbar";
 import Sticky from "../sticky/Sticky";
 import Topbar from "../topbar/Topbar";
 import MobileNavigationBar from "../mobile-navigation/MobileNavigationBar";
+import Toast from "../toast/Toast";
 
 const ShopLayout = ({
   children,
@@ -27,6 +28,7 @@ const ShopLayout = ({
         {showNavbar && <Navbar elevation={0} border={1} />}
 
         {/* BODY CONTENT */}
+        <Toast bottom/>
         {children}
       </div>
       <MobileNavigationBar/>

@@ -14,12 +14,13 @@ const SearchView = ({searchTerm}) => {
 
   useEffect(() => {
     searchProduct(searchTerm);
-  },[searchTerm, page])
+  },[searchTerm, page, sort])
 
   useEffect(() => {
     setPage(1);
   },[searchTerm])
-  
+
+  //TODO: Agregar a las card de producto name, nombre de empresa y nombre de categoria de producto
   return (
     <>
      <Container

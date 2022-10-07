@@ -10,9 +10,8 @@ import FlexBox from "../../../common/components/flexbox/FlexBox";
 import { Small } from "../../../common/components/Typography";
 import { getCategoryName } from "../../../common/helpers/getCategoryName";
 
-const ProfileView = () => {
-
-
+const ProfileView = ({userData}) => {
+  const {banner, category_id, department, district, email, name, phone, picture, province, ruc, social_media, terms} = userData;
 
   return (
     <>
@@ -69,28 +68,28 @@ const ProfileView = () => {
           <Small color="grey.600" mb={0.5} textAlign="left">
             Nombre Comercial de la Empresa
           </Small>
-          <span>Comercial Pablito</span>
+          <span>{name}</span>
         </FlexBox>
 
         <FlexBox flexDirection="column" p={1}>
           <Small color="grey.600" mb={0.5} textAlign="left">
             RUC
           </Small>
-          <span>23456789101</span>
+          <span>{ruc}</span>
         </FlexBox>
 
         <FlexBox flexDirection="column" p={1}>
           <Small color="grey.600" mb={0.5} textAlign="left">
             Email
           </Small>
-          <span>ralfedwards@email.com</span>
+          <span>{email}</span>
         </FlexBox>
 
         <FlexBox flexDirection="column" p={1}>
           <Small color="grey.600" mb={0.5} textAlign="left">
             Teléfono
           </Small>
-          <span>+1983649392983</span>
+          <span>{phone}</span>
         </FlexBox>
 
       </TableRow>
@@ -107,28 +106,28 @@ const ProfileView = () => {
           <Small color="grey.600" mb={0.5} textAlign="left">
             Ciudad
           </Small>
-          <span>Tacna</span>
+          <span>{department}</span>
         </FlexBox>
 
         <FlexBox flexDirection="column" p={1}>
           <Small color="grey.600" mb={0.5} textAlign="left">
             Provincia
           </Small>
-          <span>Tacna</span>
+          <span>{province}</span>
         </FlexBox>
 
         <FlexBox flexDirection="column" p={1}>
           <Small color="grey.600" mb={0.5} textAlign="left">
             Distrito
           </Small>
-          <span>Pocollay</span>
+          <span>{district}</span>
         </FlexBox>
 
         <FlexBox flexDirection="column" p={1}>
           <Small color="grey.600" mb={0.5} textAlign="left">
             Categoría
           </Small>
-          <span>{getCategoryName(1)}</span>
+          <span>{getCategoryName(category_id)}</span>
         </FlexBox>
 
       </TableRow>
@@ -145,7 +144,8 @@ const ProfileView = () => {
           <Small color="grey.600" mb={0.5} textAlign="left">
             Descripción
           </Small>
-          <span>Esta es una descripcion de ejemplo Esta es una descripcion de ejemplo Esta es una descripcion de ejemplo Esta es una descripcion de ejemplo</span>
+          {/* TODO: Cuando venga el campo description, si esta vacio entonces mostrar un texto que diga que no hay nada todavia, sino mostrar la description */}
+          <span>Descripcion por default</span>
         </FlexBox>
       </TableRow>
       
@@ -161,13 +161,13 @@ const ProfileView = () => {
           <Small color="grey.600" mb={0.5} textAlign="left">
             Facebook de la empresa
           </Small>
-          <span>Enlace a facebook</span>
+          <span>{ !social_media.facebook ? 'Agregue un enlace en Editar Perfil' : social_media.facebook}</span>
         </FlexBox>
         <FlexBox flexDirection="column" p={1}>
           <Small color="grey.600" mb={0.5} textAlign="left">
             Documento de Términos y Condiciones
           </Small>
-          <span>Enlace a terminos y condiciones</span>
+          <span>{ !terms ? 'Agregue un enlace en Editar Perfil' : terms}</span>
         </FlexBox>
 
       </TableRow>
@@ -177,23 +177,5 @@ const ProfileView = () => {
   );
 };
 
-const infoList = [
-  {
-    title: "16",
-    subtitle: "All Orders",
-  },
-  {
-    title: "02",
-    subtitle: "Awaiting Payments",
-  },
-  {
-    title: "00",
-    subtitle: "Awaiting Shipment",
-  },
-  {
-    title: "01",
-    subtitle: "Awaiting Delivery",
-  },
-];
 
 export default ProfileView;

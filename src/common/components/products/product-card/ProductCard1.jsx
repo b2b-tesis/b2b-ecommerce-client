@@ -110,6 +110,7 @@ const ProductCard1 = ({
               layout="responsive"
               alt={'Producto'}
               placeholder="blur"
+              
               blurDataURL={picture}
             />
           </a>

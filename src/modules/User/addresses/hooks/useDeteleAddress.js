@@ -1,16 +1,41 @@
+import axios from "axios";
+import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { getTokenB2B } from "../../../../common/helpers/getCookies";
+import { setLoading } from "../../../../common/state/loading/loadingSlice";
 
 export const useDeleteAddress = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [idToDelete, setIdToDelete] = useState(0);
   const toggleDialog = useCallback(() => {setOpenDialog((open) => !open)}, []);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const deleteAddress = () => {
+  const deleteAddress = async () => {
     let idElement = idToDelete;
-    //al eliminar el elemento, llamar al loading de redux y en el componente dialogo deshabilitar el boton cancelar, 
-    //colocar el spin en el boton eliminar y colocar en null el prop onClose en Dialog, cuando acabe la respuesta redireccionar a
-    //la pagina de listado de direcciones
-    console.log(idElement);
+    let tokenb2b = getTokenB2B();
+    if(tokenb2b === ''){
+      const destination = '/login?p=/usuario/direcciones';
+      router.replace(destination);
+      return
+    }
+   try{
+    dispatch(setLoading());
+    const config = {
+      headers: { Authorization: `Bearer ${tokenb2b}` }
+    };
+    
+    const resp = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/address/${idElement}`,config);
+    if(resp.status === 200){
+      dispatch(setLoading());
+      router.reload();
+    }
+  } catch(err){
+    dispatch(setLoading());
+    router.reload();
+   }
   }
 
   return {
