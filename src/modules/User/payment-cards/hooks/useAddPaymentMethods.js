@@ -21,28 +21,27 @@ export const useAddPaymentMethods = () => {
   }
 
   const savePaymentMethods = async () => {
-    console.log(values)
-  //   let tokenb2b = getTokenB2B();
-  //   if(tokenb2b === ''){
-  //     const destination = '/login?p=/usuario/direcciones/agregar';
-  //     router.replace(destination);
-  //     return
-  //   }
-  //  try{
-  //   dispatch(setLoading());
-  //   const config = {
-  //     headers: { Authorization: `Bearer ${tokenb2b}` }
-  //   };
-  //   const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/address`, values, config);
+    let tokenb2b = getTokenB2B();
+    if(tokenb2b === ''){
+      const destination = '/login?p=/usuario/tarjetas/agregar';
+      router.replace(destination);
+      return
+    }
+   try{
+    dispatch(setLoading());
+    const config = {
+      headers: { Authorization: `Bearer ${tokenb2b}` }
+    };
+    const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/payment-methods`, values, config);
 
-  //   if(resp.status === 201){
-  //     dispatch(setLoading());
-  //     router.push('/usuario/direcciones');
-  //   }
-  // } catch(err){
-  //   dispatch(setLoading());
-  //   dispatch(showToastify({message:'No se pudo guardar, intentelo más tarde', severity:'error'}));
-  //  }
+    if(resp.status === 201){
+      dispatch(setLoading());
+      router.push('/usuario/tarjetas');
+    }
+  } catch(err){
+    dispatch(setLoading());
+    dispatch(showToastify({message:'No se pudo guardar, intentelo más tarde', severity:'error'}));
+   }
   }
 
 
@@ -72,7 +71,8 @@ export const useAddPaymentMethods = () => {
 
   return {
     showErrorAddPayment,
-    values, errors, touched, handleBlur, handleChange, handleSubmit
+    values, errors, touched, handleBlur, handleChange, handleSubmit,
+    loading
   };
 };
 

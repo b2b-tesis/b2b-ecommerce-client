@@ -12,7 +12,7 @@ import FlexBox from "../../../common/components/flexbox/FlexBox";
 import DialogDeleteElement from "../../../common/components/dialogDeleteElement/DialogDeleteElement";
 import CustomerDashboardNavigation from "../../../common/components/layouts/user-dashboard/Navigations";
 import { useDeletePaymentCard } from "./hooks/useDeletePaymentCard";
-import { convertCard } from "../../../common/helpers/convertNumberCard";
+import { convertCard, getTypeCard } from "../../../common/helpers/convertNumberCard";
 import NoDataMessage from "../../../common/components/noData-message/NoDataMessage";
 import { useAddPaymentMethods } from "./hooks/useAddPaymentMethods";
 
@@ -60,7 +60,7 @@ const PaymentCardsView = ({paymentMethods, isFilled}) => {
               key={item.id}
             >
               <FlexBox alignItems="center" m={0.75}>
-                {/* <Card
+                <Card
                   sx={{
                     width: "42px",
                     height: "28px",
@@ -69,11 +69,11 @@ const PaymentCardsView = ({paymentMethods, isFilled}) => {
                   }}
                 >
                   <img
-                    src={`/assets/images/payment-methods/${item.payment_method}.svg`}
-                    alt={item.payment_method}
+                    src={`/assets/images/payment-methods/${getTypeCard(item.card_number)}.svg`}
+                    alt={getTypeCard(item.card_number)}
                     width="100%"
                   />
-                </Card> */}
+                </Card>
                 <H5 whiteSpace="pre" m={0.75}>
                   {item.name_on_card}
                 </H5>

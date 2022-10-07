@@ -45,6 +45,7 @@ const AddPaymentCardView = () => {
                       name="card_number"
                       label="Card Number"
                       fullWidth
+                      placeholder="Ejemplo: 4111111111111111"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.card_number || ""}
@@ -57,6 +58,7 @@ const AddPaymentCardView = () => {
                       name="name_on_card"
                       label="Name on Card"
                       fullWidth
+                      placeholder="Ejemplo: Pablo Perez"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.name_on_card || ""}
@@ -69,6 +71,7 @@ const AddPaymentCardView = () => {
                       name="exp_date"
                       label="Exp. Date"
                       fullWidth
+                      placeholder="Ejemplo: 09/25"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.exp_date || ""}
@@ -81,6 +84,7 @@ const AddPaymentCardView = () => {
                       name="cvc"
                       label="CVC"
                       fullWidth
+                      placeholder="Ejemplo: 123"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.cvc || ""}
@@ -91,8 +95,10 @@ const AddPaymentCardView = () => {
                 </Grid>
               </Box>
 
-              <Button type="submit" variant="contained" color="primary">
-                Guardar Cambios
+              <Button type="submit" variant="contained" color="primary" disabled={loading ? true : false}>
+              {
+                loading ? 'Cargando...' : ' Guardar Cambios'
+               }
               </Button>
             </form>
       </Card1>
