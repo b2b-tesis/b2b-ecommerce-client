@@ -2,20 +2,38 @@ import React, { Fragment } from "react";
 import Link from "next/link";
 import Person from "@mui/icons-material/Person";
 import { CameraAlt } from "@mui/icons-material";
-import { Avatar, Badge, Box, Button, Card, Grid, MenuItem } from "@mui/material";
+import { Avatar, Badge, Box, Button, Card,  Grid, MenuItem, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
 import CustomerDashboardLayout from "../../../common/components/layouts/user-dashboard";
 import UserDashboardHeader from "../../../common/components/layouts/user-dashboard/UserDashboardHeader";
 import CustomerDashboardNavigation from "../../../common/components/layouts/user-dashboard/Navigations";
-import { useEditProfile } from "./hooks/useEditProfile";
-import Toast from "../../../common/components/toast/Toast";
-import { getCategories } from "../../../common/helpers/getCategoryName";
+import { useEditFormProfile } from "./hooks/useEditFormProfile";
+import {useEditImagesProfile} from './hooks/useEditImagesProfile';
+import {getCategories, getCategoryName } from "../../../common/helpers/getCategoryName";
+import EyeToggleButton from "../../../common/components/buttons/EyeToggleButton";
+import FlexBox from "../../../common/components/flexbox/FlexBox";
+import BackDrop from "../../../common/components/backDrop/BackDrop";
 
 
-const EditProfileView = () => {
-  const {selectedAvatar, selectedBanner, handleSelectedFile, 
-    values, errors, touched, handleBlur, handleChange, handleSubmit} = useEditProfile();
+const EditProfileView = ({userData}) => {
+  const {banner, category_id, department, district, email, name, phone, picture, province, ruc, social_media, terms, description, password} = userData;
+
+  const {initialValues, values, errors, touched, handleBlur, handleChange, handleSubmit, passwordVisibility, togglePasswordVisibility, infoText, loading} = useEditFormProfile();
+  const {handleSelectedFile, loading2} = useEditImagesProfile();
+
+  initialValues.name = name;
+  initialValues.email = email;
+  initialValues.phone = phone;
+  initialValues.category_id = category_id;
+  initialValues.department = department;
+  initialValues.province = province;
+  initialValues.district = district;
+  initialValues.facebook = social_media.facebook;
+  initialValues.description = description;
+  initialValues.terms = terms;
+  initialValues.ruc = ruc;
+  initialValues.password = password;
 
   const UploadButton = ({ id, style = {} }) => {
     return (
@@ -45,7 +63,7 @@ const EditProfileView = () => {
           type="file"
           accept="image/png, image/jpeg"
           className="hidden"
-          onChange={(event) => handleSelectedFile(id, event.target.files)}
+          onChange={(event) => handleSelectedFile(id, event.target.files, values.ruc)}
           style={{
             display: "none",
           }}
@@ -55,8 +73,6 @@ const EditProfileView = () => {
   };
 
   return (
-    <>
-      <Toast bottom/>
      <CustomerDashboardLayout>
       <UserDashboardHeader
         icon={Person}
@@ -76,10 +92,25 @@ const EditProfileView = () => {
           </Link>
         }
       />
-
+      {
+        infoText.map((item, ind) => (
+          <FlexBox key={ind} justifyContent={"start"} sx={{paddingTop:1, paddingBottom:2}}>
+          <Typography
+            p="0.5rem 1rem"
+            textAlign="center"
+            borderRadius="300px"
+            color="white"
+            bgcolor="secondary.light"
+          >
+            {item}
+          </Typography>
+        </FlexBox>
+        ))
+      }
+    
       <Card
         sx={{
-          p: 4,
+          p: 4
         }}
       >
         <Box
@@ -88,11 +119,11 @@ const EditProfileView = () => {
           overflow="hidden"
           borderRadius="10px"
           position="relative"
-          style={{
-            background:`url${selectedBanner[0]}`
-          }}
+          // style={{
+          //   background:`url${selectedBanner[0]}`
+          // }}
         >
-          <img src={selectedBanner.length > 0 ? selectedBanner[0] : "/assets/images/banners/banner-10.png"} className='imgBanner'/>
+          <img src={banner ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${banner}` : '/assets/images/banners/banner-10.png'} className='imgBanner'/>
           <Box position="absolute" bottom={20} left={24}>
             <Badge
               overlap="circular"
@@ -110,7 +141,8 @@ const EditProfileView = () => {
               }
             >
               <Avatar
-                src={selectedAvatar.length > 0 ? selectedAvatar[0] : "/assets/images/faces/propic(9).png"}
+                // src={selectedAvatar.length > 0 ? selectedAvatar[0] : "/assets/images/faces/propic(9).png"}
+                src={picture ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${picture}` : '/assets/images/faces/propic(9).png'}
                 sx={{
                   width: 80,
                   height: 80,
@@ -152,9 +184,8 @@ const EditProfileView = () => {
                       size="medium"
                       name="ruc"
                       label="RUC"
-                      onBlur={handleBlur}
+                      value={ruc}
                       onChange={handleChange}
-                      value='23456789101'
                       type="number"
                     />
                   </Grid>
@@ -176,7 +207,7 @@ const EditProfileView = () => {
                   <Grid item md={6} xs={12}>
                     <TextField
                       fullWidth
-                      type="tel"
+                      type="number"
                       color="primary"
                       size="medium"
                       name="phone"
@@ -210,10 +241,10 @@ const EditProfileView = () => {
                       name="province"
                       label="Provincia"
                       onBlur={handleBlur}
-                      value={values.medium}
+                      value={values.province}
                       onChange={handleChange}
-                      error={!!touched.medium && !!errors.medium}
-                      helperText={touched.medium && errors.medium}
+                      error={!!touched.province && !!errors.province}
+                      helperText={touched.province && errors.province}
                     />
                   </Grid>
                   <Grid item md={6} xs={12}>
@@ -243,7 +274,7 @@ const EditProfileView = () => {
                       error={!!touched.category_id && !!errors.category_id}
                       helperText={touched.category_id && errors.category_id}
                     >
-                      <MenuItem value={0} hidden>Gaaaaaa</MenuItem>
+                      <MenuItem value={category_id} hidden>{getCategoryName(category_id)}</MenuItem>
                       {getCategories().map((category) => (
                         <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
                       ))}
@@ -261,27 +292,45 @@ const EditProfileView = () => {
                       onBlur={handleBlur}
                       value={values.facebook}
                       onChange={handleChange}
-                      error={!!touched.facebook && !!errors.facebook}
-                      helperText={touched.facebook && errors.facebook}
                     />
                   </Grid>
+
+
+                  <Grid  item md={6} xs={12}>
+                    <TextField
+                      fullWidth
+                      color="primary"
+                      size="medium"
+                      name="terms"
+                      label="Enlace al documento PDF de Términos de compra en la empresa"
+                      onBlur={handleBlur}
+                      value={values.terms}
+                      onChange={handleChange}
+                    />
+                  </Grid>
+
                   <Grid item md={6} xs={12}>
                     <TextField
                       fullWidth
                       color="primary"
                       size="medium"
-                      name="instagram"
-                      label="Enlace al Instagram de la Empresa"
+                      name="password"
+                      type={passwordVisibility ? "text" : "password"}
+                      label="Ingrese una contraseña para iniciar sesión"
                       onBlur={handleBlur}
-                      value={values.instagram}
+                      value={values.password}
                       onChange={handleChange}
-                      error={!!touched.instagram && !!errors.instagram}
-                      helperText={touched.instagram && errors.instagram}
+                      error={!!touched.password && !!errors.password}
+                      helperText={touched.password && errors.password}
+                      InputProps={{
+                        endAdornment: (
+                          <EyeToggleButton
+                            show={passwordVisibility}
+                            click={togglePasswordVisibility}
+                          />
+                        ),
+                      }}
                     />
-                  </Grid>
-
-                  <Grid item  xs={12}>
-                  
                   </Grid>
 
                   <Grid item xs={12}>
@@ -296,23 +345,24 @@ const EditProfileView = () => {
                       onBlur={handleBlur}
                       value={values.description}
                       onChange={handleChange}
-                      error={!!touched.description && !!errors.description}
-                      helperText={touched.description && errors.description}
                     />
                   </Grid>
                   
                 </Grid>
               </Box>
 
-              <Button type="submit" variant="contained" color="primary">
-                Guardar Cambios
+              <Button type="submit" variant="contained" color="primary"  disabled={loading ? true : false}>
+              {
+                loading ? 'Cargando...' : ' Guardar Cambios'
+               }
               </Button>
             </form>
       </Card>
   
+     <BackDrop loading2={loading2} message={'Estamos actualizando su imagen'}/>
 
     </CustomerDashboardLayout>
-    </>
+    
   );
 };
 

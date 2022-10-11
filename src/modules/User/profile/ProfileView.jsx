@@ -11,7 +11,7 @@ import { Small } from "../../../common/components/Typography";
 import { getCategoryName } from "../../../common/helpers/getCategoryName";
 
 const ProfileView = ({userData}) => {
-  const {banner, category_id, department, district, email, name, phone, picture, province, ruc, social_media, terms} = userData;
+  const {banner, category_id, department, district, email, name, phone, picture, province, ruc, social_media, terms, description} = userData;
 
   return (
     <>
@@ -41,14 +41,15 @@ const ProfileView = ({userData}) => {
           overflow="hidden"
           borderRadius="10px"
           position="relative"
-          style={{
-            background:
-              "url(/assets/images/banners/banner-10.png) center/cover",
-          }}
+          // style={{
+          //   background:
+          //     "url(/assets/images/banners/banner-10.png) center/cover",
+          // }}
         >
+           <img src={banner ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${banner}` : '/assets/images/banners/banner-10.png'} className='imgBanner'/>
           <Box position="absolute" bottom={20} left={24}>
               <Avatar
-                src="/assets/images/faces/propic(9).png"
+                src={picture ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${picture}` : '/assets/images/faces/propic(9).png'}
                 sx={{
                   width: 80,
                   height: 80,
@@ -144,8 +145,7 @@ const ProfileView = ({userData}) => {
           <Small color="grey.600" mb={0.5} textAlign="left">
             Descripción
           </Small>
-          {/* TODO: Cuando venga el campo description, si esta vacio entonces mostrar un texto que diga que no hay nada todavia, sino mostrar la description */}
-          <span>Descripcion por default</span>
+          <span>{!description ? 'Agregue una descripción en Editar Perfil' : description}</span>
         </FlexBox>
       </TableRow>
       
