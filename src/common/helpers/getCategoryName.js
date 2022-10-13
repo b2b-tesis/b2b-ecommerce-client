@@ -1,6 +1,6 @@
 export const getCategoryName = (idCategory) => {
   let categoryName = '';
-  switch (idCategory) {
+  switch (Number(idCategory)) {
     case 1: categoryName = 'Tecnología';
     break; 
     case 2: categoryName = 'Agricultura y Comida';

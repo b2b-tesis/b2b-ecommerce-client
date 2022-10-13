@@ -6,46 +6,36 @@ import CategoryView from "../../modules/Category/CategoryView";
 
 
 
-const CategoryPage = () => {
+const CategoryPage = ({id}) => {
   const theme = useTheme();
   
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
-      <SEO title="Categoría | " />
-      <CategoryView/>
+      <SEO title="Categoría" />
+      <CategoryView id={id}/>
     </ShopLayout>
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    
-//     const { query = '' } = params as { query: string };
+export const getServerSideProps = async ({params}) => {
+  
+  const {id = ''} = params;
 
-//     if ( query.length === 0 ) {
-//         return {
-//             redirect: {
-//                 destination: '/',
-//                 permanent: true
-//             }
-//         }
-//     }
+  if ( id.length === 0 ) {
+    return {
+        redirect: {
+            destination: '/',
+            permanent: true
+        }
+    }
+  }
 
-//     // y no hay productos
-//     let products = await dbProducts.getProductsByTerm( query );
-//     const foundProducts = products.length > 0;
-
-//     if ( !foundProducts ) {
-//         products = await dbProducts.getProductsByTerm('shirt');
-//     }
-
-//     return {
-//         props: {
-//             products,
-//             foundProducts,
-//             query
-//         }
-//     }
-// }
+  return {
+    props: {
+      id
+    }
+  }
+}
 
 
 export default CategoryPage;

@@ -100,6 +100,7 @@ export const useRegister = () => {
     password: "",
   re_password: "",
     agreement: false,
+    social_media:{}
   };
 
 

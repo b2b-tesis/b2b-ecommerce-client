@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getTokenB2B } from "../../../../common/helpers/getCookies";
 
 import { setLoading2 } from "../../../../common/state/loading/loadingSlice";
 import { showToastify } from "../../../../common/state/toast/toastSlice";
@@ -10,11 +10,16 @@ export const useEditImagesProfile = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const [selectedAvatar, setSelectedAvatar] = useState([]);
-  const [selectedBanner, setSelectedBanner] = useState([]);
   const {loading2} = useSelector((state) => (state.loading));
 
   const handleSelectedFile = async (id, selectedFiles, ruc) => {
+
+    let tokenb2b = getTokenB2B();
+    if(tokenb2b === ''){
+      const destination = `/login?p=/usuario/perfil/editar`;
+      router.replace(destination);
+      return
+    }
 
     if(selectedFiles[0].type === 'image/jpeg' || selectedFiles[0].type === 'image/png'){
 
@@ -31,7 +36,7 @@ export const useEditImagesProfile = () => {
           method: 'post',
           url: `${process.env.NEXT_PUBLIC_API_URL}/storage/user/picture/upload`,
           data: formData,
-          headers: {'Content-Type': 'multipart/form-data' }
+          headers: {'Content-Type': 'multipart/form-data', Authorization: `Bearer ${tokenb2b}` }
         });
         
         if(resp.status === 200){
@@ -59,7 +64,7 @@ export const useEditImagesProfile = () => {
             method: 'post',
             url: `${process.env.NEXT_PUBLIC_API_URL}/storage/user/banner/upload`,
             data: formData,
-            headers: {'Content-Type': 'multipart/form-data' }
+            headers: {'Content-Type': 'multipart/form-data', Authorization: `Bearer ${tokenb2b}` }
           });
           
           if(resp.status === 200){

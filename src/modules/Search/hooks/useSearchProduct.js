@@ -23,7 +23,6 @@ export const useSearchProduct = () => {
       dispatch(setLoading());
       const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/search?name=${searchTerm}&limit=6&page=${page}&sort=${sort}`)
       const {data} = resp.data;
-      // console.log(data);
       setSearchResult(data);
       setTotalPages(data?.total_page);
       dispatch(setLoading());

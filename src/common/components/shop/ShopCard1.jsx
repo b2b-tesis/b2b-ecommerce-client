@@ -18,29 +18,19 @@ const ContentWrapper = styled(Box)(({ theme, imgUrl }) => ({
     theme.palette.grey[900],
     0.8
   )}), 
-    url(${imgUrl || "/assets/images/banners/cycle.png"})`,
+    url(${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${imgUrl})`,
 })); // ================================================================
 
 // ================================================================
 const ShopCard1 = (props) => {
-  // props list
-  const { name, rating, address, phone, coverImgUrl, imgUrl, shopUrl } = props;
+  const { banner, picture, department, district, province, phone, name, ruc } = props;
   return (
     <Card>
-      <ContentWrapper imgUrl={coverImgUrl}>
+      <ContentWrapper imgUrl={banner}>
         <H3 fontWeight="600" mb={1}>
           {name}
         </H3>
 
-        <Rating
-          value={rating || 0}
-          color="warn"
-          size="small"
-          readOnly
-          sx={{
-            mb: "0.75rem",
-          }}
-        />
 
         <FlexBox mb={1} gap={1}>
           <Place
@@ -50,7 +40,7 @@ const ShopCard1 = (props) => {
               mt: "3px",
             }}
           />
-          <Span color="white">{address}</Span>
+          <Span color="white">{department} | {province} | {district}</Span>
         </FlexBox>
 
         <FlexBox alignItems="center" gap={1}>
@@ -66,7 +56,7 @@ const ShopCard1 = (props) => {
 
       <FlexBetween pl={3} pr={1}>
         <Avatar
-          src={imgUrl}
+          src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${picture}`}
           sx={{
             width: 64,
             height: 64,
@@ -75,7 +65,7 @@ const ShopCard1 = (props) => {
             borderColor: "grey.100",
           }}
         />
-        <Link href={shopUrl}>
+        <Link href={`/usuario/${ruc}`}>
           <a>
             <IconButton
               sx={{

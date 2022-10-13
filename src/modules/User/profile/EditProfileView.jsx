@@ -94,7 +94,7 @@ const EditProfileView = ({userData}) => {
       />
       {
         infoText.map((item, ind) => (
-          <FlexBox key={ind} justifyContent={"start"} sx={{paddingTop:1, paddingBottom:2}}>
+          <FlexBox key={ind} justifyContent={"center"} sx={{paddingTop:1, paddingBottom:2}}>
           <Typography
             p="0.5rem 1rem"
             textAlign="center"
