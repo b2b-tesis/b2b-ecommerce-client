@@ -24,19 +24,19 @@ const navbarNavigations = [
         child: [
           {
             title: "Ver productos",
-            url: "/orders/5452423",
+            url: "/usuario/productos",
           },
           {
             title: "Agregar producto",
-            url: "/orders",
+            url: "/usuario/productos/agregar",
           },
           {
             title: "Ver categoría de producto",
-            url: "/orders/5452423",
+            url: "/usuario/productos/categorias",
           },
           {
             title: "Agregar categoría de producto",
-            url: "/orders",
+            url: "/usuario/productos/categorias/agregar",
           },
         ],
       },
