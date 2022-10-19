@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Delete, Edit, Place } from "@mui/icons-material";
-import { Button, Card, IconButton, Stack, Table, TableBody, TableContainer, Typography } from "@mui/material";
+import { Button, Card, Stack, Table, TableBody, TableContainer, Typography } from "@mui/material";
+import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 
 import UserDashboardHeader from "../../../common/components/layouts/user-dashboard/UserDashboardHeader";
 import CustomerDashboardSalesLayout from "../../../common/components/layouts/user-dashboard/sales";
@@ -10,42 +10,12 @@ import TableHeader from "../../../common/components/data-table/TableHeader";
 import ProductRow from "../../../common/components/data-table/products/ProductRow";
 import useMuiTable from "../../../common/hooks/useMuiTable";
 import TablePagination from "../../../common/components/data-table/TablePagination";
+import { useListProducts } from "./hooks/useListProducts";
 
 
 const ProductsView = () => {
 
-  const tableHeading = [
-    {
-      id: "name",
-      label: "Name",
-      align: "left",
-    },
-    {
-      id: "category",
-      label: "Category",
-      align: "left",
-    },
-    {
-      id: "brand",
-      label: "Brand",
-      align: "left",
-    },
-    {
-      id: "price",
-      label: "Price",
-      align: "left",
-    },
-    {
-      id: "published",
-      label: "Published",
-      align: "left",
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-    },
-  ];
+  const {tableHeading} = useListProducts();
 
   const products = [
     {
@@ -156,14 +126,13 @@ const ProductsView = () => {
     <>
       <CustomerDashboardSalesLayout>
       <UserDashboardHeader
-        icon={Place}
+        icon={InventoryOutlinedIcon}
         title={'Mis Productos'}
         navigation={<CustomerDashboardNavigationSales />}
         button={
           <Link href={"/usuario/productos/agregar"} >
             <a>
               <Button
-                // onClick={}
                 color="primary"
                 sx={{
                   bgcolor: "primary.light",

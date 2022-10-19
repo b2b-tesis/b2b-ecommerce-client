@@ -3,7 +3,7 @@ import axios from "axios";
 
 import ShopLayout from "../../../common/components/layouts/ShopLayout";
 import SEO from '../../../common/components/seo/SEO';
-import CollectMethodView from "../../../modules/User/collect-method/CollectMethodView";
+import AddCategoryProductsView from "../../../modules/User/category-products/AddCategoryProductsView";
 
 
 const ProductsPage = () => {
@@ -11,10 +11,11 @@ const ProductsPage = () => {
   
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
-      <SEO title="Método de Cobro" />
-      <CollectMethodView/>
+      <SEO title="Agregar Categorias de Productos" />
+     <AddCategoryProductsView/>
     </ShopLayout>
   )
 }
+
 
 export default ProductsPage;

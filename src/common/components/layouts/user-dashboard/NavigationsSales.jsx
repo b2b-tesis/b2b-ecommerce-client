@@ -99,7 +99,7 @@ const linkList = [
         icon: InventoryOutlinedIcon
       },
       {
-        href: "/usuario/productos/categorias",
+        href: "/usuario/categorias-productos",
         title: "Categoría de Productos",
         icon: PostAddOutlinedIcon
       },

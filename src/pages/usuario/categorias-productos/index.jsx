@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/styles";
 import axios from "axios";
+import CategoryProductsView from "../../../modules/User/category-products/CategoryProductsView";
 
 import ShopLayout from "../../../common/components/layouts/ShopLayout";
 import SEO from '../../../common/components/seo/SEO';
-import CollectMethodView from "../../../modules/User/collect-method/CollectMethodView";
 
 
 const ProductsPage = () => {
@@ -11,10 +11,11 @@ const ProductsPage = () => {
   
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
-      <SEO title="Método de Cobro" />
-      <CollectMethodView/>
+      <SEO title="Categorias de Productos" />
+      <CategoryProductsView/>
     </ShopLayout>
   )
 }
+
 
 export default ProductsPage;

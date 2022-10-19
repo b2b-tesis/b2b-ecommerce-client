@@ -32,11 +32,11 @@ const navbarNavigations = [
           },
           {
             title: "Ver categoría de producto",
-            url: "/usuario/productos/categorias",
+            url: "/usuario/categorias-productos",
           },
           {
             title: "Agregar categoría de producto",
-            url: "/usuario/productos/categorias/agregar",
+            url: "/usuario/categorias-productos/agregar",
           },
         ],
       },
@@ -45,8 +45,8 @@ const navbarNavigations = [
         url: "/market-1",
       },
       {
-        title: "Medio para recibir pagos",
-        url: "/market-1",
+        title: "Método para recibir pagos",
+        url: "/usuario/recibir-pagos",
       },
       {
         title: "Órdenes de devolución o reembolso",

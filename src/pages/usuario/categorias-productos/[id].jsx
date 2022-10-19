@@ -3,18 +3,19 @@ import axios from "axios";
 
 import ShopLayout from "../../../common/components/layouts/ShopLayout";
 import SEO from '../../../common/components/seo/SEO';
-import CollectMethodView from "../../../modules/User/collect-method/CollectMethodView";
+import EditCategoryProductsView from "../../../modules/User/category-products/EditCategoryProductsView";
 
 
-const ProductsPage = () => {
+const AddAddressPage = () => {
   const theme = useTheme();
   
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
-      <SEO title="Método de Cobro" />
-      <CollectMethodView/>
+      <SEO title="Editar Categoria de Productos" />
+      <EditCategoryProductsView/>
     </ShopLayout>
   )
 }
 
-export default ProductsPage;
+
+export default AddAddressPage;
