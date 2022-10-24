@@ -1,7 +1,7 @@
 
 import { Box } from "@mui/material"
 import FlexRowCenter from "../common/components/flexbox/FlexRowCenter"
-import SEO from "../common/components/seo/Seo"
+import SEO from "../common/components/seo/SEO"
 import LoginView from "../modules/Login/LoginView"
 
 const LoginPage = () => {

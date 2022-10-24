@@ -2,7 +2,7 @@
 import { useTheme } from "@mui/styles";
 import { Box } from "@mui/material";
 
-import SEO from "../common/components/seo/Seo";
+import SEO from "../common/components/seo/SEO";
 import ShopLayout from "../common/components/layouts/ShopLayout";
 
 const HomePage = () => {

@@ -8,7 +8,7 @@ import { H6 } from "../../../../common/components/Typography";
 import FlexBox from "../../../../common/components/flexbox/FlexBox";
 import { CameraAlt } from "@mui/icons-material";
 
-const ProductForm = () => {
+const EditProductForm = () => {
   const { values, errors, touched, handleBlur, handleChange, handleSubmit, onSelectFile, selectedImage, onDragDropFiles, dropFiles} = useAddProduct();
   const [productAvailable, setProductAvailable] = useState(false);
   const [isUnlimited, setIsUnlimited] = useState(false);
@@ -120,9 +120,9 @@ const ProductForm = () => {
                 </FlexBox>
               </Grid>
 
-              
-                
-                 
+              {
+                productAvailable && (
+                 <>
                   <Grid item sm={isUnlimited ? 12 : 6} xs={12}>
                     <FlexBox flexDirection="row" alignItems="center" justifyContent="center" sx={{paddingTop:1}} >
                       <H6>Es ilimitado: {isUnlimited ? 'Sí' : 'No'}</H6>
@@ -157,9 +157,9 @@ const ProductForm = () => {
                       />
                     </Grid>
                   }
-                 
-                
-              
+                 </>
+                )
+              }
 
               <Grid item xs={12}>
                 <TextField
@@ -223,4 +223,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default EditProductForm;

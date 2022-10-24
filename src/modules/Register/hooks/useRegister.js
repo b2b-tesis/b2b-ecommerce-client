@@ -71,6 +71,7 @@ export const useRegister = () => {
       if(Object.keys(error).length === 0 ){
         const {token, user} = data.data;
         Cookies.set('tokenb2b', token );
+        Cookies.set('rucb2b', user.ruc);
         dispatch(setUser(user));
       }
 

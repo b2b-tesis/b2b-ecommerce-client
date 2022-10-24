@@ -1,8 +1,9 @@
 import { useTheme } from "@mui/styles";
-import CategoryProductsView from "../../../modules/User/category-products/CategoryProductsView";
+import axios from "axios";
 
 import ShopLayout from "../../../common/components/layouts/ShopLayout";
 import SEO from '../../../common/components/seo/SEO';
+import EditProductView from "../../../modules/User/products/EditProduct";
 
 
 const ProductsPage = () => {
@@ -10,11 +11,11 @@ const ProductsPage = () => {
   
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
-      <SEO title="Categorias de Productos" />
-      <CategoryProductsView/>
+      <SEO title="Editar Producto" />
+      <EditProductView/>
+      
     </ShopLayout>
   )
 }
-
 
 export default ProductsPage;

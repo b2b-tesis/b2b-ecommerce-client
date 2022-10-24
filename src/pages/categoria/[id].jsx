@@ -1,7 +1,7 @@
 import { useTheme } from "@mui/styles";
 
 import ShopLayout from '../../common/components/layouts/ShopLayout';
-import SEO from '../../common/components/seo/Seo';
+import SEO from '../../common/components/seo/SEO';
 import CategoryView from "../../modules/Category/CategoryView";
 
 

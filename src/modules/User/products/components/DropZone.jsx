@@ -5,15 +5,15 @@ import { Box, Button, Divider } from "@mui/material";
 import { H5, Small } from "../../../../common/components/Typography";
 
 
-const DropZone = ({ onChange, title, imageSize }) => {
+const DropZone = ({ onChange, dropFilesLength }) => {
   const onDrop = useCallback((acceptedFiles) => {
     if (onChange) onChange(acceptedFiles);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: true,
-    accept: ".jpeg,.jpg,.png",
-    maxFiles: 10,
+    accept: {'image/*': ['.jpeg', '.jpg', '.png']},
+    maxFiles: 3,
   });
   return (
     <Box
@@ -22,6 +22,7 @@ const DropZone = ({ onChange, title, imageSize }) => {
         md: 10,
         xs: 4,
       }}
+      height="100%"
       display="flex"
       minHeight="200px"
       alignItems="center"
@@ -31,7 +32,7 @@ const DropZone = ({ onChange, title, imageSize }) => {
       borderColor="grey.300"
       justifyContent="center"
       textAlign="center"
-      bgcolor={isDragActive ? "grey.200" : "grey.100"}
+      bgcolor={isDragActive ? "grey.400" : "grey.100"}
       sx={{
         transition: "all 250ms ease-in-out",
         outline: "none",
@@ -40,7 +41,7 @@ const DropZone = ({ onChange, title, imageSize }) => {
     >
       <input {...getInputProps()} />
       <H5 mb={1} color="grey.600">
-        {title || "Drag & drop product image here"}
+        {"Arrastra las 3 imágenes juntas"}
       </H5>
 
       <Divider
@@ -51,24 +52,24 @@ const DropZone = ({ onChange, title, imageSize }) => {
           },
         }}
       >
-        <Small color="text.disabled" px={1}>
-          OR
+        <Small  px={1}>
+          o también
         </Small>
       </Divider>
 
       <Button
         type="button"
         variant="outlined"
-        color="info"
+        color="primary"
         sx={{
           px: 4,
           my: 4,
         }}
       >
-        Select files
+        Seleccione 3 Imágenes
       </Button>
 
-      <Small color="grey.600">{imageSize || "Upload 280*280 image"}</Small>
+      <Small color="grey.600">{dropFilesLength} imágenes cargadas</Small>
     </Box>
   );
 };
