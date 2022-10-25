@@ -6,7 +6,7 @@ import SEO from '../../../common/components/seo/SEO';
 import EditProductView from "../../../modules/User/products/EditProduct";
 
 
-const ProductsPage = () => {
+const EditProductsPage = () => {
   const theme = useTheme();
   
   return (
@@ -18,4 +18,4 @@ const ProductsPage = () => {
   )
 }
 
-export default ProductsPage;
+export default EditProductsPage;

@@ -7,12 +7,13 @@ import CustomerDashboardSalesLayout from "../../../common/components/layouts/use
 import CustomerDashboardNavigationSales from "../../../common/components/layouts/user-dashboard/NavigationsSales";
 import FlexBox from "../../../common/components/flexbox/FlexBox";
 import Card1 from "../../../common/components/Card1";
+import { useEditCategoryProduct } from "./hooks/useEditCategoryProduct";
 
+const EditCategoryProductsView = ({categoryProduct}) => {
 
+  const {initialValues, values, errors, touched, handleBlur, handleChange, handleSubmit, loading} = useEditCategoryProduct();
 
-
-const EditCategoryProductsView = () => {
-
+  initialValues.name = categoryProduct.name;
 
   return (
     <>
@@ -25,7 +26,6 @@ const EditCategoryProductsView = () => {
           <Link href={"/usuario/categorias-productos"} >
             <a>
               <Button
-                // onClick={}
                 color="primary"
                 sx={{
                   bgcolor: "primary.light",
@@ -41,20 +41,20 @@ const EditCategoryProductsView = () => {
 
       <Card1>
 
-      <form >
+      <form onSubmit={handleSubmit}>
         <Box >
           <Grid container >
             <Grid item md={6} xs={12}>
               <TextField
                 name="name"
-                label="Seudónimo para la dirección"
-                placeholder="Ejemplo: Direccion Principal"
+                label="Nombre de la categoría de producto"
+                placeholder="Ejemplo: Periféricos"
                 fullWidth
-                // onBlur={handleBlur}
-                // onChange={handleChange}
-                // value={values.name || ""}
-                // error={!!touched.name && !!errors.name}
-                // helperText={touched.name && errors.name}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.name}
+                error={!!touched.name && !!errors.name}
+                helperText={touched.name && errors.name}
               />
             </Grid>
 
@@ -63,9 +63,11 @@ const EditCategoryProductsView = () => {
                 alignItems="center"
                 justifyContent="center"
               >
-                  <Button type="submit" variant="contained" color="primary">
-                  Guardar Cambios
-                  </Button>
+                   <Button type="submit" variant="contained" color="primary" disabled={loading ? true : false}>
+               {
+                loading ? 'Cargando...' : ' Guardar Cambios'
+               }
+              </Button>
               </FlexBox>
                
             </Grid>

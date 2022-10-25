@@ -6,8 +6,7 @@ import SEO from '../../../common/components/seo/SEO';
 import AddCategoryProductsView from "../../../modules/User/category-products/AddCategoryProductsView";
 
 
-const ProductsPage = () => {
-  const theme = useTheme();
+const AddCategoryProductsPage = useTheme();
   
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
@@ -18,4 +17,4 @@ const ProductsPage = () => {
 }
 
 
-export default ProductsPage;
+export default AddCategoryProductsPage;

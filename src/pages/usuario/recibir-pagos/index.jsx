@@ -6,7 +6,7 @@ import SEO from '../../../common/components/seo/SEO';
 import CollectMethodView from "../../../modules/User/collect-method/CollectMethodView";
 
 
-const ProductsPage = () => {
+const CollectPaymentPage = () => {
   const theme = useTheme();
   
   return (
@@ -17,4 +17,4 @@ const ProductsPage = () => {
   )
 }
 
-export default ProductsPage;
+export default CollectPaymentPage;

@@ -28,12 +28,11 @@ export const useListCategoryProducts = () => {
     }
     try{
       dispatch(setLoading());
-      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/product-category?ruc=${rucb2b}&limit=1&page=${page}`)
+      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/product-category?ruc=${rucb2b}&limit=5&page=${page}`)
       const {data} = resp.data;
       setCategoryProductsResult(data);
       setTotalPages(data?.total_page);
       dispatch(setLoading());
-      console.log(data);
     } catch(err){
       dispatch(setLoading());
       router.replace('/');

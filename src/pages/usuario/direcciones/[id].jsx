@@ -5,7 +5,7 @@ import ShopLayout from '../../../common/components/layouts/ShopLayout';
 import SEO from '../../../common/components/seo/SEO';
 import EditAddressesView from "../../../modules/User/addresses/EditAddressView";
 
-const AddAddressPage = ({address}) => {
+const EditAddressPage = ({address}) => {
   const theme = useTheme();
   
   return (
@@ -55,4 +55,4 @@ export const getServerSideProps = async ({params, req}) => {
   }
 }
 
-export default AddAddressPage;
+export default EditAddressPage;

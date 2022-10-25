@@ -12,12 +12,15 @@ import { RemoveRedEye, Edit } from "@mui/icons-material";
 import { useListCategoryProducts } from "./hooks/useListCategoryProducts";
 import NoDataMessage from "../../../common/components/noData-message/NoDataMessage";
 import Loading from "../../../common/components/loadingView/Loading";
+import { useAddCategoryProduct } from "./hooks/useAddCategoryProduct";
 
 
 const CategoryProductsView = () => {
 
   const {categoryProductsResult, totalPages, handleCurrentlyPage, page, totalLength, loading} = useListCategoryProducts();
-  
+  const {showErrorAddCategory} = useAddCategoryProduct();
+  let categoriesLength = categoryProductsResult.total_results;
+
   return (
     
     <>
@@ -27,10 +30,10 @@ const CategoryProductsView = () => {
         title={'Categoría de Productos'}
         navigation={<CustomerDashboardNavigationSales />}
         button={
-          <Link href={"/usuario/categorias-productos/agregar"} >
+            <Link href={categoriesLength === 15 ? {} : "/usuario/categorias-productos/agregar"} >
             <a>
               <Button
-                // onClick={}
+                onClick={(event) => categoriesLength === 15 && showErrorAddCategory(event)}
                 color="primary"
                 sx={{
                   bgcolor: "primary.light",
@@ -70,7 +73,10 @@ const CategoryProductsView = () => {
                       <Small color="grey.600" mb={0.5} textAlign="left">
                         Total de Productos en la Categoría
                       </Small>
-                      <span>{item.total_products}</span>
+                      {
+                        item.total_products === 1 ? <span>{item.total_products} producto</span>
+                        : <span>{item.total_products} productos</span>
+                      }
                     </FlexBox>
               
                     <FlexBox flexDirection="column" p={1} alignItems="center">
@@ -106,7 +112,7 @@ const CategoryProductsView = () => {
          </>
     
         
-      ) : (<NoDataMessage message={'¡Todavía no tienes categorías guardadas para tus productos !'}/>)
+      ) : (totalLength === 0 && <NoDataMessage message={'¡Todavía no tienes categorías guardadas para tus productos !'}/>)
       
       )
     }

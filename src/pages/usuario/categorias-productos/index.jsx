@@ -5,7 +5,7 @@ import ShopLayout from "../../../common/components/layouts/ShopLayout";
 import SEO from '../../../common/components/seo/SEO';
 
 
-const ProductsPage = () => {
+const CategoryProductsPage = () => {
   const theme = useTheme();
   
   return (
@@ -17,4 +17,4 @@ const ProductsPage = () => {
 }
 
 
-export default ProductsPage;
+export default CategoryProductsPage;

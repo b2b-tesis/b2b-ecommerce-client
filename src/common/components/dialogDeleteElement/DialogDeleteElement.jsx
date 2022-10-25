@@ -1,8 +1,8 @@
-import {Box, CircularProgress, Dialog, DialogContent, Divider, Grid, IconButton, styled} from "@mui/material";
+import {Box, Dialog, DialogContent, Divider, Grid, styled} from "@mui/material";
 import { useSelector } from "react-redux";
 import BazaarButton from "../BazaarButton";
 import FlexBox from "../flexbox/FlexBox";
-import { H2, H3, Paragraph } from "../Typography";
+import { H2, Paragraph } from "../Typography";
 
 
 const ContentWrapper = styled(Box)(({ theme }) => ({
