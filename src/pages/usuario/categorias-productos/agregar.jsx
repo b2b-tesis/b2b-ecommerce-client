@@ -1,13 +1,13 @@
 import { useTheme } from "@mui/styles";
-import axios from "axios";
 
 import ShopLayout from "../../../common/components/layouts/ShopLayout";
 import SEO from '../../../common/components/seo/SEO';
 import AddCategoryProductsView from "../../../modules/User/category-products/AddCategoryProductsView";
 
 
-const AddCategoryProductsPage = useTheme();
-  
+const AddCategoryProductsPage = () => {
+
+    const theme = useTheme();
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
       <SEO title="Agregar Categorias de Productos" />
@@ -15,6 +15,5 @@ const AddCategoryProductsPage = useTheme();
     </ShopLayout>
   )
 }
-
 
 export default AddCategoryProductsPage;

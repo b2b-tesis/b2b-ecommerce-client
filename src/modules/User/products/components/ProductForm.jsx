@@ -8,10 +8,9 @@ import { H6 } from "../../../../common/components/Typography";
 import FlexBox from "../../../../common/components/flexbox/FlexBox";
 import { CameraAlt } from "@mui/icons-material";
 
-const ProductForm = () => {
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, onSelectFile, selectedImage, onDragDropFiles, dropFiles} = useAddProduct();
-  const [productAvailable, setProductAvailable] = useState(false);
-  const [isUnlimited, setIsUnlimited] = useState(false);
+const ProductForm = ({categoryProducts}) => {
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit, onSelectFile, selectedImage, onDragDropFiles, dropFiles,
+    productAvailable, setProductAvailable, isUnlimited, setIsUnlimited, loading} = useAddProduct();
 
   const UploadButton = ({ id, style = {} }) => {
     return (
@@ -79,17 +78,19 @@ const ProductForm = () => {
                   fullWidth
                   color="primary"
                   size="medium"
-                  name="category"
+                  name="product_category_id"
                   onBlur={handleBlur}
                   placeholder="Categoría"
                   onChange={handleChange}
-                  value={values.category}
+                  value={values.product_category_id}
                   label="Selecciona una Categoría para tu producto"
-                  error={!!touched.category && !!errors.category}
-                  helperText={touched.category && errors.category}
+                  error={!!touched.product_category_id && !!errors.product_category_id}
+                  helperText={touched.product_category_id && errors.product_category_id}
                 >
-                  <MenuItem value="electronics">Electronics</MenuItem>
-                  <MenuItem value="fashion">Fashion</MenuItem>
+                  <MenuItem value={0} hidden>Selecciona una categoría</MenuItem>
+                  {categoryProducts?.map((category) => (
+                    <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+                  ))}
                 </TextField>
               </Grid>
 
@@ -97,10 +98,10 @@ const ProductForm = () => {
                 <TextField
                   fullWidth
                   name="price"
-                  label="Precio Unitario del Producto"
+                  label="Precio Unitario Exacto del Producto"
                   color="primary"
                   size="medium"
-                  placeholder="Precio Unitario del Producto"
+                  placeholder="Ejemplo: 20.00"
                   value={values.price}
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -115,12 +116,10 @@ const ProductForm = () => {
                     <BazaarSwitch
                       color="primary"
                       checked={productAvailable}
-                      onChange={() => {setProductAvailable((state) => !state); setIsUnlimited(false)}}
+                      onChange={() => setProductAvailable((state) => !state)}
                     />
                 </FlexBox>
               </Grid>
-
-              
                 
                  
                   <Grid item sm={isUnlimited ? 12 : 6} xs={12}>
@@ -166,7 +165,7 @@ const ProductForm = () => {
                   rows={6}
                   multiline
                   fullWidth
-                  color="info"
+                  color="primary"
                   size="medium"
                   name="description"
                   label="Descripción"
@@ -207,15 +206,16 @@ const ProductForm = () => {
               <Grid item xs={12} sm={6}>
                 <FlexBox flexDirection="column" alignItems="center" height="100%">
                   <H6 sx={{paddingBottom:3}}>3 Imágenes Secundarias</H6>
-                  {/* <DropZone onChange={(files) => console.log(files)} /> */}
                   <DropZone onChange={(files) => onDragDropFiles(files)} dropFilesLength={dropFiles.length}/>
                  </FlexBox>
               </Grid>
 
               <Grid item sm={6} xs={12}>
-                <Button variant="contained" color="primary" type="submit">
-                  Guardar Producto
-                </Button>
+              <Button type="submit" variant="contained" color="primary"  disabled={loading ? true : false}>
+              {
+                loading ? 'Cargando...' : ' Guardar Cambios'
+               }
+              </Button>
               </Grid>
             </Grid>
           </form>

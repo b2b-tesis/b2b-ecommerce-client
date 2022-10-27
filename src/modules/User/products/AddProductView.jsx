@@ -7,7 +7,7 @@ import CustomerDashboardSalesLayout from "../../../common/components/layouts/use
 import CustomerDashboardNavigationSales from "../../../common/components/layouts/user-dashboard/NavigationsSales";
 import ProductForm from "./components/ProductForm";
 
-const AddProductView = () => {
+const AddProductView = ({categoryProducts}) => {
 
   return (
     
@@ -21,7 +21,6 @@ const AddProductView = () => {
           <Link href={"/usuario/productos"} >
             <a>
               <Button
-                // onClick={}
                 color="primary"
                 sx={{
                   bgcolor: "primary.light",
@@ -35,7 +34,7 @@ const AddProductView = () => {
         }
       />
 
-      <ProductForm/>
+      <ProductForm categoryProducts={categoryProducts}/>
 
 
 
