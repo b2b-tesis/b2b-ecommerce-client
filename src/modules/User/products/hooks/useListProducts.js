@@ -54,12 +54,9 @@ export const useListProducts = () => {
     const config = {
       headers: { Authorization: `Bearer ${tokenb2b}` }
     };
-
-      dispatch(setLoading());
-      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/users?limit=5&page=${page}`, config)
+      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/users?limit=10&page=${page}`, config)
       const {data} = resp.data;
       setproductsResult(data);
-      console.log("🚀 ~ data", data)
       setTotalPages(data?.total_page);
       dispatch(setLoading());
     } catch(err){
@@ -76,7 +73,7 @@ export const useListProducts = () => {
 
   useEffect(() => {
     getProducts();
-  },[])
+  },[page])
 
 
   return {

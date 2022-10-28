@@ -66,7 +66,7 @@ const ProductsView = () => {
                 hideSelectBtn
                 orderBy={orderBy}
                 heading={tableHeading}
-                rowCount={productsResult?.results.length}
+                rowCount={productsResult?.results?.length}
                 numSelected={selected.length}
                 onRequestSort={handleRequestSort}
               />
@@ -82,8 +82,11 @@ const ProductsView = () => {
 
         <Stack alignItems="center" my={4}>
           <TablePagination
-            onChange={handleChangePage}
-            count={10}
+            count={totalPages}
+            onChange={(e) => handleCurrentlyPage(e.target.textContent)}
+            page={page} 
+            hidePrevButton
+            hideNextButton
           />
         </Stack>
       </Card>

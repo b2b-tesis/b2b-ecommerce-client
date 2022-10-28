@@ -104,14 +104,14 @@ const ProductCard1 = ({
         <Link href={`/product/${id}`}>
           <a>
             <LazyImage
-              src={picture}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`}
               width={0}
               height={0}
               layout="responsive"
               alt={'Producto'}
               placeholder="blur"
               
-              blurDataURL={picture}
+              blurDataURL={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`}
             />
           </a>
         </Link>

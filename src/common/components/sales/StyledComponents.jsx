@@ -33,7 +33,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
     fontSize: 19,
   },
   ":hover": {
-    color: theme.palette.info.main,
+    color: theme.palette.primary.main,
   },
 }));
 const StatusWrapper = styled(Box)(({ theme, status }) => {
