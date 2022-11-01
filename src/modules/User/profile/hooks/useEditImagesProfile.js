@@ -41,7 +41,7 @@ export const useEditImagesProfile = () => {
         
         if(resp.status === 200){
           dispatch(setLoading2());
-          router.push('/usuario/perfil/editar');
+          router.reload();
         }
        } catch(err){
         dispatch(setLoading2());
@@ -69,7 +69,7 @@ export const useEditImagesProfile = () => {
           
           if(resp.status === 200){
             dispatch(setLoading2());
-            router.push('/usuario/perfil/editar');
+            router.reload();
           }
          } catch(err){
           dispatch(setLoading2());

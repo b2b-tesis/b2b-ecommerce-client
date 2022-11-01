@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { useRouter } from "next/router";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, RemoveRedEye } from "@mui/icons-material";
 import { Avatar, Box } from "@mui/material";
 
 import FlexBox from "../../flexbox/FlexBox";
-import { Paragraph, Small } from "../../Typography";
+import { Paragraph } from "../../Typography";
 
 import {CategoryWrapper, StyledIconButton, StyledTableCell, StyledTableRow} from "../../sales/StyledComponents"; 
 import ModalViewImages from "../../../../modules/User/products/components/ModalViewImages";
@@ -34,7 +34,7 @@ const ProductRow = ({ product }) => {
               borderRadius: "8px",
               cursor:'pointer'
             }}
-            onClick={toggleModal}
+            // onClick={toggleModal}
           />
           <Box>
             <Paragraph>{name}</Paragraph>
@@ -56,9 +56,14 @@ const ProductRow = ({ product }) => {
           <Edit />
         </StyledIconButton>
 
-        <StyledIconButton>
-          <Delete onClick={() => {toggleDialog(); setIdToDelete(id)}} />
+        <StyledIconButton  onClick={() => {toggleDialog(); setIdToDelete(id)}}>
+          <Delete/>
         </StyledIconButton>
+
+        <StyledIconButton onClick={toggleModal}>
+        <RemoveRedEye/>
+        </StyledIconButton>
+
       </StyledTableCell>
     </StyledTableRow>
 

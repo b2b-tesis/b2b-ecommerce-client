@@ -22,7 +22,6 @@ const CategoryView = ({id}) => {
     setPage(1);
   },[id])
 
-  // console.log(getCategoryName(id));
   return (
     <>
      <Container

@@ -11,19 +11,19 @@ import ProductRow from "../../../common/components/data-table/products/ProductRo
 import useMuiTable from "../../../common/hooks/useMuiTable";
 import TablePagination from "../../../common/components/data-table/TablePagination";
 import { useListProducts } from "./hooks/useListProducts";
+import Loading from "../../../common/components/loadingView/Loading";
+
 
 
 const ProductsView = () => {
 
-  const {tableHeading, productsResult, totalPages, handleCurrentlyPage, page, totalLength, loading} = useListProducts();
+  const {tableHeading, productsResult, totalPages, handleCurrentlyPage, page, totalLength, loading3} = useListProducts();
   
   const {
     order,
     orderBy,
     selected,
-    rowsPerPage,
     filteredList,
-    handleChangePage,
     handleRequestSort,
   } = useMuiTable({
     listData: productsResult?.results,
@@ -53,43 +53,51 @@ const ProductsView = () => {
         }
       />
 
+{loading3 ?(
+  <Loading/>
+      
+) :(
+  totalLength >= 1 ? 
+  (
     <Card>
-        <Scrollbar>
-          <TableContainer
-            sx={{
-              minWidth: 900,
-            }}
-          >
-            <Table>
-              <TableHeader
-                order={order}
-                hideSelectBtn
-                orderBy={orderBy}
-                heading={tableHeading}
-                rowCount={productsResult?.results?.length}
-                numSelected={selected.length}
-                onRequestSort={handleRequestSort}
-              />
+      <Scrollbar>
+        <TableContainer
+          sx={{
+            minWidth: 900,
+          }}
+        >
+          <Table>
+            <TableHeader
+              order={order}
+              hideSelectBtn
+              orderBy={orderBy}
+              heading={tableHeading}
+              rowCount={productsResult?.results?.length}
+              numSelected={selected.length}
+              onRequestSort={handleRequestSort}
+            />
 
-              <TableBody>
-                {filteredList.map((product, index) => (
-                  <ProductRow product={product} key={index} />
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Scrollbar>
+            <TableBody>
+              {filteredList.map((product, index) => (
+                <ProductRow product={product} key={index} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Scrollbar>
 
-        <Stack alignItems="center" my={4}>
-          <TablePagination
-            count={totalPages}
-            onChange={(e) => handleCurrentlyPage(e.target.textContent)}
-            page={page} 
-            hidePrevButton
-            hideNextButton
-          />
-        </Stack>
-      </Card>
+      <Stack alignItems="center" my={4}>
+        <TablePagination
+          count={totalPages}
+          onChange={(e) => handleCurrentlyPage(e.target.textContent)}
+          page={page} 
+          hidePrevButton
+          hideNextButton
+        />
+      </Stack>
+    </Card>
+  ) : (null)
+)}
 
 
     </CustomerDashboardSalesLayout>

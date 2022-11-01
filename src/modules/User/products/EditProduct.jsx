@@ -7,8 +7,7 @@ import CustomerDashboardSalesLayout from "../../../common/components/layouts/use
 import CustomerDashboardNavigationSales from "../../../common/components/layouts/user-dashboard/NavigationsSales";
 import EditProductForm from "./components/EditProductForm";
 
-const EditProductView = () => {
-
+const EditProductView = ({product, categoryProducts}) => {
   return (
     
     <>
@@ -34,7 +33,7 @@ const EditProductView = () => {
         }
       />
 
-      <EditProductForm/>
+      <EditProductForm product={product} categoryProducts={categoryProducts}/>
 
 
 

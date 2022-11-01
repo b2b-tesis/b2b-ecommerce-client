@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Box, Button, Grid, IconButton, Pagination, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import PointOfSaleOutlinedIcon from '@mui/icons-material/PointOfSaleOutlined';
 
 import UserDashboardHeader from "../../../common/components/layouts/user-dashboard/UserDashboardHeader";
@@ -8,25 +8,21 @@ import CustomerDashboardNavigationSales from "../../../common/components/layouts
 import FlexBox from "../../../common/components/flexbox/FlexBox";
 import { Small } from "../../../common/components/Typography";
 import TableRow from "../../../common/components/TableRow";
-import { RemoveRedEye, Edit } from "@mui/icons-material";
 
 
-const CollectMethodView = () => {
-  
-  
+const CollectMethodView = ({userData}) => {
   return (
     
     <>
       <CustomerDashboardSalesLayout>
       <UserDashboardHeader
         icon={PointOfSaleOutlinedIcon}
-        title={'Categoría de Productos'}
+        title={'Método para Recibir Pagos'}
         navigation={<CustomerDashboardNavigationSales />}
         button={
           <Link href={"/usuario/productos"} >
             <a>
               <Button
-                // onClick={}
                 color="primary"
                 sx={{
                   bgcolor: "primary.light",
@@ -57,14 +53,14 @@ const CollectMethodView = () => {
         <Small color="grey.600" mb={0.5} textAlign="left">
           LLave Pública
         </Small>
-        <span>asdasdsad</span>
+        <span>{userData.public_key}</span>
       </FlexBox>
 
       <FlexBox flexDirection="column" p={1}>
         <Small color="grey.600" mb={0.5} textAlign="left">
           LLave Privada
         </Small>
-        <span>asdasdsad</span>
+        <span>{userData.private_key}</span>
       </FlexBox>
 
 

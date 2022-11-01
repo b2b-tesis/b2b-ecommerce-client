@@ -17,7 +17,7 @@ export const useDeleteProduct = () => {
     let idElement = idToDelete;
     let tokenb2b = getTokenB2B();
     if(tokenb2b === ''){
-      const destination = '/login?p=/usuario/direcciones';
+      const destination = '/login?p=/usuario/productos';
       router.replace(destination);
       return
     }
@@ -33,7 +33,6 @@ export const useDeleteProduct = () => {
       router.reload();
     }
   } catch(err){
-    console.log("🚀 ~ err", err)
     dispatch(setLoading());
     router.reload();
    }

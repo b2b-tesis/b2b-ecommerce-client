@@ -3,7 +3,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-import { setLoading } from "../../../../common/state/loading/loadingSlice";
+import { setLoading, setLoading3 } from "../../../../common/state/loading/loadingSlice";
 import { getTokenB2B } from "../../../../common/helpers/getCookies";
 
 export const useListProducts = () => {
@@ -26,7 +26,7 @@ export const useListProducts = () => {
     },
     {
       id: "action",
-      label: "Action",
+      label: "Acción",
       align: "center",
     },
   ];
@@ -38,7 +38,7 @@ export const useListProducts = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const {loading} = useSelector((state) => (state.loading))
+  const {loading3} = useSelector((state) => (state.loading))
   let totalLength = productsResult.total_results;
 
   const getProducts = async () => {
@@ -50,7 +50,7 @@ export const useListProducts = () => {
       return
     }
    try{
-    dispatch(setLoading());
+    dispatch(setLoading3());
     const config = {
       headers: { Authorization: `Bearer ${tokenb2b}` }
     };
@@ -58,9 +58,9 @@ export const useListProducts = () => {
       const {data} = resp.data;
       setproductsResult(data);
       setTotalPages(data?.total_page);
-      dispatch(setLoading());
+      dispatch(setLoading3());
     } catch(err){
-      dispatch(setLoading());
+      dispatch(setLoading3());
       router.replace('/');
     }
   }
@@ -83,7 +83,7 @@ export const useListProducts = () => {
     handleCurrentlyPage,
     page,
     totalLength,
-    loading
+    loading3
   };
 };
 
