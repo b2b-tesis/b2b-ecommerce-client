@@ -2,6 +2,7 @@ import { useTheme } from "@mui/styles";
 
 import ShopLayout from '../../common/components/layouts/ShopLayout';
 import SEO from '../../common/components/seo/SEO';
+import ProfileRucView from "../../modules/User/profile-ruc/ProfileRucView";
 
 
 const UserPage = () => {
@@ -9,9 +10,8 @@ const UserPage = () => {
   
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
-      <SEO title="Búsqueda" />
-      {/* <SearchView searchTerm={query}/> */}
-      <h1>USer </h1>
+      <SEO title="Ver Empresa" />
+      <ProfileRucView/>
     </ShopLayout>
   )
 }

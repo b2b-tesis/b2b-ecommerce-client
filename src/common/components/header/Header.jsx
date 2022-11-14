@@ -20,6 +20,7 @@ import MobileMenu from "../navbar/MobileMenu";
 import SearchBox from "../search-box/SearchBox"; // styled component
 import { layoutConstant } from "../../constants/sizeConstants";
 import { useAppContext } from "../../contexts/AppContext";
+import { useRouter } from "next/router";
 
 export const HeaderWrapper = styled(Box)(({ theme }) => ({
   zIndex: 3,
@@ -41,6 +42,8 @@ const Header = ({ isFixed, className }) => {
   const downMd = useMediaQuery(theme.breakpoints.down(1150));
 
   const toggleDialog = () => setDialogOpen(!dialogOpen);
+
+  const router = useRouter();
 
 
   return (
@@ -97,7 +100,7 @@ const Header = ({ isFixed, className }) => {
           }}
         >
 
-          <Badge badgeContent={1} color="primary">
+          <Badge badgeContent={1} color="primary" onClick={() => router.push('/carrito')}>
             <Box
               ml={2.5}
               p={1.25}
