@@ -47,7 +47,7 @@ const list = [
   {
     title: "Carrito de compras",
     icon: ShoppingCartOutlinedIcon,
-    href: "/cart",
+    href: "/carrito",
   },
   {
     title: "Notificaciones",

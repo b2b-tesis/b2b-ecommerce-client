@@ -4,51 +4,25 @@ import { Grid, Pagination } from "@mui/material";
 import FlexBetween from "../../../../common/components/flexbox/FlexBetween";
 import { Span } from "../../../../common/components/Typography";
 import ProductCard from "./ProductCard";
+import { useFilterProducts } from "../hooks/useFilterProducts";
 
 
 const ProductCardList = () => {
-  const productDatabase = [{
-    price: 250,
-    title: "Shahi 21kt Gold Necklace Set",
-    imgUrl:
-      "/assets/images/products/Fashion/Jewellery/20.Shahi21ktGoldNecklaceSet.png",
-    category: "fashion",
-    subcategory: "jewellery",
-    id: "7043585830841899",
-  },
-  {
-    price: 250,
-    title: "Feathers and Beads Bohemian Necklace",
-    imgUrl:
-      "/assets/images/products/Fashion/Jewellery/21.FeathersandBeadsBohemianNecklace.png",
-    category: "fashion",
-    subcategory: "jewellery",
-    id: "6501489081180665",
-  },
-  {
-    price: 250,
-    title: "Red Peacock Tail Earrings",
-    imgUrl:
-      "/assets/images/products/Fashion/Jewellery/22.RedPeacockTailEarrings.png",
-    category: "fashion",
-    subcategory: "jewellery",
-    id: "20976592953185347",
-  },]
+
+  const { productResult, totalPages, handleCurrentlyPage, page, totalLength} = useFilterProducts();
   return (
     <Fragment>
       <Grid container spacing={3}>
-        {productDatabase?.map((item) => (
-          <Grid item lg={4} sm={6} xs={12} key={item.id}>
-            <ProductCard {...item} />
+        {productResult?.results?.map((product) => (
+          <Grid item lg={4} sm={6} xs={12} key={product.id}>
+            <ProductCard {...product} />
           </Grid>
         ))}
       </Grid>
 
       <FlexBetween flexWrap="wrap" mt={4}>
-        {
-          <Span color="grey.600">Mostrando 10 Resultados</Span>
-        }
-        <Pagination count={10} variant="outlined" color="primary" hidePrevButton hideNextButton/>
+          <Span color="grey.600">Mostrando {productResult?.results?.length} de {totalLength} Resultados</Span>
+        <Pagination count={totalPages} variant="outlined" color="primary" onChange={(e) => handleCurrentlyPage(e.target.textContent)} page={page} hidePrevButton hideNextButton/>
       </FlexBetween>
     </Fragment>
   );

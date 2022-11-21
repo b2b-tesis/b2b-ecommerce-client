@@ -1,12 +1,14 @@
-import {Box, Button, Card, Checkbox, Divider, FormControlLabel, Rating, TextField} from "@mui/material";
-import BazaarButton from "../../../../common/components/BazaarButton";
+import {Card, Checkbox, Divider, FormControlLabel, Rating, TextField} from "@mui/material";
 
-// import { H5, H6, Paragraph, Span } from "components/Typography";
+import BazaarButton from "../../../../common/components/BazaarButton";
 import FlexBetween from "../../../../common/components/flexbox/FlexBetween";
 import FlexBox from "../../../../common/components/flexbox/FlexBox";
 import { H5, H6, Span } from "../../../../common/components/Typography";
+import { useFilterProducts } from "../hooks/useFilterProducts";
 
-const ProductFilterCard = () => {
+const ProductFilterCard = ({productCategories}) => {
+  
+    const {filterByCategoryProduct, filterByStock, filterByRate, minPrice, maxPrice, setMinPrice, setMaxPrice, filterPriceRange, getProducts} = useFilterProducts();
   return (
     <Card
       sx={{
@@ -15,15 +17,15 @@ const ProductFilterCard = () => {
       }}
       elevation={1}
     >
-      <H6 mb={1.25}>Categories</H6>
-      {productCategory.map((item) => (
+      <H6 mb={1.25}>Categorías</H6>
+      {productCategories?.map((category, index) => (
         <FormControlLabel
-          key={item}
+          key={index}
           sx={{
             display: "flex",
           }}
-          label={<Span color="primary">{item}</Span>}
-          control={<Checkbox size="small" color="primary" />}
+          label={<Span color="primary">{category.name}</Span>}
+          control={<Checkbox size="small" color="primary" value={category.id} onChange={(e) => filterByCategoryProduct(e)}/>}
         />
       ))}
 
@@ -36,17 +38,17 @@ const ProductFilterCard = () => {
 
       <FlexBox justifyContent="space-between" alignItems="center">
         <H6 >Rango de precio</H6>
-        <BazaarButton size="small" color="primary" variant="contained">
+        <BazaarButton size="small" color="primary" variant="contained" onClick={getProducts}>
           Buscar
         </BazaarButton>
       </FlexBox>
 
       <FlexBetween sx={{paddingTop:3}}>
-        <TextField placeholder="0" type="number" size="small" fullWidth />
+        <TextField placeholder="0" type="number" size="small" fullWidth name="minPrice" value={minPrice} onChange={(e) => setMinPrice(e.target.value)}/>
         <H5 color="grey.600" px={1}>
           -
         </H5>
-        <TextField placeholder="250" type="number" size="small" fullWidth />
+        <TextField placeholder="5000" type="number" size="small" fullWidth name="maxPrice" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}/>
       </FlexBetween>
 
       <Divider
@@ -56,14 +58,14 @@ const ProductFilterCard = () => {
       />
 
     <H6 mb={2}>Por stock</H6>
-      {stockOptions.map((item) => (
+      {stockOptions.map((item, index) => (
         <FormControlLabel
-          key={item}
+          key={index}
           sx={{
             display: "flex",
           }}
           label={<Span color="primary">{item}</Span>}
-          control={<Checkbox size="small" color="primary" />}
+          control={<Checkbox size="small" color="primary" value={item} onChange={(e) => filterByStock(e)}/>}
         />
       ))}
 
@@ -74,14 +76,14 @@ const ProductFilterCard = () => {
       />
 
       <H6 mb={2}>Por puntuación</H6>
-      {[5, 4, 3, 2, 1].map((item) => (
+      {ratedOptions.map((item, index) => (
         <FormControlLabel
-          control={<Checkbox size="small" color="primary" />}
-          label={<Rating size="small" value={item} color="warn" readOnly />}
+          control={<Checkbox size="small" color="primary" value={item} onChange={(e) => filterByRate(e)}/>}
+          label={<Rating size="small"  color="warn" readOnly value={item}/>}
           sx={{
             display: "flex",
           }}
-          key={item}
+          key={index}
         />
       ))}
 
@@ -95,7 +97,7 @@ const ProductFilterCard = () => {
   );
 };
 
-const productCategory = ["Laptops", "Teclados", "Mouse", "Monitores", "Alfombrillas", "Laptops", "Teclados", "Mouse", "Monitores", "Alfombrillas", "Laptops", "Teclados", "Mouse", "Monitores", "Alfombrillas"];
 const stockOptions = ["Limitado", "Ilimitado"];
+const ratedOptions = [1,2,3,4,5]
 
 export default ProductFilterCard;

@@ -1,13 +1,9 @@
-import { Fragment, useCallback, useState } from "react";
 import Link from "next/link";
-import { Add, Remove, RemoveRedEye } from "@mui/icons-material";
-import { Box, Button, Chip, IconButton, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 
 import BazaarCard from "../../../../common/components/BazaarCard";
 import LazyImage from "../../../../common/components/LazyImage";
-// import ProductViewDialog from "../ProductViewDialog";
-import { H3, Span } from "../../../../common/components/Typography";
-// import { useAppContext } from "../../../contexts/AppContext";
+import { H3 } from "../../../../common/components/Typography";
 import  FlexBox  from "../../../../common/components/flexbox/FlexBox";
 
 const StyledBazaarCard = styled(BazaarCard)(() => ({
@@ -34,27 +30,6 @@ const ImageWrapper = styled(Box)(({ theme }) => ({
     display: "block",
   },
 }));
-const StyledChip = styled(Chip)(() => ({
-  zIndex: 1,
-  top: "10px",
-  left: "10px",
-  paddingLeft: 3,
-  paddingRight: 3,
-  fontWeight: 600,
-  fontSize: "10px",
-  position: "absolute",
-}));
-const HoverIconWrapper = styled(Box)(({ theme }) => ({
-  zIndex: 2,
-  top: "7px",
-  opacity: 0,
-  right: "15px",
-  display: "flex",
-  cursor: "pointer",
-  position: "absolute",
-  flexDirection: "column",
-  transition: "all 0.3s ease-in-out",
-}));
 const ContentWrapper = styled(Box)(() => ({
   padding: "1rem",
   "& .title, & .categories": {
@@ -62,74 +37,27 @@ const ContentWrapper = styled(Box)(() => ({
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
   },
-})); // ========================================================
+}));
 
-// ========================================================
-const ProductCard = ({
-  id,
-  // title,
-  // price,
-  // imgUrl,
-  hoverEffect,
-  // showProductSize,
-    picture,
-    price,
-    imgUrl
-}) => {
-  // const { state, dispatch } = useAppContext();
-  const [openModal, setOpenModal] = useState(false);
-
-
-  const toggleDialog = useCallback(() => setOpenModal((open) => !open), []);
-  // const cartItem = state.cart.find((item) => item.id === id);
-  // const handleCartAmountChange = useCallback(
-  //   (product) => () =>
-  //     dispatch({
-  //       type: "CHANGE_CART_AMOUNT",
-  //       payload: product,
-  //     }),
-  //   []
-  // );
+const ProductCard = (product) => {
+  const {name, price, picture, id} = product;
   return (
     <StyledBazaarCard >
       <ImageWrapper>
-
-
-        <HoverIconWrapper  apper className="hover-box">
-          <IconButton onClick={toggleDialog}>
-            <RemoveRedEye color="disabled" fontSize="small" />
-          </IconButton>
-
-        </HoverIconWrapper>
-
         <Link href={`/producto/${id}`}>
           <a>
             <LazyImage
-              src={imgUrl}
-              // src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`}
               width={0}
               height={0}
               layout="responsive"
-              alt={'Producto'}
+              alt={name}
               placeholder="blur"
-              
-              blurDataURL={imgUrl}
-              // blurDataURL={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`}
+              blurDataURL={picture}
             />
           </a>
         </Link>
       </ImageWrapper>
-
-      {/* <ProductViewDialog
-        openDialog={openModal}
-        handleCloseDialog={toggleDialog}
-        product={{
-          title,
-          price,
-          id,
-          imgGroup: [imgUrl, imgUrl],
-        }}
-      /> */}
 
       <ContentWrapper>
         <FlexBox>
@@ -138,13 +66,13 @@ const ProductCard = ({
               <a>
                 <H3
                   mb={1}
-                  title={'Producto'}
+                  title={name}
                   fontSize="14px"
                   fontWeight="600"
                   className="title"
                   color="text.secondary"
                 >
-                  {'Producto'}
+                  {name}
                 </H3>
               </a>
             </Link>

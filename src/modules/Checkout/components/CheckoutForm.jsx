@@ -151,18 +151,14 @@ const CheckoutForm = () => {
               </Grid>
             </Box>
 
+              
+            <Link href="/usuario/ordenes/123" passHref>
+              <Button fullWidth type="submit" color="primary" variant="contained" sx={{mt: 3}}>
+                Guardar Orden
+              </Button>
+            </Link>
 
-            <Button
-            fullWidth
-              type="submit"
-              color="primary"
-              variant="contained"
-              sx={{
-                mt: 3,
-              }}
-            >
-              Guardar Orden
-            </Button>
+          
           </Card1>
  </>
 

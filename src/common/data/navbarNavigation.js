@@ -6,11 +6,11 @@ const navbarNavigations = [
     child: [
       {
         title: "Carrito de compras",
-        url: "/wish-list",
+        url: "/carrito",
       },
       {
         title: "Órdenes de compra",
-        url: "/wish-list",
+        url: "/usuario/ordenes",
       },
     ],
   },

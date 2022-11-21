@@ -14,31 +14,21 @@ import FlexRowCenter from "../../common/components/flexbox/FlexRowCenter";
 import { H1, H2, H3, H6 } from "../../common/components/Typography";
 import { useAppContext } from "../../common/contexts/AppContext";
 
-const ProductIntro = ({ product }) => {
-  const { id, price, title, imgGroup } = product;
+const ProductIntro = ({product}) => {
+  const { id, name, is_available, is_unlimited, picture, pictures, price, product_category_name, rated, stock, user_name, user_ruc} = product;
+  const [selectedImage, setSelectedImage] = useState(0);
+  
   const router = useRouter();
   const routerId = router.query.id;
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [isViewerOpen, setIsViewerOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState(0);
   const { state, dispatch } = useAppContext();
   const cartList = state.cart;
   const cartItem = cartList.find(
     (item) => item.id === id || item.id === routerId
   );
+  const imgGroup = [picture, ...pictures];
 
   const handleImageClick = (ind) => () => {
     setSelectedImage(ind);
-  };
-
-  const openImageViewer = useCallback((index) => {
-    setCurrentImage(index);
-    setIsViewerOpen(true);
-  }, []);
-
-  const closeImageViewer = () => {
-    setCurrentImage(0);
-    setIsViewerOpen(false);
   };
 
   const handleCartAmountChange = useCallback(
@@ -63,26 +53,12 @@ const ProductIntro = ({ product }) => {
           <FlexBox justifyContent="center" mb={6}>
             <LazyImage
               width={300}
-              alt={title}
+              alt={name}
               height={300}
               loading="eager"
               objectFit="contain"
-              src={product.imgGroup[selectedImage]}
-              onClick={() =>
-                openImageViewer(imgGroup.indexOf(imgGroup[selectedImage]))
-              }
+              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${imgGroup[selectedImage]}`}
             />
-            {isViewerOpen && (
-              <ImageViewer
-                src={imgGroup}
-                onClose={closeImageViewer}
-                currentIndex={currentImage}
-                backgroundStyle={{
-                  backgroundColor: "rgba(0,0,0,0.9)",
-                  zIndex: 1501,
-                }}
-              />
-            )}
           </FlexBox>
 
           <FlexBox overflow="auto">
@@ -105,18 +81,18 @@ const ProductIntro = ({ product }) => {
                   selectedImage === ind ? "primary.main" : "grey.400"
                 }
               >
-                <BazaarAvatar src={url} variant="square" height={40} />
+                <BazaarAvatar src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${url}`} variant="square" height={40} />
               </FlexRowCenter>
             ))}
           </FlexBox>
         </Grid>
 
         <Grid item md={6} xs={12} alignItems="center">
-          <H1 mb={2}>{title}</H1>
+          <H1 mb={2}>{name}</H1>
 
           <FlexBox alignItems="center" mb={2}>
-            <Box>Brand:</Box>
-            <H6 ml={1}>Xiaomi</H6>
+            <Box>Categoría:</Box>
+            <H6 ml={1}>{product_category_name}</H6>
           </FlexBox>
 
           <FlexBox alignItems="center" mb={2}>
@@ -125,16 +101,15 @@ const ProductIntro = ({ product }) => {
               <BazaarRating
                 color="warn"
                 fontSize="1.25rem"
-                value={4}
+                value={rated}
                 readOnly
               />
             </Box>
-            <H6 lineHeight="1">(50)</H6>
           </FlexBox>
 
           <Box mb={3}>
             <H2 color="primary.main" mb={0.5} lineHeight="1">
-              ${price.toFixed(2)}
+              S=/.{price}
             </H2>
             <Box color="inherit">Stock Available</Box>
           </Box>
@@ -185,10 +160,10 @@ const ProductIntro = ({ product }) => {
           )}
 
           <FlexBox alignItems="center" mb={2}>
-            <Box>Sold By:</Box>
-            <Link href="/shops/fdfdsa">
+            <Box>Vendido por:</Box>
+            <Link href={`/usuario/${user_ruc}`}>
               <a>
-                <H6 ml={1}>Mobile Store</H6>
+                <H6 ml={1}>{user_name}</H6>
               </a>
             </Link>
           </FlexBox>

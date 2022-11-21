@@ -1,12 +1,15 @@
 import React from "react"; 
 import { Call, Place } from "@mui/icons-material";
+import DescriptionIcon from '@mui/icons-material/Description';
 import { Avatar, Box, Button, Card, Rating } from "@mui/material";
 
 import FlexBox from "../../../../common/components/flexbox/FlexBox";
 import FlexBetween from "../../../../common/components/flexbox/FlexBetween";
-import { H3, Small, Span } from "../../../../common/components/Typography";
+import { H3, Span } from "../../../../common/components/Typography";
 
-const ShopIntroCard = () => {
+const ShopIntroCard = ({userData}) => {
+  const {picture, banner, name, social_media, terms, phone, description, province, district} = userData;
+
   return (
     <Card
       sx={{
@@ -17,13 +20,12 @@ const ShopIntroCard = () => {
       <Box
         height="202px"
         sx={{
-          background: "url(/assets/images/banners/shop-cover.png) center/cover",
+          background: `url(${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${banner}) center/cover`,
         }}
       />
-
       <FlexBox mt={-8} px={3.75} flexWrap="wrap">
         <Avatar
-          src="/assets/images/faces/propic.png"
+          src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${picture}`}
           sx={{
             mr: "37px",
             width: "120px",
@@ -51,36 +53,13 @@ const ShopIntroCard = () => {
               bgcolor="secondary.main"
             >
               <H3 fontWeight="600" color="grey.100">
-                Scarlett Beauty
+                {name}
               </H3>
             </Box>
-
-            {/* <FlexBox my={1} gap={1.5}>
-              {socialLinks.map((item, ind) => (
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  key={ind}
-                >
-                  <item.icon
-                    sx={{
-                      fontSize: 27,
-                    }}
-                  />
-                </a>
-              ))}
-            </FlexBox> */}
           </FlexBetween>
 
           <FlexBetween flexWrap="wrap">
             <Box>
-              <FlexBox alignItems="center" gap={1} mb={2}>
-                <Rating color="warn" size="small" value={5} readOnly />
-                <Small color="grey.600" display="block">
-                  (45)
-                </Small>
-              </FlexBox>
 
               <FlexBox color="grey.600" gap={1} mb={1} maxWidth={270}>
                 <Place
@@ -91,7 +70,7 @@ const ShopIntroCard = () => {
                   }}
                 />
                 <Span color="grey.600">
-                  845 N. Stonybrook Ave. Tonawanda, NY 14210, Denmark
+                  Provincia y Distrito: {province} - {district} 
                 </Span>
               </FlexBox>
 
@@ -103,21 +82,47 @@ const ShopIntroCard = () => {
                     mt: "2px",
                   }}
                 />
-                <Span color="grey.600">(613) 343-9004</Span>
+                <Span color="grey.600">{phone}</Span>
               </FlexBox>
+              <FlexBox color="grey.600" gap={1} mb={1}>
+                <DescriptionIcon
+                  fontSize="small"
+                  sx={{
+                    fontSize: 18,
+                    mt: "2px",
+                  }}
+                />
+               <div style={{display:"flex"}}>
+                 <Span color="grey.600">{description}</Span>
+               </div>
+              </FlexBox>
+
             </Box>
 
-            <a href="mailto:scarletbeauty@xmail.com">
-              <Button
-                variant="outlined"
-                color="primary"
-                sx={{
-                  my: 1.5,
-                }}
-              >
-                Contactar por Facebook
-              </Button>
-            </a>
+            <FlexBox gap={2}>
+              <a href={social_media.facebook} target="_blank">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  sx={{
+                    my: 1.5,
+                  }}
+                >
+                  Contactar por Facebook
+                </Button>
+              </a>
+              <a href={terms} target="_blank">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  sx={{
+                    my: 1.5,
+                  }}
+                >
+                  Términos y Condiciones
+                </Button>
+              </a>
+            </FlexBox>
           </FlexBetween>
         </Box>
       </FlexBox>

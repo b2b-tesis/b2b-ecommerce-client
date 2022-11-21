@@ -1,15 +1,19 @@
 import { FilterList } from "@mui/icons-material";
 import { Container, Grid, IconButton } from "@mui/material";
+import NoDataMessage from "../../../common/components/noData-message/NoDataMessage";
 
 import useWindowSize from "../../../common/hooks/useWindowSize";
 import ProductCardList from "./components/ProductCardList";
 import ProductFilterCard from "./components/ProductFilterCard";
 import ShopIntroCard from "./components/ShopIntroCard";
 import Sidenav from "./components/Sidenav";
+import { useFilterProducts } from "./hooks/useFilterProducts";
 
-const ProfileRucView = () => {
+const ProfileRucView = ({userData, productCategories}) => {
   const width = useWindowSize();
   const isTablet = width < 961;
+  const {productResult} = useFilterProducts();
+
   return (
       <Container
         sx={{
@@ -17,7 +21,7 @@ const ProfileRucView = () => {
           mb: 6,
         }}
       >
-        <ShopIntroCard />
+        <ShopIntroCard userData={userData}/>
 
         <Grid container spacing={3}>
           <Grid
@@ -31,7 +35,7 @@ const ProfileRucView = () => {
               },
             }}
           >
-            <ProductFilterCard />
+            <ProductFilterCard productCategories={productCategories}/>
           </Grid>
 
           <Grid item md={9} xs={12}>
@@ -48,11 +52,18 @@ const ProfileRucView = () => {
                   </IconButton>
                 }
               >
-                <ProductFilterCard />
+                <ProductFilterCard productCategories={productCategories}/>
               </Sidenav>
-            )}
-
-            <ProductCardList />
+            )}              
+              {
+                productResult?.results?.length > 0 && <ProductCardList />
+              }
+              {
+                productResult?.results?.length === 0 && <NoDataMessage message={'No se encontraron productos'}/>
+              }
+                
+              
+            
           </Grid>
         </Grid>
       </Container>
