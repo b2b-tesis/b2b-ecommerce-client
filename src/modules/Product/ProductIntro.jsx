@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import ImageViewer from "react-simple-image-viewer";
 import { Add, Remove } from "@mui/icons-material";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, MenuItem, TextField } from "@mui/material";
 
 import BazaarAvatar from "../../common/components/BazaarAvatar";
 import BazaarRating from "../../common/components/BazaarRating";
@@ -12,40 +12,24 @@ import LazyImage from "../../common/components/LazyImage";
 import FlexBox from "../../common/components/flexbox/FlexBox";
 import FlexRowCenter from "../../common/components/flexbox/FlexRowCenter";
 import { H1, H2, H3, H6 } from "../../common/components/Typography";
-import { useAppContext } from "../../common/contexts/AppContext";
+import { useAddToCart } from "./hooks/useAddToCart";
 
 const ProductIntro = ({product}) => {
   const { id, name, is_available, is_unlimited, picture, pictures, price, product_category_name, rated, stock, user_name, user_ruc} = product;
   const [selectedImage, setSelectedImage] = useState(0);
+
+  const {addProductToCart, quantityProduct, setQuantityProduct} = useAddToCart();
   
   const router = useRouter();
   const routerId = router.query.id;
-  const { state, dispatch } = useAppContext();
-  const cartList = state.cart;
-  const cartItem = cartList.find(
-    (item) => item.id === id || item.id === routerId
-  );
+ 
   const imgGroup = [picture, ...pictures];
 
   const handleImageClick = (ind) => () => {
     setSelectedImage(ind);
   };
 
-  const handleCartAmountChange = useCallback(
-    (amount) => () => {
-      dispatch({
-        type: "CHANGE_CART_AMOUNT",
-        payload: {
-          price,
-          qty: amount,
-          name: title,
-          imgUrl: imgGroup[0],
-          id: id || routerId,
-        },
-      });
-    },
-    []
-  );
+
   return (
     <Box width="100%">
       <Grid container spacing={3} justifyContent="space-around">
@@ -96,7 +80,7 @@ const ProductIntro = ({product}) => {
           </FlexBox>
 
           <FlexBox alignItems="center" mb={2}>
-            <Box lineHeight="1">Rated:</Box>
+            <Box lineHeight="1">Puntuación de compradores:</Box>
             <Box mx={1} lineHeight="1">
               <BazaarRating
                 color="warn"
@@ -111,53 +95,39 @@ const ProductIntro = ({product}) => {
             <H2 color="primary.main" mb={0.5} lineHeight="1">
               S=/.{price}
             </H2>
-            <Box color="inherit">Stock Available</Box>
+            <Box color="inherit">{is_unlimited ? 'Stock ilimitado por compra (Ingrese la cantidad que desee)' : `Stock limitado por compra a ${stock}`}</Box>
           </Box>
-
-          {!cartItem?.qty ? (
-            <BazaarButton
-              color="primary"
-              variant="contained"
-              onClick={handleCartAmountChange(1)}
-              sx={{
-                mb: 4.5,
-                px: "1.75rem",
-                height: 40,
-              }}
-            >
-              Add to Cart
-            </BazaarButton>
+            
+         {
+          is_unlimited ? (
+            <FlexBox alignItems="center" mb={2}>
+            <Box sx={{marginRight:2}}>Ingrese la cantidad:</Box>
+            {/* <TextField placeholder="0" type="number" size="small" fullWidth name="minPrice" value={minPrice} onChange={(e) => setMinPrice(e.target.value)}/> */}
+            <TextField placeholder="1" type="number" size="small" name="stock" sx={{maxWidth:70}} onChange={(e) => setQuantityProduct(e.target.value)} value={quantityProduct}/>
+        </FlexBox>
           ) : (
-            <FlexBox alignItems="center" mb={4.5}>
-              <BazaarButton
-                size="small"
-                sx={{
-                  p: 1,
-                }}
-                color="primary"
-                variant="outlined"
-                onClick={handleCartAmountChange(cartItem?.qty - 1)}
-              >
-                <Remove fontSize="small" />
-              </BazaarButton>
-
-              <H3 fontWeight="600" mx={2.5}>
-                {cartItem?.qty.toString().padStart(2, "0")}
-              </H3>
-
-              <BazaarButton
-                size="small"
-                sx={{
-                  p: 1,
-                }}
-                color="primary"
-                variant="outlined"
-                onClick={handleCartAmountChange(cartItem?.qty + 1)}
-              >
-                <Add fontSize="small" />
-              </BazaarButton>
-            </FlexBox>
-          )}
+            <FlexBox alignItems="center" mb={2}>
+              <Box sx={{marginRight:2}}>Cantidad:</Box>
+              <TextField
+                    select
+                    color="primary"
+                    size="medium"
+                    name="stock"
+                    onChange={(e) => setQuantityProduct(e.target.value)}
+                    value={quantityProduct}
+                  >
+                    {Array.from(Array(stock), (e,i)=>i+1)?.map((st) => (
+                      <MenuItem key={st} value={st}>{st}</MenuItem>
+                    ))}
+              </TextField>
+          </FlexBox>
+          
+          )
+         }
+            <BazaarButton color="primary" variant="contained" sx={{mb: 4.5, px: "1.75rem", height: 40}} onClick={() => addProductToCart(product)} >
+              Agregar al Carrito 
+            </BazaarButton>
+          
 
           <FlexBox alignItems="center" mb={2}>
             <Box>Vendido por:</Box>

@@ -35,7 +35,6 @@ export const getServerSideProps = async ({params}) => {
   try{
     const resp  = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`);
     productData = resp.data.data.results;
-    console.log(productData);
   } catch(err){
     return {
       redirect: {

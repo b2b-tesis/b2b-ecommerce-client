@@ -19,8 +19,8 @@ import Category from "../icons/Category";
 import MobileMenu from "../navbar/MobileMenu";
 import SearchBox from "../search-box/SearchBox"; // styled component
 import { layoutConstant } from "../../constants/sizeConstants";
-import { useAppContext } from "../../contexts/AppContext";
 import { useRouter } from "next/router";
+import { useCart } from "../../hooks/useCart";
 
 export const HeaderWrapper = styled(Box)(({ theme }) => ({
   zIndex: 3,
@@ -36,7 +36,6 @@ export const HeaderWrapper = styled(Box)(({ theme }) => ({
 // ==============================================================
 const Header = ({ isFixed, className }) => {
   const theme = useTheme();
-  const { state } = useAppContext();
   const [dialogOpen, setDialogOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const downMd = useMediaQuery(theme.breakpoints.down(1150));
@@ -44,8 +43,8 @@ const Header = ({ isFixed, className }) => {
   const toggleDialog = () => setDialogOpen(!dialogOpen);
 
   const router = useRouter();
-
-
+  const {cart} = useCart();
+  
   return (
     <HeaderWrapper className={clsx(className)}>
       <Container
@@ -100,7 +99,7 @@ const Header = ({ isFixed, className }) => {
           }}
         >
 
-          <Badge badgeContent={1} color="primary" onClick={() => router.push('/carrito')}>
+          <Badge badgeContent={cart.length} color="primary" onClick={() => router.push('/carrito')}>
             <Box
               ml={2.5}
               p={1.25}

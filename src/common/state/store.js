@@ -3,12 +3,14 @@ import AuthReducer from './auth/authSlice';
 import LoadingReducer from './loading/loadingSlice';
 import ToastReducer from './toast/toastSlice';
 import ProductReducer from './product/productSlice';
+import CartReducer from './cart/cartSlice';
 
 export default configureStore({
     reducer:{
         auth:AuthReducer,
         loading:LoadingReducer,
         toast:ToastReducer,
-        product:ProductReducer
+        product:ProductReducer,
+        cart:CartReducer,
     }
 })

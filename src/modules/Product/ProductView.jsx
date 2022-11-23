@@ -17,8 +17,6 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 }));
 
 const ProductView = ({productData}) => {
-console.log("🚀 ~ productData", productData)
-
   const [selectedOption, setSelectedOption] = useState(0);
 
   const handleOptionClick = (_, value) => setSelectedOption(value);
