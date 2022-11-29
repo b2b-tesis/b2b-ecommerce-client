@@ -18,6 +18,8 @@ export const useAddToCart = () => {
     let productCart = {
       idProduct:product.id,
       quantityProduct,
+      priceProduct:product.price,
+      name:product.name,
       userRuc:product.user_ruc,
       userName:product.user_name
     }

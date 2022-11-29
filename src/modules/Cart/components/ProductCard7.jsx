@@ -1,16 +1,14 @@
-import React, { useCallback } from "react";
-import { Add, Close, Remove } from "@mui/icons-material";
+import React from "react";
+import { Close } from "@mui/icons-material";
 import { Button, Card, IconButton, styled } from "@mui/material";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
-// import Image from "components/BazaarImage";
 import Image from "../../../common/components/BazaarImage";
 import FlexBox from "../../../common/components/flexbox/FlexBox";
 import { Span } from "../../../common/components/Typography";
-import { useAppContext } from "../../../common/contexts/AppContext";
-// import { FlexBox } from "components/flex-box";
-// import { Span } from "components/Typography";
-// import { useAppContext } from "contexts/AppContext";
+import { deleteProductCart } from "../../../common/state/cart/cartSlice";
 
 const Wrapper = styled(Card)(({ theme }) => ({
   display: "flex",
@@ -28,27 +26,19 @@ const Wrapper = styled(Card)(({ theme }) => ({
       minWidth: "100%",
     },
   },
-})); // =========================================================
+})); 
 
-// =========================================================
-const ProductCard7 = ({ id, name, qty, price, imgUrl }) => {
-  const { dispatch } = useAppContext(); // handle change cart
+const ProductCard7 = ({product, cart}) => {
+  const {id, name, picture, price} = product;
+  const quantity = cart.filter((prod) =>  prod.idProduct === id);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const handleCartAmountChange = useCallback(
-    (amount) => () => {
-      dispatch({
-        type: "CHANGE_CART_AMOUNT",
-        payload: {
-          id,
-          name,
-          price,
-          imgUrl,
-          qty: amount,
-        },
-      });
-    },
-    []
-  );
+  const deleteProduct = (idProduct) => {
+    dispatch(deleteProductCart(idProduct));
+    router.reload();
+  }
+
   return (
     <Wrapper>
       <Image
@@ -56,12 +46,12 @@ const ProductCard7 = ({ id, name, qty, price, imgUrl }) => {
         width={140}
         height={140}
         display="block"
-        src={imgUrl || "/assets/images/products/iphone-xi.png"}
+        src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`}
       />
 
       <IconButton
         size="small"
-        onClick={handleCartAmountChange(0)}
+        onClick={() => deleteProduct(id)}
         sx={{
           position: "absolute",
           right: 15,
@@ -72,51 +62,38 @@ const ProductCard7 = ({ id, name, qty, price, imgUrl }) => {
       </IconButton>
 
       <FlexBox p={2} rowGap={2} width="100%" flexDirection="column">
-        <Link href={`/product/${id}`}>
-          <a>
-            <Span ellipsis fontWeight="600" fontSize={18}>
-              {name}
-            </Span>
-          </a>
-        </Link>
 
         <FlexBox gap={1} flexWrap="wrap" alignItems="center">
           <Span color="grey.600">
-            ${price.toFixed(2)} x {qty}
+            Total del producto: S/.{price} x {quantity[0].quantityProduct} =
           </Span>
 
           <Span fontWeight={600} color="primary.main">
-            ${(price * qty).toFixed(2)}
+            S/.{(price * quantity[0].quantityProduct).toFixed(2)}
           </Span>
         </FlexBox>
 
         <FlexBox alignItems="center">
-          <Button
-            color="primary"
-            sx={{
-              p: "5px",
-            }}
-            variant="outlined"
-            disabled={qty === 1}
-            onClick={handleCartAmountChange(qty - 1)}
-          >
-            <Remove fontSize="small" />
-          </Button>
-
           <Span mx={1} fontWeight={600} fontSize={15}>
-            {qty}
+            Cantidad : {quantity[0].quantityProduct}
           </Span>
-          <Button
+        </FlexBox>
+        <FlexBox alignItems="center">
+        <Button
             color="primary"
             sx={{
               p: "5px",
             }}
             variant="outlined"
-            onClick={handleCartAmountChange(qty + 1)}
           >
-            <Add fontSize="small" />
+            <Link href={`/producto/${id}`}>
+          <a>
+            Editar Cantidad
+          </a>
+        </Link>
           </Button>
         </FlexBox>
+        
       </FlexBox>
     </Wrapper>
   );

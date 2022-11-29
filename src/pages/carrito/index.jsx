@@ -7,14 +7,12 @@ import CartView from "../../modules/Cart/CartView";
 
 const CartPage = () => {
   const theme = useTheme();
-  
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
       <SEO title="Carrito de Compras" />
-      <CartView/>
+      <CartView />
     </ShopLayout>
   )
 }
-
 
 export default CartPage;
