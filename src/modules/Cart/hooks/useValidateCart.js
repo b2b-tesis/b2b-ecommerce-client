@@ -21,16 +21,10 @@ export const useValidateCart = () => {
     const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/product/shopping-car`, {
       product_ids:cookieIdProducts
     });
-    console.log(data);
     setProducts(data.data.results);
     }catch(err){
     }
   }
-
-  const getTotalPrice = () => {
-    return cart.reduce((accum, item) => accum + item.priceProduct * item.quantityProduct, 0);
-  };
-
 
   useEffect(() => {
     validateCart(); 
@@ -38,8 +32,7 @@ export const useValidateCart = () => {
 
   return {
     products,
-    cart,
-    getTotalPrice
+    cart
   };
 };
 

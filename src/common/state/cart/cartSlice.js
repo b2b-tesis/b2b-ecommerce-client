@@ -35,10 +35,18 @@ const cartSlice = createSlice({
       state.idsCart = state.idsCart.filter(prod => prod !== action.payload);
       Cookie.set('cartb2b', JSON.stringify(state.cart));
       Cookie.set('cartidb2b', JSON.stringify(state.idsCart));
+    },
+
+    deleteCart: (state) => {
+      state.cart = [];
+      state.idsCart = [];
+      Cookie.remove('cartb2b');
+      Cookie.remove('cartidb2b');
+
     }
     
   }
 });
 
-export const {setAddToCart, removeAndUpdateProduct, setCart, deleteProductCart} = cartSlice.actions;
+export const {setAddToCart, removeAndUpdateProduct, setCart, deleteProductCart, deleteCart} = cartSlice.actions;
 export default cartSlice.reducer;

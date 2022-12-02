@@ -1,25 +1,30 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Box, Divider } from "@mui/material";
 
 import FlexBetween from "../../../common/components/flexbox/FlexBetween";
 import { Paragraph, Span } from "../../../common/components/Typography";
+import { getTotalPrice } from "../../../common/helpers/getTotalPrice";
 
 const CheckoutSummary = () => {
+
+  const {cart} = useSelector((state) => (state.cart));
+
   return (
     <Box>
       <Paragraph color="secondary.900" fontWeight={700} mb={2}>
         Resumen de tu orden:
       </Paragraph>
 
-      {cartList.map((item) => (
-        <FlexBetween mb={1.5} key={item.name}>
+      {cart.map((item) => (
+        <FlexBetween mb={1.5} key={item.idProduct}>
           <Paragraph>
             <Span fontWeight="700" fontSize="14px">
-              {item.quantity}
+              {item.quantityProduct}
             </Span>{" "}
             x {item.name}
           </Paragraph>
-          <Paragraph>S/.{item.price.toFixed(2)}</Paragraph>
+          <Paragraph>S/.{item.priceProduct * item.quantityProduct}</Paragraph>
         </FlexBetween>
       ))}
 
@@ -32,7 +37,7 @@ const CheckoutSummary = () => {
 
       <FlexBetween mb={0.5}>
         <Paragraph color="grey.600">Subtotal:</Paragraph>
-        <Paragraph fontWeight="700">S/.{(2610).toFixed(2)}</Paragraph>
+        <Paragraph fontWeight="700">S/.{getTotalPrice(cart)}</Paragraph>
       </FlexBetween>
 
 
@@ -45,7 +50,7 @@ const CheckoutSummary = () => {
 
       <FlexBetween fontWeight="700" mb={1}>
         <Paragraph>Total:</Paragraph>
-        <Paragraph fontWeight="700">S/.{(2610).toFixed(2)}</Paragraph>
+        <Paragraph fontWeight="700">S/.{getTotalPrice(cart)}</Paragraph>
       </FlexBetween>
     </Box>
   );

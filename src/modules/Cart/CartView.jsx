@@ -9,11 +9,12 @@ import { useAppContext } from "../../common/contexts/AppContext";
 import ProductCard7 from "./components/ProductCard7";
 import { useValidateCart } from "./hooks/useValidateCart";
 import NoDataMessage from "../../common/components/noData-message/NoDataMessage";
+import { getTotalPrice } from "../../common/helpers/getTotalPrice";
 
 
 const CartView = () => {
   
-  const {products, cart, getTotalPrice} = useValidateCart();
+  const {products, cart} = useValidateCart();
   return (
     <>
 
@@ -36,7 +37,7 @@ const CartView = () => {
               <Span color="grey.600">Total:</Span>
 
               <Span fontSize={18} fontWeight={600} lineHeight="1">
-                S/.{getTotalPrice()}
+                S/.{getTotalPrice(cart)}
               </Span>
             </FlexBetween>
 

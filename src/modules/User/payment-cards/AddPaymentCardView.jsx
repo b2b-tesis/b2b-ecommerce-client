@@ -43,7 +43,7 @@ const AddPaymentCardView = () => {
                   <Grid item md={6} xs={12}>
                     <TextField
                       name="card_number"
-                      label="Card Number"
+                      label="Numero de Tarjeta"
                       fullWidth
                       placeholder="Ejemplo: 4111111111111111"
                       onBlur={handleBlur}
@@ -56,7 +56,7 @@ const AddPaymentCardView = () => {
                   <Grid item md={6} xs={12}>
                     <TextField
                       name="name_on_card"
-                      label="Name on Card"
+                      label="Nombre del Titular"
                       fullWidth
                       placeholder="Ejemplo: Pablo Perez"
                       onBlur={handleBlur}
@@ -69,7 +69,7 @@ const AddPaymentCardView = () => {
                   <Grid item md={6} xs={12}>
                     <TextField
                       name="exp_date"
-                      label="Exp. Date"
+                      label="Fecha de Vencimiento"
                       fullWidth
                       placeholder="Ejemplo: 09/25"
                       onBlur={handleBlur}
