@@ -4,31 +4,14 @@ import East from "@mui/icons-material/East";
 import { Box, Chip, IconButton, Typography } from "@mui/material";
 
 import TableRow from "../../../../common/components/TableRow";
-import { H5 } from "../../../../common/components/Typography";
+import { convertToDate } from "../../../../common/helpers/convertToDate"
+import { getColor, getStatusTranslate } from "../../../../common/helpers/getStatus";
 
 
 const OrderRow = ({ item }) => {
-  const getColor = (status) => {
-    switch (status) {
-      case "Pending":
-        return "secondary";
-
-      case "Processing":
-        return "secondary";
-
-      case "Delivered":
-        return "success";
-
-      case "Cancelled":
-        return "error";
-
-      default:
-        return "";
-    }
-  };
 
   return (
-    <Link href={`/usuario/ordenes/123`}>
+    <Link href={`/usuario/ordenes/${item._id}`}>
       <a>
         <TableRow
           sx={{
@@ -36,13 +19,11 @@ const OrderRow = ({ item }) => {
             padding: "6px 18px",
           }}
         >
-          <H5 m={0.75} textAlign="left">
-            {item.orderNo}
-          </H5>
+          
           <Box m={0.75}>
             <Chip
               size="small"
-              label={item.status}
+              label={getStatusTranslate(item.status)}
               sx={{
                 p: "0.25rem 0.5rem",
                 fontSize: 12,
@@ -56,11 +37,11 @@ const OrderRow = ({ item }) => {
             />
           </Box>
           <Typography className="pre" m={0.75} textAlign="left">
-            {format(new Date(item.purchaseDate), "MMM dd, yyyy")}
+             {convertToDate(item.created_at)}
           </Typography>
 
           <Typography m={0.75} textAlign="left">
-            ${item.price.toFixed(2)}
+            ${item.total}
           </Typography>
 
           <Typography

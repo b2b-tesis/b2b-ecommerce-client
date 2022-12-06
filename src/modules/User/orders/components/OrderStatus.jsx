@@ -7,9 +7,11 @@ import { useTheme } from "@mui/material";
 import FlexBox from "../../../../common/components/flexbox/FlexBox";
 import FlexBetween from "../../../../common/components/flexbox/FlexBetween";
 import PackageBox from "../../../../common/components/icons/PackageBox";
+import CreditCardVerified from "../../../../common/components/icons/CreditCardVerified";
 import TruckFilled from "../../../../common/components/icons/TruckFilled";
 import Delivery from "../../../../common/components/icons/Delivery";
 import useWindowSize from "../../../../common/hooks/useWindowSize";
+import { getStatus } from "../../../../common/helpers/getStatus";
 
 
 const StyledFlexbox = styled(FlexBetween)(({ theme }) => ({
@@ -33,11 +35,10 @@ const StyledFlexbox = styled(FlexBetween)(({ theme }) => ({
 
 const OrderStatus = ({orderStatus}) => {
 
-  const orderStatusList = ["packaging", "shipping", "delivering", "complete"];
-  const stepIconList = [PackageBox, TruckFilled, Delivery];
+  const orderStatusList = ["created", "accepted", "pending", "shipped", "delivered"];
+  const stepIconList = [PackageBox, CreditCardVerified, TruckFilled, Delivery];
   const statusIndex = orderStatusList.indexOf(orderStatus);
   const width = useWindowSize();
-  const theme = useTheme();
   const breakpoint = 350;
 
   return (
@@ -104,7 +105,7 @@ const OrderStatus = ({orderStatus}) => {
         color="primary.main"
         bgcolor="primary.light"
       >
-        Estimated Delivery Date <b>4th October</b>
+        {getStatus(orderStatus)}
       </Typography>
     </FlexBox>
   </Card>

@@ -55,7 +55,6 @@ export const useSaveOrder = () => {
       });
 
       const totalPriceItems = getTotalPrice(cart);
-    console.log(address);
       dispatch(setLoading());
 
       const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/order`, {

@@ -11,9 +11,6 @@ import { setLoading } from "../../../../common/state/loading/loadingSlice";
 
 export const useEditProduct = (is_unlimited, is_available) => {
 
-  const [selectedImage, setSelectedImage] = useState([]);
-  const [picture, setPicture] = useState();
-  const [dropFiles, setDropFiles] = useState([]);
   const [productAvailable, setProductAvailable] = useState(false);
   const [isUnlimited, setIsUnlimited] = useState(false);
 
@@ -55,7 +52,6 @@ export const useEditProduct = (is_unlimited, is_available) => {
     dispatch(showToastify({message:'No se pudo guardar, intentelo más tarde', severity:'error'}));
    }
 
-    console.log(valuesProduct);
   }
 
 
@@ -70,11 +66,6 @@ export const useEditProduct = (is_unlimited, is_available) => {
     name: yup.string().required("El nombre del producto es obligatorio"),
     product_category_id: yup.number().min(1, 'Debe seleccionar una categoría').required("Debe seleccionar la categoría de su producto"),
     price: yup.number().min(1, 'El precio no puede ser 0').
-    // test('no-leading-zero', 'Un numero no puede empezar en 0',
-    //   (value, context) => {
-    //     return context.originalValue && !context.originalValue.startsWith('0');
-    //   }
-    // ).
     test("maxDigitsAfterDecimal",
       "El precio debe tener obligatoriamente maximo 1 o 2 decimales. Ejemplo: 20.5 o 20.50",
       (price) => /^\d+(\.\d{0,2})?$/.test(price)
