@@ -1,33 +1,35 @@
-import ShoppingBagOutlined from "@mui/icons-material/ShoppingBagOutlined";
+import Link from "next/link";
 import { Avatar, Box, Button, Card, Divider, Grid, Typography } from "@mui/material";
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
 
 import UserDashboardHeader from "../../../common/components/layouts/user-dashboard/UserDashboardHeader";
-import CustomerDashboardLayout from "../../../common/components/layouts/user-dashboard";
-import CustomerDashboardNavigation from "../../../common/components/layouts/user-dashboard/Navigations";
+import CustomerDashboardSalesLayout from "../../../common/components/layouts/user-dashboard/sales";
+import CustomerDashboardNavigationSales from "../../../common/components/layouts/user-dashboard/NavigationsSales";
+import FlexBox from "../../../common/components/flexbox/FlexBox";
 import TableRow from "../../../common/components/TableRow";
 import { H5, H6, Paragraph } from "../../../common/components/Typography";
-import FlexBox from "../../../common/components/flexbox/FlexBox";
-import OrderStatus from "./components/OrderStatus";
-import FlexBetween from "../../../common/components/flexbox/FlexBetween";
-import Link from "next/link";
-import { convertCard } from "../../../common/helpers/convertNumberCard";
+import OrderSaleStatus from "./components/OrderStatus";
 import { convertToDate } from "../../../common/helpers/convertToDate";
+import FlexBetween from "../../../common/components/flexbox/FlexBetween";
+import { useAcceptOrder } from "./hooks/useAcceptOrder";
+import DialogDeleteProduct from "../../../common/components/dialogDeleteElement/DialogDeleteProduct";
+import ModalEditProduct from "./components/ModalEditProduct";
 
 
-
-const OrdersDetailView = ({order}) => {
-  const {items, status, delivery_address, total, sub_total, payment_details, created_at} = order;
+const OrderSaleDetailView = ({order}) => {
+  const {status, delivery_address, payment_details, created_at} = order;
+  const { toggleDialog, openDialog, deleteProductFromOrder, setIdToDelete, orderItems, total, setProductEdit, toggleModal, openModal} = useAcceptOrder(order);
 
   return (
+    
     <>
-      <CustomerDashboardLayout>
+      <CustomerDashboardSalesLayout>
       <UserDashboardHeader
-        icon={ShoppingBagOutlined}
-        title={'Detalle de Orden de Compra'}
-        navigation={<CustomerDashboardNavigation />}
+        icon={ListAltOutlinedIcon}
+        title={'Detalle de Orden de Venta'}
+        navigation={<CustomerDashboardNavigationSales />}
       />
-
-      <OrderStatus orderStatus={status}/>
+      <OrderSaleStatus orderStatus={status}/>
 
       <Card
         sx={{
@@ -54,7 +56,7 @@ const OrdersDetailView = ({order}) => {
         </TableRow>
 
         <Box py={1}>
-          {items?.map((item) => (
+          {orderItems?.map((item) => (
             <FlexBox
               px={2}
               py={1}
@@ -78,26 +80,25 @@ const OrdersDetailView = ({order}) => {
                 </Box>
               </FlexBox>
 
-
-              <FlexBox flex="1 1 260px" m={0.75} alignItems="center">
-                <Link href={`/producto/${item.product.id}`} passHref>
-                  <Button variant="text" color="primary">
-                      <Typography fontSize="14px">Ver Información del Producto</Typography>
-                  </Button>
-                </Link>
-              </FlexBox>
-
               <FlexBox flex="160px" m={0.75} alignItems="center">
-                <Button variant="text" color="secondary">
-                  <Typography fontSize="14px">Dejar una reseña</Typography>
+                <Button variant="text" color="secondary" onClick={() => {toggleModal(); setProductEdit(item.product.id)}}>
+                  <Typography fontSize="14px">Editar cantidad del Producto en la orden</Typography>
                 </Button>
               </FlexBox>
+
+              <FlexBox flex="1 1 260px" m={0.75} alignItems="center">
+                  <Button variant="text" color="primary"  onClick={() => {toggleDialog(); setIdToDelete(item.product.id)}}>
+                      <Typography fontSize="14px">Eliminar Producto de la Orden</Typography>
+                  </Button>
+              </FlexBox>
+
+
             </FlexBox>
           ))}
         </Box>
       </Card>
-      
-      
+
+
       <Grid container spacing={3}>
         <Grid item lg={6} md={6} xs={12}>
           <Card
@@ -110,7 +111,7 @@ const OrdersDetailView = ({order}) => {
             </H5>
 
             <Paragraph fontSize={14} my={0}>
-             {delivery_address.address}
+            {delivery_address.address}
             </Paragraph>
             <Paragraph fontSize={14} my={0}>
             {delivery_address.phone}
@@ -133,7 +134,7 @@ const OrdersDetailView = ({order}) => {
               <Typography fontSize={14} color="grey.600">
                 Subtotal:
               </Typography>
-              <H6 my="0px">S/.{sub_total}</H6>
+              <H6 my="0px">S/.{total}</H6>
             </FlexBetween>
 
             <Divider
@@ -147,16 +148,32 @@ const OrdersDetailView = ({order}) => {
               <H6 my="0px">S/.{total}</H6>
             </FlexBetween>
 
-            <Typography fontSize={14}>{status === 'created' || status === 'accepted' ? `Pendiente a pagar con una tarjeta terminada en  ${convertCard(payment_details.card_number)}` : 'Pagado con una tarjeta de crédito/débito'}</Typography>
+            <Typography fontSize={14}>{status === 'created' || status === 'accepted' ? null : 'Pagado con una tarjeta de crédito/débito'}</Typography>
           </Card>
         </Grid>
       </Grid>
 
-    </CustomerDashboardLayout>
+   
+
+    </CustomerDashboardSalesLayout>
+
+    <ModalEditProduct
+      openDialog={openModal}
+      handleCloseDialog={toggleModal}
+    />
+
+
+    <DialogDeleteProduct
+        openDialog={openDialog}
+        handleCloseDialog={toggleDialog}
+        deleteAction={deleteProductFromOrder}
+      />
+
 
 
     </>
   );
 };
 
-export default OrdersDetailView;
+
+export default OrderSaleDetailView;

@@ -4,6 +4,7 @@ import LoadingReducer from './loading/loadingSlice';
 import ToastReducer from './toast/toastSlice';
 import ProductReducer from './product/productSlice';
 import CartReducer from './cart/cartSlice';
+import OrderReducer from './order/orderSlice';
 
 export default configureStore({
     reducer:{
@@ -12,5 +13,6 @@ export default configureStore({
         toast:ToastReducer,
         product:ProductReducer,
         cart:CartReducer,
+        order:OrderReducer 
     }
 })

@@ -93,7 +93,7 @@ const ProductIntro = ({product}) => {
 
           <Box mb={3}>
             <H2 color="primary.main" mb={0.5} lineHeight="1">
-              S=/.{price}
+              S=/ {price}
             </H2>
             <Box color="inherit">{is_unlimited ? 'Stock ilimitado por compra (Ingrese la cantidad que desee)' : `Stock limitado por compra a ${stock}`}</Box>
           </Box>

@@ -4,13 +4,13 @@ import { Box, Chip, IconButton, Typography } from "@mui/material";
 
 import TableRow from "../../../../common/components/TableRow";
 import { convertToDate } from "../../../../common/helpers/convertToDate"
-import { getColor, getStatusTranslate } from "../../../../common/helpers/getStatus";
+import { getColor, getStatusSaleTranslate } from "../../../../common/helpers/getStatus";
 
 
 const OrderRow = ({ item }) => {
 
   return (
-    <Link href={`/usuario/ordenes/${item._id}`}>
+    <Link href={`/usuario/ordenes-venta/${item._id}`}>
       <a>
         <TableRow
           sx={{
@@ -22,7 +22,7 @@ const OrderRow = ({ item }) => {
           <Box m={0.75}>
             <Chip
               size="small"
-              label={getStatusTranslate(item.status)}
+              label={getStatusSaleTranslate(item.status)}
               sx={{
                 p: "0.25rem 0.5rem",
                 fontSize: 12,

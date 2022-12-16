@@ -79,7 +79,7 @@ const linkList = [
     title: "DASHBOARD",
     list: [
       {
-        href: "/orders",
+        href: "/usuario/ordenes-venta",
         title: "Órdenes de Venta",
         icon: ListAltOutlinedIcon
       },

@@ -42,7 +42,7 @@ const navbarNavigations = [
       },
       {
         title: "Órdenes de venta",
-        url: "/market-1",
+        url: "/usuario/ordenes-venta",
       },
       {
         title: "Método para recibir pagos",
