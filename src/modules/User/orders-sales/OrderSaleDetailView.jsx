@@ -14,11 +14,13 @@ import FlexBetween from "../../../common/components/flexbox/FlexBetween";
 import { useAcceptOrder } from "./hooks/useAcceptOrder";
 import DialogDeleteProduct from "../../../common/components/dialogDeleteElement/DialogDeleteProduct";
 import ModalEditProduct from "./components/ModalEditProduct";
+import ButtonAcceptOrder from "./components/ButtonAcceptOrder";
+import BackDrop from "../../../common/components/backDrop/BackDrop";
 
 
 const OrderSaleDetailView = ({order}) => {
   const {status, delivery_address, payment_details, created_at} = order;
-  const { toggleDialog, openDialog, deleteProductFromOrder, setIdToDelete, orderItems, total, setProductEdit, toggleModal, openModal} = useAcceptOrder(order);
+  const { toggleDialog, openDialog, deleteProductFromOrder, setIdToDelete, orderItems, total, setProductEdit, toggleModal, openModal, acceptOrder, loading} = useAcceptOrder(order);
 
   return (
     
@@ -45,13 +47,17 @@ const OrderSaleDetailView = ({order}) => {
             bgcolor: "grey.200",
           }}
         >
-          <FlexBox className="pre" m={0.75} alignItems="center">
+          <FlexBox className="pre" m={0.75} alignItems="center" justifyContent="space-between">
+            <FlexBox>
             <Typography fontSize={14} color="grey.600" mr={0.5}>
               Orden creada el :
             </Typography>
             <Typography fontSize={14}>
               {convertToDate(created_at)}
             </Typography>
+            </FlexBox>
+
+            {status === 'created' && <ButtonAcceptOrder acceptOrder={acceptOrder}/>}
           </FlexBox>
         </TableRow>
 
@@ -80,18 +86,30 @@ const OrderSaleDetailView = ({order}) => {
                 </Box>
               </FlexBox>
 
-              <FlexBox flex="160px" m={0.75} alignItems="center">
-                <Button variant="text" color="secondary" onClick={() => {toggleModal(); setProductEdit(item.product.id)}}>
-                  <Typography fontSize="14px">Editar cantidad del Producto en la orden</Typography>
-                </Button>
-              </FlexBox>
+             {status === 'created' ? 
+             <>
+                <FlexBox flex="160px" m={0.75} alignItems="center">
+               <Button variant="text" color="secondary" onClick={() => {toggleModal(); setProductEdit(item.product.id)}}>
+                 <Typography fontSize="14px">Editar cantidad del Producto en la orden</Typography>
+               </Button>
+             </FlexBox>
 
+             <FlexBox flex="1 1 260px" m={0.75} alignItems="center">
+                 <Button variant="text" color="primary"  onClick={() => {toggleDialog(); setIdToDelete(item.product.id)}}>
+                     <Typography fontSize="14px">Eliminar Producto de la Orden</Typography>
+                 </Button>
+             </FlexBox>
+             </>
+            : (
               <FlexBox flex="1 1 260px" m={0.75} alignItems="center">
-                  <Button variant="text" color="primary"  onClick={() => {toggleDialog(); setIdToDelete(item.product.id)}}>
-                      <Typography fontSize="14px">Eliminar Producto de la Orden</Typography>
-                  </Button>
-              </FlexBox>
-
+              <Link href={`/usuario/productos/${item.product.id}`} passHref>
+                <Button variant="text" color="primary">
+                    <Typography fontSize="14px">Ver Información del Producto</Typography>
+                </Button>
+              </Link>
+            </FlexBox>
+            )
+             }
 
             </FlexBox>
           ))}
@@ -154,6 +172,7 @@ const OrderSaleDetailView = ({order}) => {
       </Grid>
 
    
+      <BackDrop loading2={loading} message={'Estamos actualizando el estado de la orden'}/>
 
     </CustomerDashboardSalesLayout>
 

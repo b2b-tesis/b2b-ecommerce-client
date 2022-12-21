@@ -7,9 +7,7 @@ const orderSlice = createSlice({
     setOrder: (state, action) => {
       state.orderItems = action.payload.items;
     },
-    deleteProduct: (state, action) => {
-      console.log(action.payload);
-      
+    deleteProduct: (state, action) => {      
       state.orderItems = state.orderItems.filter(item => item.product.id !== action.payload);
     },
     setTotal: (state) => {
