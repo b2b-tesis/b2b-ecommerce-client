@@ -12,11 +12,18 @@ import FlexBetween from "../../../common/components/flexbox/FlexBetween";
 import Link from "next/link";
 import { convertCard } from "../../../common/helpers/convertNumberCard";
 import { convertToDate } from "../../../common/helpers/convertToDate";
+import ButtonUpdateState from "./components/ButtonUpdateState";
+import { usePayOrder } from "./hooks/usePayOrder";
+import ModalEditAddress from "./components/ModalEditAddress";
+import ModalEditPayment from "./components/ModalEditPayment";
+import BackDrop from "../../../common/components/backDrop/BackDrop";
 
 
 
 const OrdersDetailView = ({order}) => {
   const {items, status, delivery_address, total, sub_total, payment_details, created_at} = order;
+
+  const {openAddressModal, toggleAddressModal, openPaymentModal, togglePaymentModal, updateStatusCancelled, loading, updateStatusPending} = usePayOrder();
 
   return (
     <>
@@ -43,13 +50,23 @@ const OrdersDetailView = ({order}) => {
             bgcolor: "grey.200",
           }}
         >
-          <FlexBox className="pre" m={0.75} alignItems="center">
+          <FlexBox className="pre" m={0.75} alignItems="center" justifyContent="space-between">
+            <FlexBox>
             <Typography fontSize={14} color="grey.600" mr={0.5}>
               Orden creada el :
             </Typography>
             <Typography fontSize={14}>
               {convertToDate(created_at)}
             </Typography>
+            </FlexBox>
+
+            {status === 'accepted' && 
+              <FlexBox gap={2}>
+                <ButtonUpdateState text={'Cancelar Orden'} updateState={updateStatusCancelled}/>
+                <ButtonUpdateState text={'Aceptar y Pagar Orden'} updateState={updateStatusPending} color={'secondary'}/>
+              </FlexBox>
+            }
+
           </FlexBox>
         </TableRow>
 
@@ -108,13 +125,18 @@ const OrdersDetailView = ({order}) => {
             <H5 mt={0} mb={2}>
               Dirección a enviar y teléfono
             </H5>
-
             <Paragraph fontSize={14} my={0}>
              {delivery_address.address}
             </Paragraph>
             <Paragraph fontSize={14} my={0}>
             {delivery_address.phone}
             </Paragraph>
+            {
+              status === 'accepted' &&
+              <Grid item py={2}>
+                <ButtonUpdateState text={'Editar Dirección'} updateState={toggleAddressModal}/>
+              </Grid>
+            }
           </Card>
           
         </Grid>
@@ -147,13 +169,35 @@ const OrdersDetailView = ({order}) => {
               <H6 my="0px">S/.{total}</H6>
             </FlexBetween>
 
-            <Typography fontSize={14}>{status === 'created' || status === 'accepted' ? `Pendiente a pagar con una tarjeta terminada en  ${convertCard(payment_details.card_number)}` : 'Pagado con una tarjeta de crédito/débito'}</Typography>
+            <Typography fontSize={14}>{status === 'created' || status === 'accepted' || status === 'cancelled' ? `A pagar con una tarjeta terminada en  ${convertCard(payment_details.card_number)}` : 'Pagado con una tarjeta de crédito/débito'}</Typography>
+              
+            {
+              status === 'accepted' &&
+              <Grid item py={2}>
+                <ButtonUpdateState text={'Editar Método de Pago'} updateState={togglePaymentModal}/>
+              </Grid>
+            }
           </Card>
         </Grid>
       </Grid>
 
+      <BackDrop loading2={loading} message={'Estamos actualizando el estado de la orden'}/>
+
     </CustomerDashboardLayout>
 
+    <ModalEditAddress
+      openDialog={openAddressModal}
+      handleCloseDialog={toggleAddressModal}
+      paymentDetails={payment_details}
+    /> 
+
+    <ModalEditPayment
+      openDialog={openPaymentModal}
+      handleCloseDialog={togglePaymentModal}
+      addressDetails={delivery_address}
+    />
+
+    
 
     </>
   );

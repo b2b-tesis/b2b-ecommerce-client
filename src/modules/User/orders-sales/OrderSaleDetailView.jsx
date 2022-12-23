@@ -14,13 +14,16 @@ import FlexBetween from "../../../common/components/flexbox/FlexBetween";
 import { useAcceptOrder } from "./hooks/useAcceptOrder";
 import DialogDeleteProduct from "../../../common/components/dialogDeleteElement/DialogDeleteProduct";
 import ModalEditProduct from "./components/ModalEditProduct";
-import ButtonAcceptOrder from "./components/ButtonAcceptOrder";
+import ButtonUpdateOrder from "./components/ButtonUpdateOrder";
 import BackDrop from "../../../common/components/backDrop/BackDrop";
+import { useShipOrder } from "./hooks/useShipOrder";
+import ButtonUploadPDF from "./components/ButtonUploadPDF";
 
 
 const OrderSaleDetailView = ({order}) => {
   const {status, delivery_address, payment_details, created_at} = order;
   const { toggleDialog, openDialog, deleteProductFromOrder, setIdToDelete, orderItems, total, setProductEdit, toggleModal, openModal, acceptOrder, loading} = useAcceptOrder(order);
+  const {updateStatusShipped} = useShipOrder();
 
   return (
     
@@ -57,7 +60,13 @@ const OrderSaleDetailView = ({order}) => {
             </Typography>
             </FlexBox>
 
-            {status === 'created' && <ButtonAcceptOrder acceptOrder={acceptOrder}/>}
+            {status === 'created' && <ButtonUpdateOrder updateState={acceptOrder} text='Aceptar Orden'/>}
+            {status === 'pending' &&
+             <FlexBox gap={2}>
+              <ButtonUpdateOrder updateState={updateStatusShipped} text= 'Orden Enviada'/>
+              <ButtonUploadPDF />
+           </FlexBox>
+             }
           </FlexBox>
         </TableRow>
 
@@ -166,7 +175,7 @@ const OrderSaleDetailView = ({order}) => {
               <H6 my="0px">S/.{total}</H6>
             </FlexBetween>
 
-            <Typography fontSize={14}>{status === 'created' || status === 'accepted' ? null : 'Pagado con una tarjeta de crédito/débito'}</Typography>
+            <Typography fontSize={14}>{status === 'created' || status === 'accepted' || status === 'cancelled' ? null : 'Pagado con una tarjeta de crédito/débito'}</Typography>
           </Card>
         </Grid>
       </Grid>

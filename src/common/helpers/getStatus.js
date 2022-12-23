@@ -11,7 +11,7 @@ export const getStatus = (status) => {
     break;
     case 'delivered': statusDescription = 'Orden entregada al comprador';
     break;
-    case 'cancelled': statusDescription = 'Orden cancelada';
+    case 'cancelled': statusDescription = 'Orden cancelada y sin pendientes de pago o envío';
     break;
   }
   return statusDescription
@@ -30,7 +30,7 @@ export const getStatusSale = (status) => {
     break;
     case 'delivered': statusDescription = 'Orden entregada al comprador';
     break;
-    case 'cancelled': statusDescription = 'Orden cancelada';
+    case 'cancelled': statusDescription = 'Orden cancelada y sin pendientes de pago o envío';
     break;
   }
   return statusDescription
