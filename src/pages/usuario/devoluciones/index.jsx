@@ -2,8 +2,7 @@ import { useTheme } from "@mui/styles";
 
 import ShopLayout from '../../../common/components/layouts/ShopLayout';
 import SEO from '../../../common/components/seo/SEO';
-import OrdersView from "../../../modules/User/orders/OrdersView";
-
+import RefundsView from "../../../modules/User/refunds/RefundsView";
 
 
 const OrdersPage = () => {
@@ -11,8 +10,8 @@ const OrdersPage = () => {
   
   return (
     <ShopLayout topbarBgColor={theme.palette.grey[900]}>
-      <SEO title="Ordenes de Compra" />
-      <OrdersView/>
+      <SEO title="Devoluciones de Compras" />
+      <RefundsView/>
     </ShopLayout>
   )
 }

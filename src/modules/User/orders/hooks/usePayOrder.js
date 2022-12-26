@@ -16,6 +16,9 @@ export const usePayOrder = () => {
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
   const togglePaymentModal = useCallback(() => {setOpenPaymentModal((open) => !open)}, []);
 
+  const [openAcceptPayModal, setOpenAcceptPayModal] = useState(false);
+  const toggleAcceptPayModal = useCallback(() => {setOpenAcceptPayModal((open) => !open)}, []);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const {id} = router.query;
@@ -73,7 +76,8 @@ export const usePayOrder = () => {
   return {
     openAddressModal, toggleAddressModal,
     openPaymentModal, togglePaymentModal,
-    updateStatusCancelled, loading, updateStatusPending
+    updateStatusCancelled, loading, updateStatusPending,
+    openAcceptPayModal, toggleAcceptPayModal
   };
 };
 

@@ -7,6 +7,7 @@ import { Span } from "../Typography";
 
 const ProductCard1List = ({productResults, handleCurrentlyPage, totalPages, totalLength, page}) => {
   let pageLength = productResults?.length;
+
   return (
     <Fragment>
       <Grid container spacing={3}>

@@ -82,7 +82,7 @@ const linkList = [
         icon: ShoppingBagOutlined
       },
       {
-        href: "/support-tickets",
+        href: "/usuario/devoluciones",
         title: "Devoluciones | Reembolsos",
         icon: CustomerService
       },

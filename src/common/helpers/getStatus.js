@@ -24,7 +24,7 @@ export const getStatusSale = (status) => {
     break; 
     case 'accepted': statusDescription = 'Orden aceptada, lista para ser pagada';
     break;
-    case 'pending': statusDescription = 'Orden pagada, a la espera de ser enviada por el vendedor';
+    case 'pending': statusDescription = 'Orden pagada, debe subir primero el PDF de la boleta o factura y luego click en Orden Enviada cuando sea enviada por el vendedor';
     break;
     case 'shipped': statusDescription = 'Orden enviada por el vendedor';
     break;

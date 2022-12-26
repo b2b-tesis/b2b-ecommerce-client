@@ -39,7 +39,7 @@ export const useListOrders = () => {
     const config = {
       headers: { Authorization: `Bearer ${tokenb2b}` }
     };
-      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/order/pagination?limit=10&page=${page}&buyerID=${rucb2b2}`, config)
+      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/order/pagination/all?limit=10&page=${page}&buyerID=${rucb2b2}`, config)
       const {data} = resp.data;
       setOrdersResult(data);
       setTotalPages(data?.total_page);

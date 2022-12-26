@@ -67,28 +67,21 @@ const ContentWrapper = styled(Box)(() => ({
 // ========================================================
 const ProductCard1 = ({
   id,
+  name,
   // title,
   // price,
   // imgUrl,
-  hoverEffect,
   // showProductSize,
     picture,
     price,
+    user_name
 }) => {
   // const { state, dispatch } = useAppContext();
   const [openModal, setOpenModal] = useState(false);
 
 
   const toggleDialog = useCallback(() => setOpenModal((open) => !open), []);
-  // const cartItem = state.cart.find((item) => item.id === id);
-  // const handleCartAmountChange = useCallback(
-  //   (product) => () =>
-  //     dispatch({
-  //       type: "CHANGE_CART_AMOUNT",
-  //       payload: product,
-  //     }),
-  //   []
-  // );
+
   return (
     <StyledBazaarCard >
       <ImageWrapper>
@@ -101,7 +94,7 @@ const ProductCard1 = ({
 
         </HoverIconWrapper>
 
-        <Link href={`/product/${id}`}>
+        <Link href={`/producto/${id}`}>
           <a>
             <LazyImage
               src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`}
@@ -117,17 +110,6 @@ const ProductCard1 = ({
         </Link>
       </ImageWrapper>
 
-      {/* <ProductViewDialog
-        openDialog={openModal}
-        handleCloseDialog={toggleDialog}
-        product={{
-          title,
-          price,
-          id,
-          imgGroup: [imgUrl, imgUrl],
-        }}
-      /> */}
-
       <ContentWrapper>
         <FlexBox>
           <Box flex="1 1 0" minWidth="0px" mr={1}>
@@ -135,18 +117,27 @@ const ProductCard1 = ({
               <a>
                 <H3
                   mb={1}
-                  title={'Producto'}
+                  title={name}
                   fontSize="14px"
                   fontWeight="600"
                   className="title"
                   color="text.secondary"
                 >
-                  {'Producto'}
+                  Producto: {name}
                 </H3>
               </a>
             </Link>
 
-        
+            <H3
+                  mb={1}
+                  title={name}
+                  fontSize="14px"
+                  fontWeight="600"
+                  className="title"
+                  color="text.secondary"
+                >
+                  Vendido por: {user_name}
+            </H3>
 
             <FlexBox alignItems="center" gap={1} mt={0.5}>
               <Box fontWeight="600" color="primary.main">
@@ -156,55 +147,6 @@ const ProductCard1 = ({
             </FlexBox>
           </Box>
 
-          <FlexBox
-            width="30px"
-            alignItems="center"
-            className="add-cart"
-            flexDirection="column-reverse"
-            justifyContent={"flex-start"}
-          >
-            <Button
-              color="primary"
-              variant="outlined"
-              sx={{
-                padding: "3px",
-              }}
-              // onClick={handleCartAmountChange({
-              //   id,
-              //   price,
-              //   imgUrl,
-              //   name: title,
-              //   qty: (cartItem?.qty || 0) + 1,
-              // })}
-            >
-              <Add fontSize="small" />
-            </Button>
-{/* 
-            {!!cartItem?.qty && (
-              <Fragment>
-                <Box color="text.primary" fontWeight="600">
-                  {cartItem?.qty}
-                </Box>
-
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  sx={{
-                    padding: "3px",
-                  }}
-                  onClick={handleCartAmountChange({
-                    id,
-                    price,
-                    imgUrl,
-                    name: title,
-                    qty: (cartItem?.qty || 0) - 1,
-                  })}
-                >
-                  <Remove fontSize="small" />
-                </Button>
-              </Fragment>
-            )} */}
-          </FlexBox>
         </FlexBox>
       </ContentWrapper>
     </StyledBazaarCard>

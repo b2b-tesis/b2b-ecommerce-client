@@ -21,9 +21,10 @@ import ButtonUploadPDF from "./components/ButtonUploadPDF";
 
 
 const OrderSaleDetailView = ({order}) => {
-  const {status, delivery_address, payment_details, created_at} = order;
+  const {status, delivery_address, payment_details, created_at, have_file} = order;
+  console.log("🚀 ~ order", order)
   const { toggleDialog, openDialog, deleteProductFromOrder, setIdToDelete, orderItems, total, setProductEdit, toggleModal, openModal, acceptOrder, loading} = useAcceptOrder(order);
-  const {updateStatusShipped} = useShipOrder();
+  const {updateStatusShipped, uploadPDF} = useShipOrder();
 
   return (
     
@@ -63,9 +64,12 @@ const OrderSaleDetailView = ({order}) => {
             {status === 'created' && <ButtonUpdateOrder updateState={acceptOrder} text='Aceptar Orden'/>}
             {status === 'pending' &&
              <FlexBox gap={2}>
-              <ButtonUpdateOrder updateState={updateStatusShipped} text= 'Orden Enviada'/>
-              <ButtonUploadPDF />
+              {have_file && <ButtonUpdateOrder updateState={updateStatusShipped} text= 'Orden Enviada'/>}
+              <ButtonUploadPDF uploadPDF={uploadPDF}/>
            </FlexBox>
+             }
+             {
+              status === 'shipped' && <ButtonUploadPDF uploadPDF={uploadPDF}/>
              }
           </FlexBox>
         </TableRow>

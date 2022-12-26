@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { getRucB2B, getTokenB2B } from "../../../../common/helpers/getCookies";
 import { setLoading } from "../../../../common/state/loading/loadingSlice";
 
-export const useListSaleOrders = () => {
+export const useListAcceptedOrders = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -22,14 +22,14 @@ export const useListSaleOrders = () => {
 
     let tokenb2b = getTokenB2B();
     if(tokenb2b === ''){
-      const destination = '/login?p=/usuario/ordenes-venta';
+      const destination = '/login?p=/usuario/ordenes';
       router.replace(destination);
       return
     }
 
     let rucb2b2 = getRucB2B();
     if(rucb2b2 === ''){
-      const destination = '/login?p=/usuario/ordenes-venta';
+      const destination = '/login?p=/usuario/ordenes';
       router.replace(destination);
       return
     }
@@ -39,14 +39,14 @@ export const useListSaleOrders = () => {
     const config = {
       headers: { Authorization: `Bearer ${tokenb2b}` }
     };
-      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/order/pagination/all?limit=10&page=${page}&sellerID=${rucb2b2}`, config)
+      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/order/pagination/all?limit=10&page=${page}&buyerID=${rucb2b2}`, config)
       const {data} = resp.data;
       setOrdersResult(data);
       setTotalPages(data?.total_page);
       dispatch(setLoading());
     } catch(err){
       dispatch(setLoading());
-      router.replace('/login?p=/usuario/ordenes-venta');
+      router.replace('/login?p=/usuario/ordenes');
     }
   }
 
