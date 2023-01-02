@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
-import { Fragment } from "react"; // custom styled components
-import { CreditCard, FavoriteBorder, Person, Place } from "@mui/icons-material";
+import { Fragment } from "react"; 
+import { CreditCard,  Person, Place } from "@mui/icons-material";
 import ShoppingBagOutlined from "@mui/icons-material/ShoppingBagOutlined";
 import { Card, styled, Typography } from "@mui/material";
 
 import FlexBox from "../../flexbox/FlexBox";
-import CustomerService from "../../icons/CustomerService";
 import NavLink from "../../nav-link/NavLink";
 
 const MainContainer = styled(Card)(({ theme }) => ({
@@ -80,12 +79,7 @@ const linkList = [
         href: "/usuario/ordenes",
         title: "Órdenes de Compra",
         icon: ShoppingBagOutlined
-      },
-      {
-        href: "/usuario/devoluciones",
-        title: "Devoluciones | Reembolsos",
-        icon: CustomerService
-      },
+      }
     ],
   },
   {

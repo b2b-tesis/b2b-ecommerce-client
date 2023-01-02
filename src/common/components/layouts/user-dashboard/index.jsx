@@ -7,7 +7,7 @@ import Navigations from "./Navigations";
 const CustomerDashboardLayout = ({ children }) => (
   <Container
   sx={{
-    my: "2rem",
+    my: "5rem",
   }}
 >
   <Grid container spacing={3}>

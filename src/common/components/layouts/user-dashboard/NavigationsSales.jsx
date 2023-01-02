@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Fragment } from "react"; // custom styled components
+import { Fragment } from "react";
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import PointOfSaleOutlinedIcon from '@mui/icons-material/PointOfSaleOutlined';
@@ -7,7 +7,6 @@ import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
 import { Card, styled, Typography } from "@mui/material";
 
 import FlexBox from "../../flexbox/FlexBox";
-import CustomerService from "../../icons/CustomerService";
 import NavLink from "../../nav-link/NavLink";
 
 const MainContainer = styled(Card)(({ theme }) => ({
@@ -82,11 +81,6 @@ const linkList = [
         href: "/usuario/ordenes-venta",
         title: "Órdenes de Venta",
         icon: ListAltOutlinedIcon
-      },
-      {
-        href: "/support-tickets",
-        title: "Devoluciones | Reembolsos",
-        icon: CustomerService
       }
     ],
   },

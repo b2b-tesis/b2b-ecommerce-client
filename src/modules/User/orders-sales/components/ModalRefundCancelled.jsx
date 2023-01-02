@@ -39,7 +39,7 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
   },
 })); 
 
-const ModalRefundOrder = ({openDialog, handleCloseDialog,  refundOrder}) => {
+const ModalRefundCancelledOrderSale = ({openDialog, handleCloseDialog,  cancelRefundOrder}) => {
 
   return (
     <Dialog
@@ -59,10 +59,10 @@ const ModalRefundOrder = ({openDialog, handleCloseDialog,  refundOrder}) => {
         <ContentWrapper>
           <Grid container spacing={3}>
             <Grid item xs={12} alignSelf="center">
-              <H2>Reembolso de Orden de Compra</H2>
+              <H2>Cancelar Reembolso de Orden de Compra</H2>
 
               <Paragraph my={2}>
-                Al solicitar reembolso, la orden pasará a un estado de pendiente, lo que significa que debe comunicarse a través del chat con el vendedor para establecer el reembolso, una vez el vendedor lo apruebe, el dinero será reembolsado a su cuenta.
+                Al cancelar el reembolso, el dinero de la venta se mantendrá para el vendedor y no procederá ninguna devolución de los productos, la decisión de aceptar o cancelar el reembolso debe ser coordinada con el comprador a través del chat de la orden.
               </Paragraph>
 
               <Divider
@@ -79,9 +79,9 @@ const ModalRefundOrder = ({openDialog, handleCloseDialog,  refundOrder}) => {
                       p: ".6rem",
                       height: 45,
                     }}
-                    onClick={refundOrder}
+                    onClick={cancelRefundOrder}
                   >
-                    Sí, Solicitar Reembolso
+                    Sí, Cancelar Reembolso
                   </BazaarButton>
 
                   <BazaarButton
@@ -94,7 +94,7 @@ const ModalRefundOrder = ({openDialog, handleCloseDialog,  refundOrder}) => {
                     }}
                     onClick={handleCloseDialog}
                   >
-                    Cancelar
+                    Salir
                   </BazaarButton>
                 </FlexBox>
 
@@ -107,4 +107,4 @@ const ModalRefundOrder = ({openDialog, handleCloseDialog,  refundOrder}) => {
   );
 };
 
-export default ModalRefundOrder;
+export default ModalRefundCancelledOrderSale;

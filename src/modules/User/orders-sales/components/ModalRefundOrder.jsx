@@ -39,7 +39,7 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
   },
 })); 
 
-const ModalRefundOrder = ({openDialog, handleCloseDialog,  refundOrder}) => {
+const ModalRefundOrderSale = ({openDialog, handleCloseDialog,  refundOrder}) => {
 
   return (
     <Dialog
@@ -62,7 +62,7 @@ const ModalRefundOrder = ({openDialog, handleCloseDialog,  refundOrder}) => {
               <H2>Reembolso de Orden de Compra</H2>
 
               <Paragraph my={2}>
-                Al solicitar reembolso, la orden pasará a un estado de pendiente, lo que significa que debe comunicarse a través del chat con el vendedor para establecer el reembolso, una vez el vendedor lo apruebe, el dinero será reembolsado a su cuenta.
+                Al aceptar el reembolso, el dinero de la venta será devuelto al comprador y no obtendrá las ganancias, la decisión de aceptar o cancelar el reembolso debe ser coordinada con el comprador a través del chat de la orden.
               </Paragraph>
 
               <Divider
@@ -81,7 +81,7 @@ const ModalRefundOrder = ({openDialog, handleCloseDialog,  refundOrder}) => {
                     }}
                     onClick={refundOrder}
                   >
-                    Sí, Solicitar Reembolso
+                    Sí, Aceptar Reembolso
                   </BazaarButton>
 
                   <BazaarButton
@@ -107,4 +107,4 @@ const ModalRefundOrder = ({openDialog, handleCloseDialog,  refundOrder}) => {
   );
 };
 
-export default ModalRefundOrder;
+export default ModalRefundOrderSale;

@@ -1,8 +1,7 @@
-import { Button, Grid, styled } from "@mui/material";
+import { Grid, styled } from "@mui/material";
 
 import BazaarImage from "../../BazaarImage";
 import FlexBetween from "../../flexbox/FlexBetween";
-import { Paragraph } from "../../Typography";
 
 
 const StyledBox = styled(FlexBetween)(({ theme }) => ({
@@ -48,28 +47,6 @@ const CarouselCard1 = ({ carousel, buttonColor = "primary" }) => {
   return (
     <StyledBox>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
-        {/* <Grid item className="grid-item" sm={5} xs={12}>
-          <h1 className="title">{carousel.title}</h1>
-          <Paragraph color="secondary.main" mb={2.7}>
-            {carousel.description}
-          </Paragraph>
-
-          <a href={carousel.buttonLik}>
-            <Button
-              size="large"
-              color={buttonColor}
-              disableElevation
-              variant="contained"
-              className="button-link"
-              sx={{
-                height: 44,
-                borderRadius: "4px",
-              }}
-            >
-              {carousel.buttonText}
-            </Button>
-          </a>
-        </Grid> */}
 
         <Grid item sm={12} xs={12}>
           <BazaarImage
@@ -77,7 +54,7 @@ const CarouselCard1 = ({ carousel, buttonColor = "primary" }) => {
             src={carousel.photoUrl}
             sx={{
               mx: "auto",
-              maxHeight: 400,
+              maxHeight:450,
               display: "block",
               maxWidth: "100%",
             }}

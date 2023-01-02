@@ -4,18 +4,16 @@ import CarouselCard1 from "../../../common/components/carousel/carouselCard/Caro
 
 const data = [
   {
-    title: "Fashionable Collection",
-    photoUrl: "/assets/images/banners/banner-15.jpg",
-    description: "Get Free Shipping on all orders over $99.00",
-    buttonText: "Shop Now",
-    buttonLik: "#",
+    title: "Banner 1",
+    photoUrl: "/assets/images/banners/banner-bazaar4.jpeg"
   },
   {
-    title: "Fashionable Collection",
-    photoUrl: "/assets/images/banners/banner-2.png",
-    description: "Get Free Shipping on all orders over $99.00",
-    buttonText: "Shop Now",
-    buttonLik: "#",
+    title: "Banner 2",
+    photoUrl: "/assets/images/banners/banner-bazaar5.jpeg"
+  },
+  {
+    title: "Banner 3",
+    photoUrl: "/assets/images/banners/banner-bazaar6.jpeg"
   },
 ];
 
@@ -29,7 +27,7 @@ const Section1 = () => {
       >
         <Carousel
           spacing="0px"
-          totalSlides={2}
+          totalSlides={3}
           infinite={true}
           showDots={true}
           autoPlay={false}

@@ -32,7 +32,7 @@ export const useRefundOrder = () => {
     const resp = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/order/${id}`, {status:"refund-pending"}, config);
       if(resp.status === 200){
         dispatch(setLoading());
-        router.push('/usuario/devoluciones');
+        router.push('/usuario/ordenes');
       }
     
   } catch(err){

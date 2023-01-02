@@ -18,13 +18,18 @@ import ButtonUpdateOrder from "./components/ButtonUpdateOrder";
 import BackDrop from "../../../common/components/backDrop/BackDrop";
 import { useShipOrder } from "./hooks/useShipOrder";
 import ButtonUploadPDF from "./components/ButtonUploadPDF";
+import OrderStatusSaleRefund from "./components/OrderStatusSaleRefund";
+import { useRefundOrder } from "./hooks/useRefundOrder";
+import ModalRefundOrderSale from "./components/ModalRefundOrder";
+import ModalRefundCancelledOrderSale from "./components/ModalRefundCancelled";
 
 
 const OrderSaleDetailView = ({order}) => {
   const {status, delivery_address, payment_details, created_at, have_file} = order;
-  console.log("🚀 ~ order", order)
   const { toggleDialog, openDialog, deleteProductFromOrder, setIdToDelete, orderItems, total, setProductEdit, toggleModal, openModal, acceptOrder, loading} = useAcceptOrder(order);
   const {updateStatusShipped, uploadPDF} = useShipOrder();
+  const {openRefundModal, toggleRefundModal, openCancelRefundModal, toggleCancelRefundModal,
+    updateStatusRefund, updateStatusCancelRefund} = useRefundOrder();
 
   return (
     
@@ -35,7 +40,12 @@ const OrderSaleDetailView = ({order}) => {
         title={'Detalle de Orden de Venta'}
         navigation={<CustomerDashboardNavigationSales />}
       />
-      <OrderSaleStatus orderStatus={status}/>
+
+        {
+         status === 'created' || status === 'accepted' || status === 'pending' || status === 'shipped' || status === 'delivered' || status === 'cancelled' ?
+         <OrderSaleStatus orderStatus={status}/>
+          : <OrderStatusSaleRefund orderStatus={status} /> 
+        }
 
       <Card
         sx={{
@@ -68,9 +78,14 @@ const OrderSaleDetailView = ({order}) => {
               <ButtonUploadPDF uploadPDF={uploadPDF}/>
            </FlexBox>
              }
-             {
-              status === 'shipped' && <ButtonUploadPDF uploadPDF={uploadPDF}/>
-             }
+             {status === 'shipped' && <ButtonUploadPDF uploadPDF={uploadPDF}/>}
+
+             {status === 'refund-pending' &&
+            <FlexBox gap={2}>
+             <ButtonUpdateOrder updateState={toggleCancelRefundModal} text= 'Cancelar Reembolso'/>
+             <ButtonUpdateOrder updateState={toggleRefundModal} text= 'Aceptar Reembolso' color='secondary'/>
+           </FlexBox>
+          }
           </FlexBox>
         </TableRow>
 
@@ -201,7 +216,17 @@ const OrderSaleDetailView = ({order}) => {
         deleteAction={deleteProductFromOrder}
       />
 
+    <ModalRefundOrderSale
+      openDialog={openRefundModal}
+      handleCloseDialog={toggleRefundModal}
+      refundOrder={updateStatusRefund}
+    />
 
+    <ModalRefundCancelledOrderSale
+      openDialog={openCancelRefundModal}
+      handleCloseDialog={toggleCancelRefundModal}
+      cancelRefundOrder={updateStatusCancelRefund}
+    />
 
     </>
   );

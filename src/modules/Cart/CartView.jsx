@@ -1,20 +1,20 @@
 import Link from "next/link";
-import {Autocomplete, Button, Card, Container, Divider, Grid, MenuItem, TextField} from "@mui/material";
+import {Button, Card,  Divider, Grid} from "@mui/material";
 
 import FlexBetween from "../../common/components/flexbox/FlexBetween";
 import FlexBox from "../../common/components/flexbox/FlexBox";
 import CheckoutNavLayout from "../../common/components/layouts/checkout/CheckoutNavLayout";
-import { Span } from "../../common/components/Typography";
-import { useAppContext } from "../../common/contexts/AppContext";
+import { H2, Span } from "../../common/components/Typography";
 import ProductCard7 from "./components/ProductCard7";
 import { useValidateCart } from "./hooks/useValidateCart";
-import NoDataMessage from "../../common/components/noData-message/NoDataMessage";
 import { getTotalPrice } from "../../common/helpers/getTotalPrice";
+import FlexRowCenter from "../../common/components/flexbox/FlexRowCenter";
 
 
 const CartView = () => {
   
   const {products, cart} = useValidateCart();
+  console.log("🚀 ~ products", products)
   return (
     <>
 
@@ -71,6 +71,12 @@ const CartView = () => {
         </Grid>
       </Grid>
       )}
+
+      {products.length === 0 &&
+      <FlexRowCenter px={2} minHeight="40vh" flexDirection="column">
+        <H2 mb={3}>¡Tu Carrito está vacío!</H2>
+      </FlexRowCenter>
+      }
     </CheckoutNavLayout>
     </>
   );

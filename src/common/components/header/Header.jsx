@@ -3,7 +3,6 @@ import clsx from "clsx";
 import Link from "next/link";
 
 import { KeyboardArrowDown } from "@mui/icons-material";
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Badge, Box, Dialog, styled } from "@mui/material";
 import Container from "@mui/material/Container";
@@ -109,18 +108,6 @@ const Header = ({ isFixed, className }) => {
               <ShoppingCartOutlinedIcon />
             </Box>
           </Badge>
-
-          <Badge badgeContent={1} color="primary">
-            <Box
-              ml={2.5}
-              p={1.25}
-              bgcolor="grey.200"
-              component={IconButton}
-            >
-              <NotificationsNoneOutlinedIcon />
-            </Box>
-          </Badge>
-
 
         </FlexBox>
 

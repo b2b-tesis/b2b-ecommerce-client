@@ -30,6 +30,7 @@ import { useDownloadPdf } from "./hooks/useDownloadPdf";
 import { useRefundOrder } from "./hooks/useRefundOrder";
 import ModalRefundOrder from "./components/ModalRefundOrder";
 import ModalPayOrder from "./components/ModalPayOrder";
+import OrderStatusRefund from "./components/OrderStatusRefund";
 
 const OrdersDetailView = ({ order }) => {
   const {
@@ -66,7 +67,11 @@ const OrdersDetailView = ({ order }) => {
           navigation={<CustomerDashboardNavigation />}
         />
 
-        <OrderStatus orderStatus={status} />
+        {
+         status === 'created' || status === 'accepted' || status === 'pending' || status === 'shipped' || status === 'delivered' || status === 'cancelled' ?
+          <OrderStatus orderStatus={status} />
+          : <OrderStatusRefund orderStatus={status} /> 
+        }
 
         <Card
           sx={{

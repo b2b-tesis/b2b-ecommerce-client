@@ -40,7 +40,7 @@ const OrderRow = ({ item }) => {
           </Typography>
 
           <Typography m={0.75} textAlign="left">
-            ${item.total}
+            S/{item.total}
           </Typography>
 
           <Typography

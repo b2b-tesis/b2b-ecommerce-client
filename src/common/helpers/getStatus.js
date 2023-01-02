@@ -13,6 +13,12 @@ export const getStatus = (status) => {
     break;
     case 'cancelled': statusDescription = 'Orden cancelada y sin pendientes de pago o envío';
     break;
+    case 'refund-pending': statusDescription = 'Orden de reembolso, a la espera que el vendedor confirme o cancele la solicitud';
+    break;
+    case 'refund': statusDescription = 'Orden de reembolso aceptada por vendedor, su dinero será reembolsado';
+    break;
+    case 'refund-cancelled': statusDescription = 'Orden de reembolso no aceptada por vendedor';
+    break;
   }
   return statusDescription
 }
@@ -32,6 +38,12 @@ export const getStatusSale = (status) => {
     break;
     case 'cancelled': statusDescription = 'Orden cancelada y sin pendientes de pago o envío';
     break;
+    case 'refund-pending': statusDescription = 'Solicitud de reembolso, a la espera que el vendedor confirme o cancele la solicitud';
+    break;
+    case 'refund': statusDescription = 'Orden de reembolso aceptada por vendedor';
+    break;
+    case 'refund-cancelled': statusDescription = 'Orden de reembolso no aceptada por vendedor';
+    break;
   }
   return statusDescription
 }
@@ -41,15 +53,21 @@ export const getStatusTranslate = (status) => {
   switch (status) {
     case 'created': statusTranslate = 'Creado';
     break; 
-    case 'accepted': statusTranslate = 'Aceptado';
+    case 'accepted': statusTranslate = 'Aceptado por Vendedor';
     break;
-    case 'pending': statusTranslate = 'Pendiente';
+    case 'pending': statusTranslate = 'Pendiente de Envío';
     break;
     case 'shipped': statusTranslate = 'Enviado';
     break;
     case 'delivered': statusTranslate = 'Entregado';
     break;
     case 'cancelled': statusTranslate = 'Cancelado';
+    break;
+    case 'refund-pending': statusTranslate = 'Reembolso Pendiente';
+    break;
+    case 'refund': statusTranslate = 'Reembolso Aceptado';
+    break;
+    case 'refund-cancelled': statusTranslate = 'Reembolso Cancelado';
     break;
   }
   return statusTranslate
@@ -69,6 +87,12 @@ export const getStatusSaleTranslate = (status) => {
     case 'delivered': statusTranslate = 'Entregado al Comprador';
     break;
     case 'cancelled': statusTranslate = 'Cancelado';
+    break;
+    case 'refund-pending': statusTranslate = 'Reembolso Pendiente';
+    break;
+    case 'refund': statusTranslate = 'Reembolso Aceptado';
+    break;
+    case 'refund-cancelled': statusTranslate = 'Reembolso Cancelado';
     break;
   }
   return statusTranslate
@@ -92,6 +116,15 @@ export const getColor = (status) => {
       return "success";
 
     case "cancelled":
+      return "error";
+    
+    case "refund-pending":
+      return "blue";
+
+    case "refund":
+      return "success";
+
+    case "refund-cancelled":
       return "error";
 
     default:

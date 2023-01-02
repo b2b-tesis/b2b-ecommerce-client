@@ -47,15 +47,7 @@ const navbarNavigations = [
       {
         title: "Método para recibir pagos",
         url: "/usuario/recibir-pagos",
-      },
-      {
-        title: "Órdenes de devolución o reembolso",
-        url: "/market-1",
-      },
-      {
-        title: "Reportes",
-        url: "/market-1",
-      },
+      }
     ],
   },
   {
@@ -101,11 +93,7 @@ const navbarNavigations = [
             url: "/usuario/tarjetas/agregar",
           },
         ],
-      },
-      {
-        title: "Salir",
-        url: "/market-1",
-      },
+      }
     ],
   }, 
   {
