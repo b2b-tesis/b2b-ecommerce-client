@@ -25,7 +25,7 @@ import ModalRefundCancelledOrderSale from "./components/ModalRefundCancelled";
 
 
 const OrderSaleDetailView = ({order}) => {
-  const {status, delivery_address, payment_details, created_at, have_file} = order;
+  const {status, delivery_address, payment_details, created_at, have_file, _id} = order;
   const { toggleDialog, openDialog, deleteProductFromOrder, setIdToDelete, orderItems, total, setProductEdit, toggleModal, openModal, acceptOrder, loading} = useAcceptOrder(order);
   const {updateStatusShipped, uploadPDF} = useShipOrder();
   const {openRefundModal, toggleRefundModal, openCancelRefundModal, toggleCancelRefundModal,
@@ -39,6 +39,19 @@ const OrderSaleDetailView = ({order}) => {
         icon={ListAltOutlinedIcon}
         title={'Detalle de Orden de Venta'}
         navigation={<CustomerDashboardNavigationSales />}
+        button={
+          <Link href={`/usuario/chat/${_id}`} passHref>
+            <Button
+              color="primary"
+              sx={{
+                px: 4,
+                bgcolor: "primary.light",
+              }}
+            >
+              Ir al Chat con Comprador
+            </Button>
+          </Link>
+        }
       />
 
         {

@@ -7,7 +7,6 @@ import { useFormik } from "formik";
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-import restService from "../../../common/api/basicApiMethods";
 import { setLoading, setLoading2 } from "../../../common/state/loading/loadingSlice";
 import { showToastify } from "../../../common/state/toast/toastSlice";
 import { setUser } from "../../../common/state/auth/authSlice";
@@ -52,10 +51,7 @@ export const useRegister = () => {
       dispatch(setLoading());
       dispatch(showToastify({message:'RUC incorrecta', severity:'error'}));
     }
-    // const response = await restService('user/ruc/validate').create({
-    //   ruc:values.ruc.toString()
-    //   })
-    //   console.log(response);
+
   };
 
   const handleFormSubmit = async () => {

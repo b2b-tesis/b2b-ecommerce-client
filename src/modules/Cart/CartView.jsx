@@ -14,7 +14,6 @@ import FlexRowCenter from "../../common/components/flexbox/FlexRowCenter";
 const CartView = () => {
   
   const {products, cart} = useValidateCart();
-  console.log("🚀 ~ products", products)
   return (
     <>
 

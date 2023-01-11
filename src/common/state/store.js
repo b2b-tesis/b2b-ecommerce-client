@@ -5,6 +5,7 @@ import ToastReducer from './toast/toastSlice';
 import ProductReducer from './product/productSlice';
 import CartReducer from './cart/cartSlice';
 import OrderReducer from './order/orderSlice';
+import ChatReducer from './chat/chatSlice';
 
 export default configureStore({
     reducer:{
@@ -13,6 +14,7 @@ export default configureStore({
         toast:ToastReducer,
         product:ProductReducer,
         cart:CartReducer,
-        order:OrderReducer 
+        order:OrderReducer,
+        chat:ChatReducer 
     }
 })

@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Button, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
 
 import UserDashboardHeader from "../../../common/components/layouts/user-dashboard/UserDashboardHeader";

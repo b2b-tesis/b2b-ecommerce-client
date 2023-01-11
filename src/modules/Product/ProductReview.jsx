@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-import { H2, H5, H6, Paragraph, Span } from "../../common/components/Typography";
+import { H5, H6, Paragraph, Span } from "../../common/components/Typography";
 import FlexBox from "../../common/components/flexbox/FlexBox";
 import BazaarAvatar from "../../common/components/BazaarAvatar";
 import BazaarRating from "../../common/components/BazaarRating";

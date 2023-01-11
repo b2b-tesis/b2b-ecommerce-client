@@ -1,8 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import ImageViewer from "react-simple-image-viewer";
-import { Add, Remove } from "@mui/icons-material";
 import { Box, Grid, MenuItem, TextField } from "@mui/material";
 
 import BazaarAvatar from "../../common/components/BazaarAvatar";
@@ -11,7 +9,7 @@ import BazaarButton from "../../common/components/BazaarButton";
 import LazyImage from "../../common/components/LazyImage";
 import FlexBox from "../../common/components/flexbox/FlexBox";
 import FlexRowCenter from "../../common/components/flexbox/FlexRowCenter";
-import { H1, H2, H3, H6 } from "../../common/components/Typography";
+import { H1, H2, H6 } from "../../common/components/Typography";
 import { useAddToCart } from "./hooks/useAddToCart";
 
 const ProductIntro = ({product}) => {

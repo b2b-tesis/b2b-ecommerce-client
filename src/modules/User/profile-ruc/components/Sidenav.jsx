@@ -1,8 +1,7 @@
-import React, { cloneElement, useEffect, useState } from "react"; // styled component
+import React, { cloneElement, useEffect, useState } from "react"; 
 import { Box, Drawer, styled } from "@mui/material";
 import clsx from "clsx";
 import Scrollbar from "../../../../common/components/Scrollbar";
-// import Scrollbar from "components/Scrollbar";
 
 const Wrapper = styled(Box)(() => ({
   "& .handle": {

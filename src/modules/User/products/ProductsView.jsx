@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, Card, Stack, Table, TableBody, TableContainer, Typography } from "@mui/material";
+import { Button, Card, Stack, Table, TableBody, TableContainer } from "@mui/material";
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 
 import UserDashboardHeader from "../../../common/components/layouts/user-dashboard/UserDashboardHeader";

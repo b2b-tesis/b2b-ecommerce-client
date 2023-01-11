@@ -42,6 +42,7 @@ const OrdersDetailView = ({ order }) => {
     payment_details,
     created_at,
     have_file,
+    _id
   } = order;
 
   const {
@@ -65,6 +66,19 @@ const OrdersDetailView = ({ order }) => {
           icon={ShoppingBagOutlined}
           title={"Detalle de Orden de Compra"}
           navigation={<CustomerDashboardNavigation />}
+          button={
+            <Link href={`/usuario/chat/${_id}`} passHref>
+              <Button
+                color="primary"
+                sx={{
+                  px: 4,
+                  bgcolor: "primary.light",
+                }}
+              >
+                Ir al Chat con Vendedor
+              </Button>
+            </Link>
+          }
         />
 
         {

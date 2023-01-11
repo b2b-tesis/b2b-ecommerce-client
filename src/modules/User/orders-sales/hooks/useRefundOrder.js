@@ -62,7 +62,6 @@ export const useRefundOrder = () => {
       }
     
   } catch(err){
-    console.log("🚀 ~ err", err)
     dispatch(setLoading());
     dispatch(showToastify({message:'No se pudo guardar, intentelo mas tarde', severity:'error'}));
    }
