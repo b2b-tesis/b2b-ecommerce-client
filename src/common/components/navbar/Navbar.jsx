@@ -9,9 +9,11 @@ import Category from "../icons/Category";
 import NavLink from "../nav-link/NavLink";
 import { Paragraph } from "../Typography";
 import navbarNavigations from "../../data/navbarNavigation";
+import navbarNoLoggedNavigations from "../../data/navbarNoLoggedNavigations";
 import MegaMenu from "./MegaMenu";
 import { StyledNavLink, ParentNav, ParentNavItem, NavBarWrapper, InnerContainer, 
   CategoryMenuButton, ChildNavsWrapper} from "./styles";
+import { useSelector } from "react-redux";
 
 // // const common css style
 const navLinkStyle = {
@@ -23,9 +25,10 @@ const navLinkStyle = {
   "&:last-child": {
     marginRight: 0,
   },
-}; // style components
+}; 
 
 const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
+  const {isLoggedIn} = useSelector((state) => (state.auth))
 
   const renderNestedNav = (list = [], isRoot = false) => {
     return list.map((nav) => {
@@ -38,12 +41,6 @@ const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
           );
         } // show megamenu with sub
 
-        // if (nav.megaMenuWithSub) {
-        //   //@ts-ignore
-        //   return (
-        //     <MegaMenu2 key={nav.title} title={nav.title} menuList={nav.child} />
-        //   );
-        // }
 
         if (nav.url) {
           return (
@@ -156,7 +153,8 @@ const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
           </CategoryMenu>
 
           {/* Horizontal menu */}
-          <FlexBox gap={4}>{renderNestedNav(navbarNavigations, true)}</FlexBox>
+          {isLoggedIn && <FlexBox gap={4}>{renderNestedNav(navbarNavigations, true)}</FlexBox>}
+          {!isLoggedIn && <FlexBox gap={4}>{renderNestedNav(navbarNoLoggedNavigations, true)}</FlexBox>}
         </InnerContainer>
       ) : (
         <InnerContainer
@@ -164,7 +162,8 @@ const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
             justifyContent: "center",
           }}
         >
-          <FlexBox gap={4}>{renderNestedNav(navbarNavigations, true)}</FlexBox>
+          {isLoggedIn && <FlexBox gap={4}>{renderNestedNav(navbarNavigations, true)}</FlexBox>}
+          {!isLoggedIn && <FlexBox gap={4}>{renderNestedNav(navbarNoLoggedNavigations, true)}</FlexBox>}
         </InnerContainer>
       )}
     </NavBarWrapper>

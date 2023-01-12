@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import { KeyboardArrowDown } from "@mui/icons-material";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { Badge, Box, Dialog, styled } from "@mui/material";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
@@ -20,6 +22,8 @@ import SearchBox from "../search-box/SearchBox"; // styled component
 import { layoutConstant } from "../../constants/sizeConstants";
 import { useRouter } from "next/router";
 import { useCart } from "../../hooks/useCart";
+import { useSelector } from "react-redux";
+import { useLogout } from "../../hooks/useLogout";
 
 export const HeaderWrapper = styled(Box)(({ theme }) => ({
   zIndex: 3,
@@ -40,10 +44,12 @@ const Header = ({ isFixed, className }) => {
   const downMd = useMediaQuery(theme.breakpoints.down(1150));
 
   const toggleDialog = () => setDialogOpen(!dialogOpen);
+  const {isLoggedIn} = useSelector((state) => (state.auth))
 
   const router = useRouter();
   const {cart} = useCart();
   
+  const {logoutUser} = useLogout();
   return (
     <HeaderWrapper className={clsx(className)}>
       <Container
@@ -108,6 +114,33 @@ const Header = ({ isFixed, className }) => {
               <ShoppingCartOutlinedIcon />
             </Box>
           </Badge>
+          {
+            isLoggedIn && (
+                <Box
+                  ml={2.5}
+                  p={1.25}
+                  bgcolor="grey.200"
+                  component={IconButton}
+                  onClick={logoutUser}
+                >
+                  <LogoutOutlinedIcon />
+                  
+                </Box>
+            )
+          }
+             {
+            !isLoggedIn && (
+                <Box
+                  ml={2.5}
+                  p={1.25}
+                  bgcolor="grey.200"
+                  component={IconButton}
+                  onClick={() => router.push('/login')}
+                >
+                  <LoginOutlinedIcon />
+                </Box>
+            )
+          }
 
         </FlexBox>
 
