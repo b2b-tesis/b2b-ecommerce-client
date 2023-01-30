@@ -36,12 +36,8 @@ export const useLogin =  () => {
       dispatch(setLoading());
 
     } catch(err){
-  
       dispatch(setLoading());
-      const {response} = err;
-      const {error}  = response.data
-
-      dispatch(showToastify({message:error.message, severity:'error'}));
+      dispatch(showToastify({message:'Error al iniciar', severity:'error'}));
     }
   };
   const initialValues = {

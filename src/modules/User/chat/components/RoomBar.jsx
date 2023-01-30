@@ -30,7 +30,7 @@ const RoomBar = () => {
           alignItems: 'center',
         }}>
 
-          <Typography variant="h4">{'ASDASDAS'}</Typography>
+          <Typography variant="h4">{'CHAT COMPRADOR - VENDEDOR'}</Typography>
         </Box>
  
       </Toolbar>

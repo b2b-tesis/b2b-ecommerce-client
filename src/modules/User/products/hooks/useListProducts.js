@@ -61,7 +61,7 @@ export const useListProducts = () => {
       dispatch(setLoading3());
     } catch(err){
       dispatch(setLoading3());
-      router.replace('/login?p=/usuario/productos');
+      // router.replace('/login?p=/usuario/productos');
     }
   }
 

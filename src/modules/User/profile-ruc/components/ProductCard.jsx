@@ -62,7 +62,7 @@ const ProductCard = (product) => {
       <ContentWrapper>
         <FlexBox>
           <Box flex="1 1 0" minWidth="0px" mr={1}>
-            <Link href={`/product/${id}`}>
+            <Link href={`/producto/${id}`}>
               <a>
                 <H3
                   mb={1}

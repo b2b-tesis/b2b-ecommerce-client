@@ -8,17 +8,17 @@ export const StyledPagination = styled(Pagination)(({ theme }) => ({
   },
   "& .MuiPaginationItem-page:hover": {
     borderRadius: 20,
-    backgroundColor: "transparent",
+    backgroundColor: "primary",
     color: theme.palette.info.primary,
     border: `1px solid ${theme.palette.info.primary}`,
   },
   "& .MuiPaginationItem-page.Mui-selected": {
     borderRadius: 20,
-    backgroundColor: "transparent",
+    backgroundColor: "primary",
     color: theme.palette.info.primary,
     border: `1px solid ${theme.palette.info.primary}`,
     ":hover": {
-      backgroundColor: "transparent",
+      backgroundColor: "primary",
     },
   },
   "& .MuiPaginationItem-previousNext": {
@@ -27,7 +27,7 @@ export const StyledPagination = styled(Pagination)(({ theme }) => ({
     color: theme.palette.info.primary,
     border: `1px solid ${theme.palette.info.primary}`,
     "&:hover": {
-      backgroundColor: "transparent",
+      backgroundColor: "primary",
     },
   },
 }));
