@@ -85,6 +85,7 @@ export const useEditProduct = (is_unlimited, is_available) => {
     useEffect(() => {
       setIsUnlimited(is_unlimited);
   setProductAvailable(is_available);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
   return {

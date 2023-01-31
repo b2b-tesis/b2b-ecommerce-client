@@ -15,6 +15,7 @@ import { useDeletePaymentCard } from "./hooks/useDeletePaymentCard";
 import { convertCard, getTypeCard } from "../../../common/helpers/convertNumberCard";
 import NoDataMessage from "../../../common/components/noData-message/NoDataMessage";
 import { useAddPaymentMethods } from "./hooks/useAddPaymentMethods";
+import Image from "next/image";
 
 const PaymentCardsView = ({paymentMethods, isFilled}) => {
 
@@ -68,11 +69,16 @@ const PaymentCardsView = ({paymentMethods, isFilled}) => {
                     borderRadius: "2px",
                   }}
                 >
-                  <img
+                  <Image
                     src={`/assets/images/payment-methods/${getTypeCard(item.card_number)}.svg`}
                     alt={getTypeCard(item.card_number)}
                     width="100%"
                   />
+                  {/* <img
+                    src={`/assets/images/payment-methods/${getTypeCard(item.card_number)}.svg`}
+                    alt={getTypeCard(item.card_number)}
+                    width="100%"
+                  /> */}
                 </Card>
                 <H5 whiteSpace="pre" m={0.75}>
                   {item.name_on_card}

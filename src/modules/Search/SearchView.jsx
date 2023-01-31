@@ -14,10 +14,12 @@ const SearchView = ({searchTerm}) => {
 
   useEffect(() => {
     searchProduct(searchTerm);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[searchTerm, page, sort])
 
   useEffect(() => {
     setPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[searchTerm])
 
   return (

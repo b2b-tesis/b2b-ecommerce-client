@@ -65,6 +65,7 @@ export const useEditOrderPayment = () => {
 
   useEffect(() => {
     listPayment();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return {

@@ -14,6 +14,7 @@ import {getCategories, getCategoryName } from "../../../common/helpers/getCatego
 import EyeToggleButton from "../../../common/components/buttons/EyeToggleButton";
 import FlexBox from "../../../common/components/flexbox/FlexBox";
 import BackDrop from "../../../common/components/backDrop/BackDrop";
+import Image from "next/image";
 
 
 const EditProfileView = ({userData}) => {
@@ -123,7 +124,8 @@ const EditProfileView = ({userData}) => {
           //   background:`url${selectedBanner[0]}`
           // }}
         >
-          <img src={banner ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${banner}` : '/assets/images/banners/banner-10.png'} className='imgBanner'/>
+          <Image src={banner ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${banner}` : '/assets/images/banners/banner-10.png'} className='imgBanner' alt="image"/>
+          {/* <img src={banner ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${banner}` : '/assets/images/banners/banner-10.png'} className='imgBanner'/> */}
           <Box position="absolute" bottom={20} left={24}>
             <Badge
               overlap="circular"

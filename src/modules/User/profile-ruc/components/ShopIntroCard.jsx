@@ -100,7 +100,7 @@ const ShopIntroCard = ({userData}) => {
             </Box>
 
             <FlexBox gap={2}>
-              <a href={social_media.facebook} target="_blank">
+              <a href={social_media.facebook} target="_blank" rel="noreferrer">
                 <Button
                   variant="outlined"
                   color="primary"
@@ -111,7 +111,7 @@ const ShopIntroCard = ({userData}) => {
                   Contactar por Facebook
                 </Button>
               </a>
-              <a href={terms} target="_blank">
+              <a href={terms} target="_blank" rel="noreferrer">
                 <Button
                   variant="outlined"
                   color="primary"

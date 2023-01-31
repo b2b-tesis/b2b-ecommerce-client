@@ -32,6 +32,7 @@ const CategoryMenu = ({ open: isOpen = false, children }) => {
   useEffect(() => {
     window.addEventListener("click", handleDocumentClick);
     return () => window.removeEventListener("click", handleDocumentClick);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Wrapper open={open}>

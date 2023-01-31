@@ -58,6 +58,7 @@ export const useListSaleOrders = () => {
 
   useEffect(() => {
     getOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[page])
 
 

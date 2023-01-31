@@ -9,6 +9,7 @@ import TableRow from "../../../common/components/TableRow";
 import FlexBox from "../../../common/components/flexbox/FlexBox";
 import { Small } from "../../../common/components/Typography";
 import { getCategoryName } from "../../../common/helpers/getCategoryName";
+import Image from "next/image";
 
 const ProfileView = ({userData}) => {
   const {banner, category_id, department, district, email, name, phone, picture, province, ruc, social_media, terms, description} = userData;
@@ -46,7 +47,8 @@ const ProfileView = ({userData}) => {
           //     "url(/assets/images/banners/banner-10.png) center/cover",
           // }}
         >
-           <img src={banner ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${banner}` : '/assets/images/banners/banner-10.png'} className='imgBanner'/>
+           {/* <img src={banner ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${banner}` : '/assets/images/banners/banner-10.png'} className='imgBanner'/> */}
+           <Image src={banner ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${banner}` : '/assets/images/banners/banner-10.png'} className='imgBanner' alt="image"/>
           <Box position="absolute" bottom={20} left={24}>
               <Avatar
                 src={picture ? `${process.env.NEXT_PUBLIC_API_URL}/storage/picture/user?filename=${picture}` : '/assets/images/faces/propic(9).png'}

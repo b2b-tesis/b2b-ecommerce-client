@@ -7,6 +7,7 @@ import BazaarSwitch from "../../../../common/components/BazaarSwitch";
 import { H6 } from "../../../../common/components/Typography";
 import FlexBox from "../../../../common/components/flexbox/FlexBox";
 import { CameraAlt } from "@mui/icons-material";
+import Image from "next/image";
 
 const ProductForm = ({categoryProducts}) => {
   const { values, errors, touched, handleBlur, handleChange, handleSubmit, onSelectFile, selectedImage, onDragDropFiles, dropFiles,
@@ -192,7 +193,8 @@ const ProductForm = ({categoryProducts}) => {
                     position="relative"
                     bgcolor={selectedImage[0] ? "" : "grey.200"}
                   >
-                    {selectedImage[0] && <img src={selectedImage[0]} className='imgBanner'/>}
+                    {/* {selectedImage[0] && <img src={selectedImage[0]} className='imgBanner'/>} */}
+                    {selectedImage[0] && <Image src={selectedImage[0]} className='imgBanner' alt="image"/>}
                     <Box position="absolute" bottom={20} left={24}>
                     </Box>
 

@@ -73,6 +73,7 @@ export const useListProducts = () => {
 
   useEffect(() => {
     getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[page])
 
 

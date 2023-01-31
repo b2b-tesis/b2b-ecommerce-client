@@ -69,6 +69,7 @@ export const useAcceptOrder = (order) => {
 
   useEffect(() => {
     getAndSetOrder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return {

@@ -16,10 +16,12 @@ const CategoryView = ({id}) => {
 
   useEffect(() => {
     searchUsersByCategory(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[id, page, sort])
 
   useEffect(() => {
     setPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[id])
 
   return (

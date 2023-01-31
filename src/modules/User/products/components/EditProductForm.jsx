@@ -11,6 +11,7 @@ import { useEditImagesProduct } from "../hooks/useEditImagesProduct";
 import BackDrop from "../../../../common/components/backDrop/BackDrop";
 import ModalEditImages from "./ModalEditImages";
 import DropZone from "./DropZone";
+import Image from "next/image";
 
 const EditProductForm = ({product, categoryProducts}) => {
   const {description, id, is_available, is_unlimited, name, price, product_category_id, product_category_name, stock, picture, pictures} = product;
@@ -84,7 +85,10 @@ const EditProductForm = ({product, categoryProducts}) => {
                         borderRadius="10px"
                         position="relative"
                       >
-                        <img src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`} className='imgBanner'/>
+                        <Image
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`} className='imgBanner' alt="imagen"
+                        />
+                        {/* <img src={`${process.env.NEXT_PUBLIC_API_URL}/storage/picture/product?filename=${picture}`} className='imgBanner'/> */}
 
                         <Box position="absolute" top={20} right={20}>
                           <UploadButton id="picture" />

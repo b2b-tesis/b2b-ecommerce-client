@@ -11,7 +11,7 @@ const ProductReview = () => {
   return (
     <Box>
       {commentList.map((item, ind) => (
-            <Box mb={4} maxWidth="600px">
+            <Box mb={4} maxWidth="600px" key={ind}>
             <FlexBox alignItems="center" mb={2}>
               <BazaarAvatar src={item.imgUrl} height={48} width={48} />
               <Box ml={2}>

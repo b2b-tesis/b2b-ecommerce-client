@@ -74,6 +74,7 @@ const Sticky = ({
     }
 
     setFixed(isFixed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     if (!window) return;
@@ -83,6 +84,7 @@ const Sticky = ({
       window.removeEventListener("scroll", scrollListener);
       window.removeEventListener("resize", scrollListener);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     if (!positionRef.current) {
@@ -90,9 +92,11 @@ const Sticky = ({
     }
 
     setParentHeight(elementRef.current?.offsetHeight || 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elementRef.current, children]);
   useEffect(() => {
     if (onSticky) onSticky(fixed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fixed]);
   return (
     <StyledBox fixedOn={fixedOn} componentHeight={parentHeight} fixed={fixed}>

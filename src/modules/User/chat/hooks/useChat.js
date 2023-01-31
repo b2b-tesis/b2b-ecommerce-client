@@ -88,6 +88,7 @@ export const useChat = (idOrder) => {
 
   useEffect(() => {
     loadMessages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
 
