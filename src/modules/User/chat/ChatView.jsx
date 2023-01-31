@@ -3,7 +3,7 @@ import { styled } from '@mui/system';
 
 import CustomerDashboardLayout from "../../../common/components/layouts/user-dashboard";
 import Message from "./components/Message";
-import RoomBar from "./components/Roombar";
+import RoomBar from "./components/RoomBar";
 import SendPanel from "./components/SendPanel";
 import { useChat } from "./hooks/useChat";
 
