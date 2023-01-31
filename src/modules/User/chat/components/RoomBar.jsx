@@ -1,5 +1,5 @@
 import { Box, Toolbar, Typography } from '@mui/material';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 
 const RoomBar = () => {
 
